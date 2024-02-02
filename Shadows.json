@@ -47,8 +47,10 @@
           "type": "objectList"
         },
         {
+          "defaultValue": "yes",
           "description": "Cast shadow",
           "name": "CastShadow",
+          "optional": true,
           "type": "yesorno"
         }
       ],
@@ -83,8 +85,10 @@
           "type": "objectList"
         },
         {
+          "defaultValue": "yes",
           "description": "Receive shadow",
           "name": "ReceiveShadow",
+          "optional": true,
           "type": "yesorno"
         }
       ],
@@ -127,8 +131,10 @@
       ],
       "parameters": [
         {
+          "defaultValue": "yes",
           "description": "Shadow map",
           "name": "ShadowMap",
+          "optional": true,
           "type": "yesorno"
         },
         {
