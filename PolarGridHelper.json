@@ -1,0 +1,369 @@
+{
+  "author": "",
+  "category": "General",
+  "extensionNamespace": "",
+  "fullName": "Polar Grid Helper",
+  "helpPath": "",
+  "iconUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0ibWRpLXJhZGlvYm94LWJsYW5rIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyLDIwQTgsOCAwIDAsMSA0LDEyQTgsOCAwIDAsMSAxMiw0QTgsOCAwIDAsMSAyMCwxMkE4LDggMCAwLDEgMTIsMjBNMTIsMkExMCwxMCAwIDAsMCAyLDEyQTEwLDEwIDAgMCwwIDEyLDIyQTEwLDEwIDAgMCwwIDIyLDEyQTEwLDEwIDAgMCwwIDEyLDJaIiAvPjwvc3ZnPg==",
+  "name": "PolarGridHelper",
+  "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/e92ad2208ab6edafcd857aa412980adfa8a2a1a230d2190d4991e0889b25bacd_radiobox-blank.svg",
+  "shortDescription": "The PolarGridHelper is an object to define polar grids.",
+  "version": "0.0.1",
+  "description": [
+    "The PolarGridHelper is an object to define polar grids.",
+    "Grids are two-dimensional arrays of lines."
+  ],
+  "tags": [
+    "3d",
+    "helper"
+  ],
+  "authorIds": [
+    "q8ubdigLvIRXLxsJDDTaokO41mc2"
+  ],
+  "dependencies": [],
+  "eventsFunctions": [
+    {
+      "fullName": "",
+      "functionType": "Action",
+      "name": "onSceneLoaded",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "runtimeScene._polarGridHelperExtension = {};\r",
+            "runtimeScene._polarGridHelperExtension.polarGridHelpers = new Map();"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "Create a polar grid helper.",
+      "fullName": "Create polar grid helper",
+      "functionType": "Action",
+      "name": "CreatePolarGridHelper",
+      "sentence": "Create polar grid helper _PARAM1_, radius: _PARAM2_, sectors: _PARAM3_, rings: _PARAM4_, divisions: _PARAM5_, color one: _PARAM6_, color two: _PARAM7_, position  X: _PARAM8_, Y: _PARAM9_, Z: _PARAM10_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (!runtimeScene._polarGridHelperExtension.polarGridHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {",
+            "const rgbColorGD1 = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color1\"));",
+            "const rgbColor_Color1 = new THREE.Color(\"rgb(\" + rgbColorGD1[0] + \", \" + rgbColorGD1[1] + \", \" + rgbColorGD1[2] + \")\");",
+            "const rgbColorGD2 = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color2\"));",
+            "const rgbColor_Color2 = new THREE.Color(\"rgb(\" + rgbColorGD2[0] + \", \" + rgbColorGD2[1] + \", \" + rgbColorGD2[2] + \")\");",
+            "const polarGridHelper = new THREE.PolarGridHelper(eventsFunctionContext.getArgument(\"Radius\"), eventsFunctionContext.getArgument(\"Sectors\"), eventsFunctionContext.getArgument(\"Rings\"), eventsFunctionContext.getArgument(\"Divisions\"), rgbColor_Color1, rgbColor_Color2);",
+            "polarGridHelper.rotation.x = Math.PI / 2;",
+            "polarGridHelper.position.x = eventsFunctionContext.getArgument(\"PositionX\");",
+            "polarGridHelper.position.y = eventsFunctionContext.getArgument(\"PositionY\");",
+            "polarGridHelper.position.z = eventsFunctionContext.getArgument(\"PositionZ\");",
+            "runtimeScene.getLayer('').getRenderer().getThreeScene().add(polarGridHelper);",
+            "runtimeScene._polarGridHelperExtension.polarGridHelpers.set(eventsFunctionContext.getArgument(\"Identifier\"), { polarGridHelper });",
+            "polarGridHelper.dispose();",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "The radius of the polar grid, this can be any positive number (default is 10)",
+          "name": "Radius",
+          "type": "expression"
+        },
+        {
+          "description": "The number of sectors the grid will be divided into, this can be any positive integer (default is 16)",
+          "name": "Sectors",
+          "type": "expression"
+        },
+        {
+          "description": "The number of rings, this can be any positive integer (default is 8)",
+          "name": "Rings",
+          "type": "expression"
+        },
+        {
+          "description": "The number of line segments used for each circle, This can be any positive integer that is 3 or greater (default is 64)",
+          "name": "Divisions",
+          "type": "expression"
+        },
+        {
+          "description": "The first color used for grid elements",
+          "name": "Color1",
+          "type": "color"
+        },
+        {
+          "description": "The second color used for grid elements",
+          "name": "Color2",
+          "type": "color"
+        },
+        {
+          "description": "X position",
+          "name": "PositionX",
+          "type": "expression"
+        },
+        {
+          "description": "Y position",
+          "name": "PositionY",
+          "type": "expression"
+        },
+        {
+          "description": "Z position",
+          "name": "PositionZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the position of a polar grid helper.",
+      "fullName": "Position",
+      "functionType": "Action",
+      "name": "SetPosition",
+      "sentence": "Change the position of _PARAM1_ to X: _PARAM2_, Y: _PARAM3_, Z: _PARAM4_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._polarGridHelperExtension.polarGridHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._polarGridHelperExtension.polarGridHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).polarGridHelper.position.set(eventsFunctionContext.getArgument(\"PositionX\"), eventsFunctionContext.getArgument(\"PositionY\"), eventsFunctionContext.getArgument(\"PositionZ\"));\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "X position",
+          "name": "PositionX",
+          "type": "expression"
+        },
+        {
+          "description": "Y position",
+          "name": "PositionY",
+          "type": "expression"
+        },
+        {
+          "description": "Z position",
+          "name": "PositionZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "fullName": "",
+      "functionType": "ActionWithOperator",
+      "getterName": "PositionX",
+      "name": "SetPositionX",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._polarGridHelperExtension.polarGridHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._polarGridHelperExtension.polarGridHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).polarGridHelper.position.x = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "fullName": "",
+      "functionType": "ActionWithOperator",
+      "getterName": "PositionY",
+      "name": "SetPositionY",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._polarGridHelperExtension.polarGridHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._polarGridHelperExtension.polarGridHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).polarGridHelper.position.y = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "fullName": "",
+      "functionType": "ActionWithOperator",
+      "getterName": "PositionZ",
+      "name": "SetPositionZ",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._polarGridHelperExtension.polarGridHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._polarGridHelperExtension.polarGridHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).polarGridHelper.position.z = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "the X position of a polar grid helper.",
+      "fullName": "X position",
+      "functionType": "ExpressionAndCondition",
+      "name": "PositionX",
+      "sentence": "the X position of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._polarGridHelperExtension.polarGridHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._polarGridHelperExtension.polarGridHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).polarGridHelper.position.x;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the Y position of a polar grid helper.",
+      "fullName": "Y position",
+      "functionType": "ExpressionAndCondition",
+      "name": "PositionY",
+      "sentence": "the Y position of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._polarGridHelperExtension.polarGridHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._polarGridHelperExtension.polarGridHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).polarGridHelper.position.y;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the Z position of a polar grid helper.",
+      "fullName": "Z position",
+      "functionType": "ExpressionAndCondition",
+      "name": "PositionZ",
+      "sentence": "the Z position of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._polarGridHelperExtension.polarGridHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._polarGridHelperExtension.polarGridHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).polarGridHelper.position.z;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Delete a polar grid helper.",
+      "fullName": "Delete grid helper",
+      "functionType": "Action",
+      "name": "DeletePolarGridHelper",
+      "sentence": "Delete polar grid _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._polarGridHelperExtension.polarGridHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._polarGridHelperExtension.polarGridHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).polarGridHelper);\r",
+            "    runtimeScene._polarGridHelperExtension.polarGridHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    }
+  ],
+  "eventsBasedBehaviors": [],
+  "eventsBasedObjects": []
+}

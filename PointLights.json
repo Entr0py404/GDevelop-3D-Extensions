@@ -1,0 +1,1108 @@
+{
+  "author": "",
+  "category": "General",
+  "extensionNamespace": "",
+  "fullName": "Point Lights",
+  "helpPath": "",
+  "iconUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0ibWRpLWxpZ2h0YnVsYi1vdXRsaW5lIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyLDJBNyw3IDAgMCwxIDE5LDlDMTksMTEuMzggMTcuODEsMTMuNDcgMTYsMTQuNzRWMTdBMSwxIDAgMCwxIDE1LDE4SDlBMSwxIDAgMCwxIDgsMTdWMTQuNzRDNi4xOSwxMy40NyA1LDExLjM4IDUsOUE3LDcgMCAwLDEgMTIsMk05LDIxVjIwSDE1VjIxQTEsMSAwIDAsMSAxNCwyMkgxMEExLDEgMCAwLDEgOSwyMU0xMiw0QTUsNSAwIDAsMCA3LDlDNywxMS4wNSA4LjIzLDEyLjgxIDEwLDEzLjU4VjE2SDE0VjEzLjU4QzE1Ljc3LDEyLjgxIDE3LDExLjA1IDE3LDlBNSw1IDAgMCwwIDEyLDRaIiAvPjwvc3ZnPg==",
+  "name": "PointLights",
+  "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/63564f3ae7ec22f1bc63068b1eef93c5dafb490796ea338c2a6d6e857f8d7e9c_lightbulb-outline.svg",
+  "shortDescription": "A light that gets emitted from a single point in all directions.",
+  "version": "0.0.1",
+  "description": [
+    "A light that gets emitted from a single point in all directions.",
+    "A common use case for this is to replicate the light emitted from a bare lightbulb."
+  ],
+  "tags": [
+    "3d",
+    "lights"
+  ],
+  "authorIds": [
+    "q8ubdigLvIRXLxsJDDTaokO41mc2"
+  ],
+  "dependencies": [],
+  "eventsFunctions": [
+    {
+      "fullName": "",
+      "functionType": "Action",
+      "name": "onSceneLoaded",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "runtimeScene._pointLightsExtension = {};\r",
+            "runtimeScene._pointLightsExtension.pointLights = new Map();\r",
+            "runtimeScene._pointLightsExtension.pointLightHelpers = new Map();\r",
+            "runtimeScene._pointLightsExtension.pointLightShadowCameraHelpers = new Map();"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "Create a point light.",
+      "fullName": "Create point light",
+      "functionType": "Action",
+      "name": "CreatePointLight",
+      "sentence": "Create point light _PARAM1_, color: _PARAM2_, intensity: _PARAM3_, distance: _PARAM4_, decay: _PARAM5_, cast shadow: _PARAM6_, auto update: _PARAM7_, shadow map size: _PARAM8_, position X: _PARAM9_, Y: _PARAM10_, Z: _PARAM11_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (!runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {",
+            "    const rgbColorGD = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color\"));",
+            "    const pointLight = new THREE.PointLight(\"rgb(\" + rgbColorGD[0] + \", \" + rgbColorGD[1] + \", \" + rgbColorGD[2] + \")\", eventsFunctionContext.getArgument(\"Intensity\"), eventsFunctionContext.getArgument(\"Distance\"), eventsFunctionContext.getArgument(\"Decay\"));",
+            "    pointLight.position.set(eventsFunctionContext.getArgument(\"PositionX\"), eventsFunctionContext.getArgument(\"PositionY\"), eventsFunctionContext.getArgument(\"PositionZ\"));",
+            "    pointLight.castShadow = eventsFunctionContext.getArgument(\"CastShadow\");",
+            "",
+            "    switch (eventsFunctionContext.getArgument(\"ShadowMapSize\")) {",
+            "        case '256':",
+            "            pointLight.shadow.mapSize.width = 256;",
+            "            pointLight.shadow.mapSize.height = 256;",
+            "            break;",
+            "        case '512':",
+            "            pointLight.shadow.mapSize.width = 512;",
+            "            pointLight.shadow.mapSize.height = 512;",
+            "            break;",
+            "        case '1024':",
+            "            pointLight.shadow.mapSize.width = 1024;",
+            "            pointLight.shadow.mapSize.height = 1024;",
+            "            break;",
+            "        case '2048':",
+            "            pointLight.shadow.mapSize.width = 2048;",
+            "            pointLight.shadow.mapSize.height = 2048;",
+            "            break;",
+            "        case '4096':",
+            "            pointLight.shadow.mapSize.width = 4096;",
+            "            pointLight.shadow.mapSize.height = 4096;",
+            "            break;",
+            "        default:",
+            "            pointLight.shadow.mapSize.width = 512;",
+            "            pointLight.shadow.mapSize.height = 512;",
+            "    }",
+            "",
+            "    pointLight.shadow.autoUpdate = eventsFunctionContext.getArgument(\"AutoUpdate\");",
+            "    pointLight.shadow.needsUpdate = true;",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(pointLight);",
+            "    runtimeScene._pointLightsExtension.pointLights.set(eventsFunctionContext.getArgument(\"Identifier\"), { pointLight });",
+            "    pointLight.dispose();",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Color of the light",
+          "name": "Color",
+          "type": "color"
+        },
+        {
+          "description": "Intensity (default is 1)",
+          "name": "Intensity",
+          "type": "expression"
+        },
+        {
+          "description": "Distance (default is 0)",
+          "name": "Distance",
+          "type": "expression"
+        },
+        {
+          "description": "Decay (default is 2)",
+          "name": "Decay",
+          "type": "expression"
+        },
+        {
+          "defaultValue": "yes",
+          "description": "Cast shadow",
+          "name": "CastShadow",
+          "optional": true,
+          "type": "yesorno"
+        },
+        {
+          "defaultValue": "yes",
+          "description": "Enable automatic updates of the light's shadow, if you do not require dynamic lighting set this to false.",
+          "name": "AutoUpdate",
+          "optional": true,
+          "type": "yesorno"
+        },
+        {
+          "description": "Shadow map size (default is 512)",
+          "name": "ShadowMapSize",
+          "supplementaryInformation": "[\"256\",\"512\",\"1024\",\"2048\",\"4096\"]",
+          "type": "stringWithSelector"
+        },
+        {
+          "description": "X position",
+          "name": "PositionX",
+          "type": "expression"
+        },
+        {
+          "description": "Y position",
+          "name": "PositionY",
+          "type": "expression"
+        },
+        {
+          "description": "Z position",
+          "name": "PositionZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Delete a point light.",
+      "fullName": "Delete point light",
+      "functionType": "Action",
+      "name": "DeletePointLight",
+      "sentence": "Delete point light _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight);\r",
+            "    runtimeScene._pointLightsExtension.pointLights.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
+            "\r",
+            "    if (runtimeScene._pointLightsExtension.pointLightHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "        runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._pointLightsExtension.pointLightHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLightHelper);\r",
+            "        runtimeScene._pointLightsExtension.pointLightHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
+            "    }\r",
+            "\r",
+            "    if (runtimeScene._pointLightsExtension.pointLightShadowCameraHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "        runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._pointLightsExtension.pointLightShadowCameraHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).cameraHelper);\r",
+            "        runtimeScene._pointLightsExtension.pointLightShadowCameraHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
+            "    }\r",
+            "}\r",
+            "\r",
+            ""
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Create a point light helper.",
+      "fullName": "Create point light helper",
+      "functionType": "Action",
+      "name": "CreatePointLightHelper",
+      "sentence": "Create a point light helper for _PARAM1_ with a size of _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    const tempObj = runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\"));\r",
+            "    const pointLightHelper = new THREE.PointLightHelper(tempObj.pointLight, eventsFunctionContext.getArgument(\"Size\"));\r",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(pointLightHelper);\r",
+            "    pointLightHelper.matrix = tempObj.pointLight.matrix;\r",
+            "    runtimeScene._pointLightsExtension.pointLightHelpers.set(eventsFunctionContext.getArgument(\"Identifier\"), { pointLightHelper });\r",
+            "    pointLightHelper.dispose();\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Size",
+          "name": "Size",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Delete a point light helper.",
+      "fullName": "Delete point light helper",
+      "functionType": "Action",
+      "name": "DeletePointLightHelper",
+      "sentence": "Delete point light helper for _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLightHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._pointLightsExtension.pointLightHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLightHelper);\r",
+            "    runtimeScene._pointLightsExtension.pointLightHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Create a point light shadow camera helper.",
+      "fullName": "Create point light shadow camera helper",
+      "functionType": "Action",
+      "name": "CreatePointLightShadowCameraHelper",
+      "sentence": "Create point light shadow camera helper for _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    const tempObj = runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\"));\r",
+            "    const shadowCameraHelper = new THREE.CameraHelper(tempObj.pointLight.shadow.camera);\r",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(shadowCameraHelper);\r",
+            "    shadowCameraHelper.matrix = tempObj.pointLight.matrix;\r",
+            "    runtimeScene._pointLightsExtension.pointLightShadowCameraHelpers.set(eventsFunctionContext.getArgument(\"Identifier\"), { shadowCameraHelper });\r",
+            "    shadowCameraHelper.dispose();\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Delete a point light shadow camera helper.",
+      "fullName": "Delete point light shadow camera helper",
+      "functionType": "Action",
+      "name": "DeletePointLightShadowCameraHelper",
+      "sentence": "Delete point light shadow camera helper for _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLightShadowCameraHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._pointLightsExtension.pointLightShadowCameraHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).cameraHelper);\r",
+            "    runtimeScene._pointLightsExtension.pointLightShadowCameraHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Shadow maps for a point light will be updated in the next render call (for use with a none dynamic point light).",
+      "fullName": "Update shadow maps",
+      "functionType": "Action",
+      "name": "SetNeedsUpdate",
+      "sentence": "Update shadow maps for _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {",
+            "    runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.needsUpdate = true;",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the color of a point light.",
+      "fullName": "Color",
+      "functionType": "Action",
+      "getterName": "Color",
+      "name": "SetColor",
+      "sentence": "Change the color of _PARAM1_ to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    const rgbColor = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color\"));\r",
+            "    runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.color.set(\"rgb(\" + rgbColor[0] + \", \" + rgbColor[1] + \", \" + rgbColor[2] + \")\");\r",
+            "    if (runtimeScene._pointLightsExtension.pointLightHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "        runtimeScene._pointLightsExtension.pointLightHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLightHelper.update();\r",
+            "    }\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Color",
+          "name": "Color",
+          "type": "color"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "The color of a point light.",
+      "fullName": "Color",
+      "functionType": "StringExpression",
+      "name": "Color",
+      "sentence": "The color of _PARAM1_ point light",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "const rgbColor = gdjs.hexToRGBColor(runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.color.getHexString());\r",
+            "eventsFunctionContext.returnValue = rgbColor[0] + \";\" + rgbColor[1] + \";\" + rgbColor[2]\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "string"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "fullName": "Intensity",
+      "functionType": "ActionWithOperator",
+      "getterName": "Intensity",
+      "name": "SetIntensity",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.intensity = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the intensity of a point light.",
+      "fullName": "Intensity",
+      "functionType": "ExpressionAndCondition",
+      "name": "Intensity",
+      "sentence": "the intensity of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "  eventsFunctionContext.returnValue = runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.intensity;\r",
+            "} else {\r",
+            "  eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Point light distance.",
+      "fullName": "Distance",
+      "functionType": "ActionWithOperator",
+      "getterName": "Distance",
+      "name": "SetDistance",
+      "sentence": "Change point light _PARAM1_ distance to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.distance = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Distance (Default is 0)",
+          "name": "Distance",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the distance of a point light.",
+      "fullName": "Distance",
+      "functionType": "ExpressionAndCondition",
+      "name": "Distance",
+      "sentence": "the distance of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "  eventsFunctionContext.returnValue = runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.distance;\r",
+            "} else {\r",
+            "  eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Point light decay.",
+      "fullName": "Decay",
+      "functionType": "ActionWithOperator",
+      "getterName": "Decay",
+      "name": "SetDecay",
+      "sentence": "Change point light _PARAM1_ decay to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.decay = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Decay (Default is 2)",
+          "name": "Decay",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the decay of a point light.",
+      "fullName": "Decay",
+      "functionType": "ExpressionAndCondition",
+      "name": "Decay",
+      "sentence": "the decay of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "  eventsFunctionContext.returnValue = runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.decay;\r",
+            "} else {\r",
+            "  eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Enable or disable point light cast shadow.",
+      "fullName": "Cast shadow",
+      "functionType": "Action",
+      "getterName": "CastShadow",
+      "name": "SetCastShadow",
+      "sentence": "Enable casting shadows for _PARAM1_: _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.castShadow = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "defaultValue": "yes",
+          "description": "Cast shadow",
+          "name": "CastShadow",
+          "optional": true,
+          "type": "yesorno"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "The cast shadow of a point light.",
+      "fullName": "Cast shadow",
+      "functionType": "StringExpression",
+      "name": "CastShadow",
+      "sentence": "the cast shadow of _PARAM1_ point light",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "  eventsFunctionContext.returnValue = runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.castShadow;\r",
+            "} else {\r",
+            "  eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "string"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the position of a point light.",
+      "fullName": "Position",
+      "functionType": "Action",
+      "name": "SetPosition",
+      "sentence": "Change the position of _PARAM1_ to X: _PARAM2_, Y: _PARAM3_, Z: _PARAM4_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.position.set(eventsFunctionContext.getArgument(\"PositionX\"), eventsFunctionContext.getArgument(\"PositionY\"), eventsFunctionContext.getArgument(\"PositionZ\"));\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "X position",
+          "name": "PositionX",
+          "type": "expression"
+        },
+        {
+          "description": "Y position",
+          "name": "PositionY",
+          "type": "expression"
+        },
+        {
+          "description": "Z position",
+          "name": "PositionZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the X position of a point light.",
+      "fullName": "X position",
+      "functionType": "ActionWithOperator",
+      "getterName": "PositionX",
+      "name": "SetPositionX",
+      "sentence": "Change point light _PARAM1_ X position to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.position.x = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "X",
+          "name": "PositionX",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the Y position of a point light.",
+      "fullName": "Y position",
+      "functionType": "ActionWithOperator",
+      "getterName": "PositionY",
+      "name": "SetPositionY",
+      "sentence": "Change point light _PARAM1_ Y position to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.position.y = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Y",
+          "name": "PositionY",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the Z position of a point light.",
+      "fullName": "Z position",
+      "functionType": "ActionWithOperator",
+      "getterName": "PositionZ",
+      "name": "SetPositionZ",
+      "sentence": "Change point light _PARAM1_ Z position to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.position.z = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Z",
+          "name": "PositionZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the X position of point light.",
+      "fullName": "X position",
+      "functionType": "ExpressionAndCondition",
+      "name": "PositionX",
+      "sentence": "the X position of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.position.x;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the Y position of point light.",
+      "fullName": "Y position",
+      "functionType": "ExpressionAndCondition",
+      "name": "PositionY",
+      "sentence": "the Y position of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.position.y;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the Z position of point light.",
+      "fullName": "Z position",
+      "functionType": "ExpressionAndCondition",
+      "name": "PositionZ",
+      "sentence": "the Z position of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.position.z;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the shadow map size of a point light.",
+      "fullName": "Shadow map size",
+      "functionType": "Action",
+      "name": "SetShadowMapSize",
+      "sentence": "Change the shadow map size of _PARAM1_ to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    switch (eventsFunctionContext.getArgument(\"ShadowMapSize\")) {\r",
+            "        case '256':\r",
+            "            runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.mapSize.width = 256;\r",
+            "            runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.mapSize.height = 256;\r",
+            "            break;\r",
+            "        case '512':\r",
+            "            runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.mapSize.width = 512;\r",
+            "            runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.mapSize.height = 512;\r",
+            "            break;\r",
+            "        case '1024':\r",
+            "            runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.mapSize.width = 1024;\r",
+            "            runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.mapSize.height = 1024;\r",
+            "            break;\r",
+            "        case '2048':\r",
+            "            runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.mapSize.width = 2048;\r",
+            "            runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.mapSize.height = 2048;\r",
+            "            break;\r",
+            "        case '4096':\r",
+            "            runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.mapSize.width = 4096;\r",
+            "            runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.mapSize.height = 4096;\r",
+            "            break;\r",
+            "        default:\r",
+            "            runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.mapSize.width = 512;\r",
+            "            runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.mapSize.height = 512;\r",
+            "    }\r",
+            "}\r",
+            "\r",
+            ""
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Shadow map size (default is 512)",
+          "name": "ShadowMapSize",
+          "supplementaryInformation": "[\"256\",\"512\",\"1024\",\"2048\",\"4096\"]",
+          "type": "stringWithSelector"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "The distance to the near clipping plane of the shadow camera, objects closer to the light source than this distance will not contribute to the shadow map.",
+      "fullName": "Shadow camera near",
+      "functionType": "Action",
+      "name": "SetShadowCameraNear",
+      "sentence": "Change the shadow camera near of _PARAM1_ to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.camera.near = eventsFunctionContext.getArgument(\"ShadowCameraNear\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Shadow camera near (default is 0.5)",
+          "name": "ShadowCameraNear",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "The distance to the far clipping plane of the shadow camera, objects farther away from the light source than this distance will not contribute to the shadow map.",
+      "fullName": "Shadow camera far",
+      "functionType": "Action",
+      "name": "SetShadowCameraFar",
+      "sentence": "Change the shadow camera far of _PARAM1_ to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.camera.far = eventsFunctionContext.getArgument(\"ShadowCameraFar\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Shadow camera far (default is 500)",
+          "name": "ShadowCameraFar",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Enables or disables automatic updates of the light's shadow, if you do not require dynamic lighting set this to false.",
+      "fullName": "Dynamic light",
+      "functionType": "Action",
+      "name": "SetDynamicLight",
+      "sentence": "Enable dynamic light for _PARAM1_: _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.autoUpdate = eventsFunctionContext.getArgument(\"AutoUpdate\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "defaultValue": "yes",
+          "description": "Dynamic light",
+          "name": "AutoUpdate",
+          "optional": true,
+          "type": "yesorno"
+        }
+      ],
+      "objectGroups": []
+    }
+  ],
+  "eventsBasedBehaviors": [],
+  "eventsBasedObjects": []
+}

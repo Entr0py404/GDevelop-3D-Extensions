@@ -1,0 +1,1017 @@
+{
+  "author": "",
+  "category": "General",
+  "extensionNamespace": "",
+  "fullName": "Mesh Material",
+  "helpPath": "",
+  "iconUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0ibWRpLWFscGhhLW0tY2lyY2xlLW91dGxpbmUiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNOSw3SDE1QTIsMiAwIDAsMSAxNyw5VjE3SDE1VjlIMTNWMTZIMTFWOUg5VjE3SDdWOUEyLDIgMCAwLDEgOSw3TTEyLDJBMTAsMTAgMCAwLDEgMjIsMTJBMTAsMTAgMCAwLDEgMTIsMjJBMTAsMTAgMCAwLDEgMiwxMkExMCwxMCAwIDAsMSAxMiwyTTEyLDRBOCw4IDAgMCwwIDQsMTJBOCw4IDAgMCwwIDEyLDIwQTgsOCAwIDAsMCAyMCwxMkE4LDggMCAwLDAgMTIsNFoiIC8+PC9zdmc+",
+  "name": "MeshMaterial",
+  "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/600b4d8f49adb189e6e7371533ed205e34bf10e5b2636b0748f0877ba50c7ea8_alpha-m-circle-outline.svg",
+  "shortDescription": "Modify material properties.",
+  "version": "0.0.1",
+  "description": "Allows you to adjust material properties of 3D objects.",
+  "tags": [
+    "3d",
+    "material"
+  ],
+  "authorIds": [
+    "q8ubdigLvIRXLxsJDDTaokO41mc2"
+  ],
+  "dependencies": [],
+  "eventsFunctions": [
+    {
+      "description": "Change the color of all materials (default is white).",
+      "fullName": "Color",
+      "functionType": "Action",
+      "group": "material",
+      "name": "Color",
+      "sentence": "Change the color of _PARAM1_ materials to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "const rgbcolor = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color\"));",
+            "const hexColor = \"0x\" + gdjs.rgbToHex(rgbcolor[0], rgbcolor[1], rgbcolor[2]);",
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (node instanceof THREE.Mesh && node.material) {",
+            "        node.material.color.setHex(hexColor);",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Color",
+          "name": "Color",
+          "type": "color"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the opacity of all materials.",
+      "fullName": "Opacity",
+      "functionType": "Action",
+      "group": "material",
+      "name": "Opacity",
+      "sentence": "Change the opacity of _PARAM1_ materials to _PARAM2_, transparent: _PARAM3_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (node instanceof THREE.Mesh && node.material) {",
+            "        node.material.opacity = eventsFunctionContext.getArgument(\"Opacity\");",
+            "        node.material.transparent = eventsFunctionContext.getArgument(\"Transparent\");",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Opacity (0 to 1)",
+          "name": "Opacity",
+          "type": "expression"
+        },
+        {
+          "description": "Transparent",
+          "name": "Transparent",
+          "type": "yesorno"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the emissive of all materials (default is black).",
+      "fullName": "Emissive",
+      "functionType": "Action",
+      "group": "material",
+      "name": "Emissive",
+      "sentence": "Change the emissive of _PARAM1_ materials to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "const rgbcolor = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color\"));",
+            "const hexColor = \"0x\" + gdjs.rgbToHex(rgbcolor[0], rgbcolor[1], rgbcolor[2]);",
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (node instanceof THREE.Mesh && node.material) {",
+            "        node.material.emissive.setHex(hexColor);",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Color",
+          "name": "Color",
+          "type": "color"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Enable or disable dithering on all materials.",
+      "fullName": "Dithering",
+      "functionType": "Action",
+      "group": "material",
+      "name": "Dithering",
+      "sentence": "Enable dithering on _PARAM1_ materials: _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (node instanceof THREE.Mesh && node.material) {",
+            "        node.material.dithering = eventsFunctionContext.getArgument(\"Dithering\");",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Dithering",
+          "name": "Dithering",
+          "type": "yesorno"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the metalness of all materials.",
+      "fullName": "Metalness",
+      "functionType": "Action",
+      "group": "material",
+      "name": "Metalness",
+      "sentence": "Change the metalness of _PARAM1_ materials to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (node instanceof THREE.Mesh && node.material) {",
+            "        node.material.metalness = eventsFunctionContext.getArgument(\"Metalness\");",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Metalness (0 to 1)",
+          "name": "Metalness",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Enable or disable wireframing of all materials.",
+      "fullName": "Wireframe",
+      "functionType": "Action",
+      "group": "material",
+      "name": "Wireframe",
+      "sentence": "Enable wireframing of _PARAM1_ materials: _PARAM2_, line cap: _PARAM3_, line join: _PARAM4_, line width: _PARAM5_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (node instanceof THREE.Mesh && node.material) {",
+            "        node.material.wireframe = eventsFunctionContext.getArgument(\"Wireframe\");",
+            "        node.material.wireframeLinecap = eventsFunctionContext.getArgument(\"WireframeLinecap\");",
+            "        node.material.wireframeLinejoin = eventsFunctionContext.getArgument(\"WireframeLinejoin\");",
+            "        node.material.wireframeLinewidth = eventsFunctionContext.getArgument(\"WireframeLinewidth\");",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "defaultValue": "yes",
+          "description": "Enable wireframe",
+          "name": "Wireframe",
+          "optional": true,
+          "type": "yesorno"
+        },
+        {
+          "description": "Line cap (default is round)",
+          "name": "WireframeLinecap",
+          "supplementaryInformation": "[\"butt\",\"round\",\"square\"]",
+          "type": "stringWithSelector"
+        },
+        {
+          "description": "Line join (default is round)",
+          "name": "WireframeLinejoin",
+          "supplementaryInformation": "[\"round\",\"bevel\",\"miter\"]",
+          "type": "stringWithSelector"
+        },
+        {
+          "description": "Line width (default is 1)",
+          "name": "WireframeLinewidth",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the roughness of all materials.",
+      "fullName": "Roughness",
+      "functionType": "Action",
+      "group": "material",
+      "name": "Roughness",
+      "sentence": "Change the roughness of _PARAM1_ materials to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (node instanceof THREE.Mesh && node.material) {",
+            "        node.material.roughness = eventsFunctionContext.getArgument(\"Roughness\");",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Roughness (0 to 1)",
+          "name": "Roughness",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the anisotropy of all materials.",
+      "fullName": "Anisotropy",
+      "functionType": "Action",
+      "group": "material",
+      "name": "Anisotropy",
+      "sentence": "Change the anisotropy of _PARAM1_ materials to _PARAM2_",
+      "events": [
+        {
+          "disabled": true,
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (node instanceof THREE.Mesh && node.material) {",
+            "        switch (eventsFunctionContext.getArgument(\"Anisotropy\")) {",
+            "            case '1':",
+            "                node.material.map.anisotropy = 1",
+            "                break;",
+            "            case '2':",
+            "                node.material.map.anisotropy = 2",
+            "                break;",
+            "            case '4':",
+            "                node.material.map.anisotropy = 4",
+            "                break;",
+            "            case '8':",
+            "                node.material.map.anisotropy = 8",
+            "                break;",
+            "            case '16':",
+            "                node.material.map.anisotropy = 16",
+            "                break;",
+            "            default:",
+            "                node.material.map.anisotropy = 1",
+            "        }",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Anisotropy",
+          "name": "Anisotropy",
+          "supplementaryInformation": "[\"1\",\"2\",\"4\",\"8\",\"16\"]",
+          "type": "stringWithSelector"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Enable or disable flat shading on all materials.",
+      "fullName": "Flat shading",
+      "functionType": "Action",
+      "group": "material",
+      "name": "FlatShading",
+      "sentence": "Enable flat shading on _PARAM1_ materials: _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (node instanceof THREE.Mesh && node.material) {",
+            "        node.material.flatShading = eventsFunctionContext.getArgument(\"FlatShading\");",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Flat shading ",
+          "name": "FlatShading",
+          "type": "yesorno"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the render face of the geometry of all materials.",
+      "fullName": "Render face",
+      "functionType": "Action",
+      "group": "material",
+      "name": "RenderFaces",
+      "sentence": "Change the render face of _PARAM1_ materials to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (node instanceof THREE.Mesh && node.material) {",
+            "        switch (eventsFunctionContext.getArgument(\"Side\")) {",
+            "            case 'Front side':",
+            "                node.material.side = THREE.FrontSide;",
+            "                break;",
+            "            case 'Back side':",
+            "                node.material.side = THREE.BackSide;",
+            "                break;",
+            "            case 'Double side':",
+            "                node.material.side = THREE.DoubleSide;",
+            "                break;",
+            "            default:",
+            "                node.material.side = THREE.DoubleSide;",
+            "        }",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Render face",
+          "name": "Side",
+          "supplementaryInformation": "[\"Front side\",\"Back side\",\"Double side\"]",
+          "type": "stringWithSelector"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Enable or disable material affected by fog on all materials.",
+      "fullName": "Affected by fog",
+      "functionType": "Action",
+      "group": "material",
+      "name": "AffectedByFog",
+      "sentence": "Enable affected by fog on _PARAM1_ materials: _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (node instanceof THREE.Mesh && node.material) {",
+            "        node.material.fog = eventsFunctionContext.getArgument(\"Fog\");",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Affected by fog",
+          "name": "Fog",
+          "type": "yesorno"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the env map intensity of all materials.",
+      "fullName": "Env map intensity",
+      "functionType": "Action",
+      "group": "material",
+      "name": "EnvMapIntensity",
+      "sentence": "Change the env map intensity of _PARAM1_ materials to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (node instanceof THREE.Mesh && node.material) {",
+            "        node.material.envMapIntensity = eventsFunctionContext.getArgument(\"EnvMapIntensity\");",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Env map intensity",
+          "name": "EnvMapIntensity",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the emissive intensity of all materials.",
+      "fullName": "Emissive intensity",
+      "functionType": "Action",
+      "group": "material",
+      "name": "EmissiveIntensity",
+      "sentence": "Change the emissive intensity of _PARAM1_ materials to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (node instanceof THREE.Mesh && node.material) {",
+            "        node.material.emissiveIntensity = eventsFunctionContext.getArgument(\"EmissiveIntensity\");",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Emissive intensity",
+          "name": "EmissiveIntensity",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change color by material slot (default is white).",
+      "fullName": "Color by material slot",
+      "functionType": "Action",
+      "group": "material by slot",
+      "name": "ColorBySlot",
+      "sentence": "Change the color of _PARAM1_ material in slot _PARAM3_ to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "const rgbcolor = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color\"))",
+            "const hexColor = \"0x\" + gdjs.rgbToHex(rgbcolor[0], rgbcolor[1], rgbcolor[2]);",
+            "const slotNum = eventsFunctionContext.getArgument(\"Slot\");",
+            "let index = 0;",
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (index <= slotNum && node instanceof THREE.Mesh && node.material) {",
+            "        if (index === slotNum) {",
+            "            node.material.color.setHex(hexColor);",
+            "        }",
+            "        index++;",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Color",
+          "name": "Color",
+          "type": "color"
+        },
+        {
+          "description": "Slot",
+          "name": "Slot",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Enable or disable the visibility of a material by material slot.",
+      "fullName": "Visibility of material by material slot",
+      "functionType": "Action",
+      "group": "material by slot",
+      "name": "VisibleBySlot",
+      "sentence": "Enable the visibility of _PARAM1_ material in slot _PARAM3_: _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "const slotNum = eventsFunctionContext.getArgument(\"Slot\");",
+            "let index = 0;",
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (index <= slotNum && node instanceof THREE.Mesh && node.material) {",
+            "        if (index === slotNum) {",
+            "            node.material.visible = eventsFunctionContext.getArgument(\"Visible\");",
+            "        }",
+            "        index++;",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Visible",
+          "name": "Visible",
+          "type": "yesorno"
+        },
+        {
+          "description": "Slot",
+          "name": "Slot",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change opacity by material slot.",
+      "fullName": "Opacity by material slot",
+      "functionType": "Action",
+      "group": "material by slot",
+      "name": "OpacityBySlot",
+      "sentence": "Change the opacity of _PARAM1_ material in slot _PARAM3_ to _PARAM2_, transparent: _PARAM4_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "const slotNum = eventsFunctionContext.getArgument(\"Slot\");",
+            "let index = 0;",
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (index <= slotNum && node instanceof THREE.Mesh && node.material) {",
+            "        if (index === slotNum) {",
+            "            node.material.opacity = eventsFunctionContext.getArgument(\"Opacity\");",
+            "            node.material.transparent = eventsFunctionContext.getArgument(\"Transparent\");",
+            "        }",
+            "        index++;",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Opacity (0 to 1)",
+          "name": "Opacity",
+          "type": "expression"
+        },
+        {
+          "description": "Slot",
+          "name": "Slot",
+          "type": "expression"
+        },
+        {
+          "description": "Transparent",
+          "name": "Transparent",
+          "type": "yesorno"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change metalness by material slot.",
+      "fullName": "Metalness by material slot",
+      "functionType": "Action",
+      "group": "material by slot",
+      "name": "MetalnessBySlot",
+      "sentence": "Change the metalness of _PARAM1_ material in slot _PARAM3_ to _PARAM2_ ",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "const slotNum = eventsFunctionContext.getArgument(\"Slot\");",
+            "let index = 0;",
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (index <= slotNum && node instanceof THREE.Mesh && node.material) {",
+            "        if (index === slotNum) {",
+            "            node.material.metalness = eventsFunctionContext.getArgument(\"Metalness\");",
+            "        }",
+            "        index++;",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Metalness",
+          "name": "Metalness",
+          "type": "expression"
+        },
+        {
+          "description": "Slot",
+          "name": "Slot",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Enable or disable wireframing by material slot.",
+      "fullName": "Wireframe by material slot",
+      "functionType": "Action",
+      "group": "material by slot",
+      "name": "WireframeBySlot",
+      "sentence": "Enable wireframing of _PARAM1_ material: _PARAM2_ in material slot _PARAM3_, line cap: _PARAM4_, line join: _PARAM5_, line width: _PARAM6_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "const slotNum = eventsFunctionContext.getArgument(\"Slot\");",
+            "let index = 0;",
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (index <= slotNum && node instanceof THREE.Mesh && node.material) {",
+            "        if (index === slotNum) {",
+            "            node.material.wireframe = eventsFunctionContext.getArgument(\"Wireframe\");",
+            "            node.material.wireframeLinecap = eventsFunctionContext.getArgument(\"WireframeLinecap\");",
+            "            node.material.wireframeLinejoin = eventsFunctionContext.getArgument(\"WireframeLinejoin\");",
+            "            node.material.wireframeLinewidth = eventsFunctionContext.getArgument(\"WireframeLinewidth\");",
+            "        }",
+            "        index++;",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "defaultValue": "yes",
+          "description": "Enable wireframe",
+          "name": "Wireframe",
+          "optional": true,
+          "type": "yesorno"
+        },
+        {
+          "description": "Slot",
+          "name": "Slot",
+          "type": "expression"
+        },
+        {
+          "description": "Line cap (default is round)",
+          "name": "WireframeLinecap",
+          "supplementaryInformation": "[\"butt\",\"round\",\"square\"]",
+          "type": "stringWithSelector"
+        },
+        {
+          "description": "Line join (default is round)",
+          "name": "WireframeLinejoin",
+          "supplementaryInformation": "[\"round\",\"bevel\",\"miter\"]",
+          "type": "stringWithSelector"
+        },
+        {
+          "description": "Line width (default is 1)",
+          "name": "WireframeLinewidth",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change roughness by material slot.",
+      "fullName": "Roughness by material slot",
+      "functionType": "Action",
+      "group": "material by slot",
+      "name": "RoughnessBySlot",
+      "sentence": "Change the roughness of _PARAM1_ material in slot _PARAM3_ to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "const slotNum = eventsFunctionContext.getArgument(\"Slot\");",
+            "let index = 0;",
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (index <= slotNum && node instanceof THREE.Mesh && node.material) {",
+            "        if (index === slotNum) {",
+            "            node.material.roughness = eventsFunctionContext.getArgument(\"Roughness\");",
+            "        }",
+            "        index++;",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Roughness",
+          "name": "Roughness",
+          "type": "expression"
+        },
+        {
+          "description": "Slot",
+          "name": "Slot",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the alpha hash of all materials.",
+      "fullName": "Alpha hash",
+      "functionType": "Action",
+      "group": "material",
+      "name": "AlphaHash",
+      "private": true,
+      "sentence": "Change the alpha hash of _PARAM1_ materials to _PARAM2_",
+      "events": [
+        {
+          "disabled": true,
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (node instanceof THREE.Mesh && node.material) {",
+            "        //node.material.opacity = 0.05; // For Testing REMOVE THIS",
+            "        node.material.alphaHash = eventsFunctionContext.getArgument(\"AlphaHash\");",
+            "        node.material.needsUpdate = true; // For Testing REMOVE THIS",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Alpha hash",
+          "name": "AlphaHash",
+          "type": "trueorfalse"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the env map of all materials.",
+      "fullName": "Env map",
+      "functionType": "Action",
+      "group": "material",
+      "name": "EnvMap",
+      "private": true,
+      "sentence": "Change the env map of _PARAM1_ materials",
+      "events": [
+        {
+          "disabled": true,
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (node instanceof THREE.Mesh && node.material) {",
+            "        const renderer = runtimeScene.getLayer('').getRenderer();",
+            "        const scene = renderer.getThreeScene();",
+            "",
+            "        node.material.environment = new THREE.CubeTextureLoader().load([",
+            "            \"sky01_ft.png\",",
+            "            \"sky01_bk.png\",",
+            "            \"sky01_up.png\",",
+            "            \"sky01_dn.png\",",
+            "            \"sky01_rt.png\",",
+            "            \"sky01_lf.png\",",
+            "        ]);",
+            "",
+            "        node.material.envMapIntensity = 1;",
+            "",
+            "    }",
+            "});",
+            "",
+            ""
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Convert all materials to standard materials.",
+      "fullName": "Convert to standard material",
+      "functionType": "Action",
+      "group": "material",
+      "name": "ConvertToStandardMaterial",
+      "private": true,
+      "sentence": "Convert _PARAM1_ materials to standard materials",
+      "events": [
+        {
+          "disabled": true,
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (node instanceof THREE.Mesh && node.material) {",
+            "        //const existingMesh = objects[0].get3DRendererObject();",
+            "        const existingMaterial = node.material;",
+            "        const newMaterial = new THREE.MeshStandardMaterial();",
+            "        // Copy relevant properties from the existing material to the new material",
+            "        //if (existingMaterial.map) {",
+            "        // newMaterial.map = existingMaterial.map; // Copy texture map if applicable",
+            "        //}",
+            "        newMaterial.color.copy(existingMaterial.color); // Copy color",
+            "        newMaterial.metalness = 0;",
+            "        newMaterial.roughness = 1;",
+            "        node.material = newMaterial;",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        }
+      ],
+      "objectGroups": []
+    }
+  ],
+  "eventsBasedBehaviors": [],
+  "eventsBasedObjects": []
+}

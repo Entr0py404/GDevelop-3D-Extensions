@@ -1,0 +1,340 @@
+{
+  "author": "",
+  "category": "General",
+  "extensionNamespace": "",
+  "fullName": "Axes Helper",
+  "helpPath": "",
+  "iconUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0ibWRpLWF4aXMtYXJyb3ciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIsMkwxNiw2SDEzVjEzLjg1TDE5LjUzLDE3LjYxTDIxLDE1LjAzTDIyLjUsMjAuNUwxNywyMS45NkwxOC41MywxOS4zNUwxMiwxNS41OEw1LjQ3LDE5LjM1TDcsMjEuOTZMMS41LDIwLjVMMywxNS4wM0w0LjQ3LDE3LjYxTDExLDEzLjg1VjZIOEwxMiwyWiIgLz48L3N2Zz4=",
+  "name": "AxesHelper",
+  "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/e2314b6adb780c72b1332a13d17abb17458ebb9c8fbecbbdd6cc2d4127178df2_axis-arrow.svg",
+  "shortDescription": "An axis object to visualize the 3 axes in a simple way.",
+  "version": "0.0.1",
+  "description": [
+    "An axis object to visualize the 3 axes in a simple way.",
+    "The X axis is red. The Y axis is green. The Z axis is blue."
+  ],
+  "tags": [
+    "3d",
+    "helper"
+  ],
+  "authorIds": [
+    "q8ubdigLvIRXLxsJDDTaokO41mc2"
+  ],
+  "dependencies": [],
+  "eventsFunctions": [
+    {
+      "fullName": "",
+      "functionType": "Action",
+      "name": "onSceneLoaded",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "runtimeScene._axesHelperExtension = {};\r",
+            "runtimeScene._axesHelperExtension.axesHelpers = new Map();"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "Create a axes helper.",
+      "fullName": "Create axes helper",
+      "functionType": "Action",
+      "name": "CreateAxesHelper",
+      "sentence": "Create a axes helper _PARAM1_, size: _PARAM2_,  position  X: _PARAM3_, Y: _PARAM4_, Z: _PARAM5_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (!runtimeScene._axesHelperExtension.axesHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {",
+            "    const axesHelper = new THREE.AxesHelper(eventsFunctionContext.getArgument(\"Size\"));",
+            "    axesHelper.rotation.x = Math.PI / 2;",
+            "    axesHelper.position.x = eventsFunctionContext.getArgument(\"PositionX\");",
+            "    axesHelper.position.y = eventsFunctionContext.getArgument(\"PositionY\");",
+            "    axesHelper.position.z = eventsFunctionContext.getArgument(\"PositionZ\");",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(axesHelper);",
+            "    runtimeScene._axesHelperExtension.axesHelpers.set(eventsFunctionContext.getArgument(\"Identifier\"), { axesHelper });",
+            "    axesHelper.dispose();",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Size of the lines representing the axes",
+          "name": "Size",
+          "type": "expression"
+        },
+        {
+          "description": "X position",
+          "name": "PositionX",
+          "type": "expression"
+        },
+        {
+          "description": "Y position",
+          "name": "PositionY",
+          "type": "expression"
+        },
+        {
+          "description": "Z position",
+          "name": "PositionZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the position of a axes helper.",
+      "fullName": "Position",
+      "functionType": "Action",
+      "name": "SetPosition",
+      "sentence": "Change the position of _PARAM1_ to X: _PARAM2_, Y: _PARAM3_, Z: _PARAM4_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._axesHelperExtension.axesHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._axesHelperExtension.axesHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).axesHelper.position.set(eventsFunctionContext.getArgument(\"PositionX\"), eventsFunctionContext.getArgument(\"PositionY\"), eventsFunctionContext.getArgument(\"PositionZ\"));\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "X position",
+          "name": "PositionX",
+          "type": "expression"
+        },
+        {
+          "description": "Y position",
+          "name": "PositionY",
+          "type": "expression"
+        },
+        {
+          "description": "Z position",
+          "name": "PositionZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "fullName": "",
+      "functionType": "ActionWithOperator",
+      "getterName": "PositionX",
+      "name": "SetPositionX",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._axesHelperExtension.axesHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._axesHelperExtension.axesHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).axesHelper.position.x = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "fullName": "",
+      "functionType": "ActionWithOperator",
+      "getterName": "PositionY",
+      "name": "SetPositionY",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._axesHelperExtension.axesHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._axesHelperExtension.axesHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).axesHelper.position.y = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "fullName": "",
+      "functionType": "ActionWithOperator",
+      "getterName": "PositionZ",
+      "name": "SetPositionZ",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._axesHelperExtension.axesHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._axesHelperExtension.axesHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).axesHelper.position.z = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "the X position of a axes helper.",
+      "fullName": "X position",
+      "functionType": "ExpressionAndCondition",
+      "name": "PositionX",
+      "sentence": "the X position of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._axesHelperExtension.axesHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._axesHelperExtension.axesHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).axesHelper.position.x;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the Y position of a axes helper.",
+      "fullName": "Y position",
+      "functionType": "ExpressionAndCondition",
+      "name": "PositionY",
+      "sentence": "the Y position of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._axesHelperExtension.axesHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._axesHelperExtension.axesHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).axesHelper.position.y;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the Z position of a axes helper.",
+      "fullName": "Z position",
+      "functionType": "ExpressionAndCondition",
+      "name": "PositionZ",
+      "sentence": "the Z position of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._axesHelperExtension.axesHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._axesHelperExtension.axesHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).axesHelper.position.z;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Delete a axes helper.",
+      "fullName": "Delete axes helper",
+      "functionType": "Action",
+      "name": "DeleteAxesHelper",
+      "sentence": "Delete axes helper _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._axesHelperExtension.axesHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._axesHelperExtension.axesHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).axesHelper);\r",
+            "    runtimeScene._axesHelperExtension.axesHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    }
+  ],
+  "eventsBasedBehaviors": [],
+  "eventsBasedObjects": []
+}

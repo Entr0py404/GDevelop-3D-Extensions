@@ -1,0 +1,359 @@
+{
+  "author": "",
+  "category": "General",
+  "extensionNamespace": "",
+  "fullName": "Grid Helper",
+  "helpPath": "",
+  "iconUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMy4wLjMsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iSWNvbnMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMzIgMzIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDpub25lO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDoxMDt9DQoJLnN0MXtmaWxsOm5vbmU7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjI7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO30NCgkuc3Qye2ZpbGw6bm9uZTtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLWRhc2hhcnJheTo2LDY7fQ0KCS5zdDN7ZmlsbDpub25lO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtZGFzaGFycmF5OjQsNDt9DQoJLnN0NHtmaWxsOm5vbmU7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjI7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7fQ0KCS5zdDV7ZmlsbDpub25lO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1kYXNoYXJyYXk6My4xMDgxLDMuMTA4MTt9DQoJDQoJCS5zdDZ7ZmlsbDpub25lO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDoxMDtzdHJva2UtZGFzaGFycmF5OjQsMzt9DQo8L3N0eWxlPg0KPHJlY3QgeD0iNCIgeT0iNCIgY2xhc3M9InN0MCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ii8+DQo8bGluZSBjbGFzcz0ic3QwIiB4MT0iMTIiIHkxPSIyOCIgeDI9IjEyIiB5Mj0iNCIvPg0KPGxpbmUgY2xhc3M9InN0MCIgeDE9IjIwIiB5MT0iMjgiIHgyPSIyMCIgeTI9IjQiLz4NCjxsaW5lIGNsYXNzPSJzdDAiIHgxPSIyOCIgeTE9IjIwIiB4Mj0iNCIgeTI9IjIwIi8+DQo8bGluZSBjbGFzcz0ic3QwIiB4MT0iMjgiIHkxPSIxMiIgeDI9IjQiIHkyPSIxMiIvPg0KPC9zdmc+DQo=",
+  "name": "GridHelper",
+  "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/Line Hero Pack/Master/SVG/Graphic Design/68c6f2c60b4d17c9f3049151bf3004d7b3ba3d7bec7bcad98767135d804d7006_Graphic Design_grid.svg",
+  "shortDescription": "The GridHelper is an object to define grids.",
+  "version": "0.0.1",
+  "description": [
+    "The GridHelper is an object to define grids.",
+    "Grids are two-dimensional arrays of lines."
+  ],
+  "tags": [
+    "3d",
+    "helper"
+  ],
+  "authorIds": [
+    "q8ubdigLvIRXLxsJDDTaokO41mc2"
+  ],
+  "dependencies": [],
+  "eventsFunctions": [
+    {
+      "fullName": "",
+      "functionType": "Action",
+      "name": "onSceneLoaded",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "runtimeScene._gridHelperExtension = {};\r",
+            "runtimeScene._gridHelperExtension.gridHelpers = new Map();"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "Create a grid helper.",
+      "fullName": "Create grid helper",
+      "functionType": "Action",
+      "name": "CreateGridHelper",
+      "sentence": "Create grid helper _PARAM1_, size: _PARAM2_, divisions: _PARAM3_, center line color: _PARAM4_, color grid: _PARAM5_, position X: _PARAM6_, Y: _PARAM7_, Z: _PARAM8_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (!runtimeScene._gridHelperExtension.gridHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {",
+            "const rgbColorGD1 = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"ColorCenterLine\"));",
+            "const rgbColor_ColorCenterLine = new THREE.Color(\"rgb(\" + rgbColorGD1[0] + \", \" + rgbColorGD1[1] + \", \" + rgbColorGD1[2] + \")\");",
+            "const rgbColorGD2 = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"ColorGrid\"));",
+            "const rgbColor_ColorGrid = new THREE.Color(\"rgb(\" + rgbColorGD2[0] + \", \" + rgbColorGD2[1] + \", \" + rgbColorGD2[2] + \")\");",
+            "const gridHelper = new THREE.GridHelper(eventsFunctionContext.getArgument(\"Size\"), eventsFunctionContext.getArgument(\"Divisions\"), rgbColor_ColorCenterLine, rgbColor_ColorGrid);",
+            "gridHelper.rotation.x = Math.PI / 2;",
+            "gridHelper.position.x = eventsFunctionContext.getArgument(\"PositionX\");",
+            "gridHelper.position.y = eventsFunctionContext.getArgument(\"PositionY\");",
+            "gridHelper.position.z = eventsFunctionContext.getArgument(\"PositionZ\");",
+            "runtimeScene.getLayer('').getRenderer().getThreeScene().add(gridHelper);",
+            "runtimeScene._gridHelperExtension.gridHelpers.set(eventsFunctionContext.getArgument(\"Identifier\"), { gridHelper });",
+            "gridHelper.dispose();",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "The size of the grid (default is 10)",
+          "name": "Size",
+          "type": "expression"
+        },
+        {
+          "description": "The number of divisions across the grid (default is 10)",
+          "name": "Divisions",
+          "type": "expression"
+        },
+        {
+          "description": "The color of the centerline",
+          "name": "ColorCenterLine",
+          "type": "color"
+        },
+        {
+          "description": "The color of the lines of the grid",
+          "name": "ColorGrid",
+          "type": "color"
+        },
+        {
+          "description": "X position",
+          "name": "PositionX",
+          "type": "expression"
+        },
+        {
+          "description": "Y position",
+          "name": "PositionY",
+          "type": "expression"
+        },
+        {
+          "description": "Z position",
+          "name": "PositionZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the position of a grid helper.",
+      "fullName": "Position",
+      "functionType": "Action",
+      "name": "SetPosition",
+      "sentence": "Change the position of _PARAM1_ to X: _PARAM2_, Y: _PARAM3_, Z: _PARAM4_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._gridHelperExtension.gridHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._gridHelperExtension.gridHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).gridHelper.position.set(eventsFunctionContext.getArgument(\"PositionX\"), eventsFunctionContext.getArgument(\"PositionY\"), eventsFunctionContext.getArgument(\"PositionZ\"));\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "X position",
+          "name": "PositionX",
+          "type": "expression"
+        },
+        {
+          "description": "Y position",
+          "name": "PositionY",
+          "type": "expression"
+        },
+        {
+          "description": "Z position",
+          "name": "PositionZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "fullName": "",
+      "functionType": "ActionWithOperator",
+      "getterName": "PositionX",
+      "name": "SetPositionX",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._gridHelperExtension.gridHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._gridHelperExtension.gridHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).gridHelper.position.x = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "fullName": "",
+      "functionType": "ActionWithOperator",
+      "getterName": "PositionY",
+      "name": "SetPositionY",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._gridHelperExtension.gridHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._gridHelperExtension.gridHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).gridHelper.position.y = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "fullName": "",
+      "functionType": "ActionWithOperator",
+      "getterName": "PositionZ",
+      "name": "SetPositionZ",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._gridHelperExtension.gridHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._gridHelperExtension.gridHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).gridHelper.position.z = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "the X position of a grid helper.",
+      "fullName": "X position",
+      "functionType": "ExpressionAndCondition",
+      "name": "PositionX",
+      "sentence": "the X position of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._gridHelperExtension.gridHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._gridHelperExtension.gridHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).gridHelper.position.x;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the Y position of a grid helper.",
+      "fullName": "Y position",
+      "functionType": "ExpressionAndCondition",
+      "name": "PositionY",
+      "sentence": "the Y position of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._gridHelperExtension.gridHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._gridHelperExtension.gridHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).gridHelper.position.y;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the Z position of a grid helper.",
+      "fullName": "Z position",
+      "functionType": "ExpressionAndCondition",
+      "name": "PositionZ",
+      "sentence": "the Z position of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._gridHelperExtension.gridHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._gridHelperExtension.gridHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).gridHelper.position.z;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Delete a grid helper.",
+      "fullName": "Delete grid helper",
+      "functionType": "Action",
+      "name": "DeleteGridHelper",
+      "sentence": "Delete grid helper _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._gridHelperExtension.gridHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._gridHelperExtension.gridHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).gridHelper);\r",
+            "    runtimeScene._gridHelperExtension.gridHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    }
+  ],
+  "eventsBasedBehaviors": [],
+  "eventsBasedObjects": []
+}

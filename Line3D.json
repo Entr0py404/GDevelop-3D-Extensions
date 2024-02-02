@@ -1,0 +1,392 @@
+{
+  "author": "",
+  "category": "General",
+  "extensionNamespace": "",
+  "fullName": "Line 3D",
+  "helpPath": "",
+  "iconUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0ibWRpLXZlY3Rvci1saW5lIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE1LDNWNy41OUw3LjU5LDE1SDNWMjFIOVYxNi40MkwxNi40Miw5SDIxVjNNMTcsNUgxOVY3SDE3TTUsMTdIN1YxOUg1IiAvPjwvc3ZnPg==",
+  "name": "Line3D",
+  "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/158558414173d1901c3781135052193d10c3bc9af9d27a941cd55cad0b453379_vector-line.svg",
+  "shortDescription": "Create lines in 3D.",
+  "version": "0.0.1",
+  "description": "Create lines in 3D useful for debugging raycasts.",
+  "tags": [
+    "3d"
+  ],
+  "authorIds": [
+    "q8ubdigLvIRXLxsJDDTaokO41mc2"
+  ],
+  "dependencies": [],
+  "eventsFunctions": [
+    {
+      "fullName": "",
+      "functionType": "Action",
+      "name": "onSceneLoaded",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "runtimeScene._line3DExtension = {};\r",
+            "runtimeScene._line3DExtension.lines = new Map();"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "Create a 3D line.",
+      "fullName": "Create 3D line",
+      "functionType": "Action",
+      "name": "CreateArrowHelper",
+      "sentence": "Create 3D line _PARAM1_, color: _PARAM2_, line width: _PARAM3_, start position X: _PARAM4_, Y: _PARAM5_, Z : _PARAM6_, end position X: _PARAM7_, Y: _PARAM8_, Z: _PARAM9_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (!runtimeScene._line3DExtension.lines.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "const geometry = new THREE.BufferGeometry();\r",
+            "const positions = new Float32Array([eventsFunctionContext.getArgument(\"StartX\"), eventsFunctionContext.getArgument(\"StartY\"), eventsFunctionContext.getArgument(\"StartZ\"), eventsFunctionContext.getArgument(\"EndX\"), eventsFunctionContext.getArgument(\"EndY\"), eventsFunctionContext.getArgument(\"EndZ\")]);\r",
+            "geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));\r",
+            "const rgbColorGD = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color\"));\r",
+            "const rgbColor = new THREE.Color(\"rgb(\" + rgbColorGD[0] + \", \" + rgbColorGD[1] + \", \" + rgbColorGD[2] + \")\");\r",
+            "const material = new THREE.LineBasicMaterial({ color: rgbColor, linewidth: eventsFunctionContext.getArgument(\"LineWidth\") });\r",
+            "const line = new THREE.Line(geometry, material);\r",
+            "runtimeScene.getLayer('').getRenderer().getThreeScene().add(line);\r",
+            "runtimeScene._line3DExtension.lines.set(eventsFunctionContext.getArgument(\"Identifier\"), { line });\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Color",
+          "name": "Color",
+          "type": "color"
+        },
+        {
+          "description": "Line width",
+          "name": "LineWidth",
+          "type": "expression"
+        },
+        {
+          "description": "X start position",
+          "name": "StartX",
+          "type": "expression"
+        },
+        {
+          "description": "Y start position",
+          "name": "StartY",
+          "type": "expression"
+        },
+        {
+          "description": "Z start position",
+          "name": "StartZ",
+          "type": "expression"
+        },
+        {
+          "description": "X end position",
+          "name": "EndX",
+          "type": "expression"
+        },
+        {
+          "description": "Y end position",
+          "name": "EndY",
+          "type": "expression"
+        },
+        {
+          "description": "Z end position",
+          "name": "EndZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the color of a 3D line.",
+      "fullName": "Color",
+      "functionType": "Action",
+      "name": "SetColor",
+      "sentence": "Change the color of _PARAM1_ to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._line3DExtension.lines.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    const rgbColorGD = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color\"));\r",
+            "    const rgbColor = new THREE.Color(\"rgb(\" + rgbColorGD[0] + \", \" + rgbColorGD[1] + \", \" + rgbColorGD[2] + \")\");\r",
+            "    runtimeScene._line3DExtension.lines.get(eventsFunctionContext.getArgument(\"Identifier\")).line.material.color.set(rgbColor);\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Color",
+          "name": "Color",
+          "type": "color"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the position of a 3D line.",
+      "fullName": "Position",
+      "functionType": "Action",
+      "name": "SetPosition",
+      "sentence": "Change the position of _PARAM1_ to X: _PARAM2_, Y: _PARAM3_, Z: _PARAM4_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._line3DExtension.lines.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._line3DExtension.lines.get(eventsFunctionContext.getArgument(\"Identifier\")).line.position.set(eventsFunctionContext.getArgument(\"PositionX\"), eventsFunctionContext.getArgument(\"PositionY\"), eventsFunctionContext.getArgument(\"PositionZ\"));\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "X position",
+          "name": "PositionX",
+          "type": "expression"
+        },
+        {
+          "description": "Y position",
+          "name": "PositionY",
+          "type": "expression"
+        },
+        {
+          "description": "Z position",
+          "name": "PositionZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "fullName": "",
+      "functionType": "ActionWithOperator",
+      "getterName": "PositionX",
+      "name": "SetPositionX",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._line3DExtension.lines.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._line3DExtension.lines.get(eventsFunctionContext.getArgument(\"Identifier\")).line.position.x = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "fullName": "",
+      "functionType": "ActionWithOperator",
+      "getterName": "PositionY",
+      "name": "SetPositionY",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._line3DExtension.lines.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._line3DExtension.lines.get(eventsFunctionContext.getArgument(\"Identifier\")).line.position.y = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "fullName": "",
+      "functionType": "ActionWithOperator",
+      "getterName": "PositionZ",
+      "name": "SetPositionZ",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._line3DExtension.lines.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._line3DExtension.lines.get(eventsFunctionContext.getArgument(\"Identifier\")).line.position.z = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "the X position of a 3D line.",
+      "fullName": "X position",
+      "functionType": "ExpressionAndCondition",
+      "name": "PositionX",
+      "sentence": "the X position of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._line3DExtension.lines.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._line3DExtension.lines.get(eventsFunctionContext.getArgument(\"Identifier\")).line.position.x;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the Y position of a 3D line.",
+      "fullName": "Y position",
+      "functionType": "ExpressionAndCondition",
+      "name": "PositionY",
+      "sentence": "the Y position of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._line3DExtension.lines.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._line3DExtension.lines.get(eventsFunctionContext.getArgument(\"Identifier\")).line.position.y;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the Z position of a 3D line.",
+      "fullName": "Z position",
+      "functionType": "ExpressionAndCondition",
+      "name": "PositionZ",
+      "sentence": "the Z position of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._line3DExtension.lines.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._line3DExtension.lines.get(eventsFunctionContext.getArgument(\"Identifier\")).line.position.z;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Delete a 3D line.",
+      "fullName": "Delete 3D line",
+      "functionType": "Action",
+      "name": "DeleteLine",
+      "sentence": "Delete 3D line _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._line3DExtension.lines.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._line3DExtension.lines.get(eventsFunctionContext.getArgument(\"Identifier\")).line);\r",
+            "    runtimeScene._line3DExtension.lines.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    }
+  ],
+  "eventsBasedBehaviors": [],
+  "eventsBasedObjects": []
+}

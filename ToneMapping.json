@@ -1,0 +1,128 @@
+{
+  "author": "",
+  "category": "General",
+  "extensionNamespace": "",
+  "fullName": "Tone Mapping",
+  "helpPath": "",
+  "iconUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMy4wLjMsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iSWNvbnMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMzIgMzIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDpub25lO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDoxMDt9DQo8L3N0eWxlPg0KPGc+DQoJPHBhdGggZD0iTTEyLDE2Yy0xLjEsMC0yLTAuOS0yLTJzMC45LTIsMi0yczIsMC45LDIsMlMxMy4xLDE2LDEyLDE2eiBNMTIsMTRMMTIsMTRMMTIsMTR6IE0xMiwxNEwxMiwxNEwxMiwxNHogTTEyLDE0TDEyLDE0TDEyLDE0eg0KCQkgTTEyLDE0TDEyLDE0TDEyLDE0eiBNMTIsMTRMMTIsMTRMMTIsMTR6IE0xMiwxNEwxMiwxNEwxMiwxNHogTTEyLDE0TDEyLDE0TDEyLDE0eiBNMTIsMTRMMTIsMTRMMTIsMTR6Ii8+DQo8L2c+DQo8Zz4NCgk8cGF0aCBkPSJNMjgsMjIuNVY5LjVjMS4yLTAuNywyLTIsMi0zLjVjMC0yLjItMS44LTQtNC00Yy0xLjQsMC0yLjcsMC44LTMuNSwySDkuNUM4LjcsMi44LDcuNCwyLDYsMkMzLjgsMiwyLDMuOCwyLDYNCgkJYzAsMS40LDAuOCwyLjcsMiwzLjV2MTMuMWMtMS4yLDAuNy0yLDItMiwzLjVjMCwyLjIsMS44LDQsNCw0YzEuNCwwLDIuNy0wLjgsMy41LTJoMTMuMWMwLjcsMS4yLDIsMiwzLjUsMmMyLjIsMCw0LTEuOCw0LTQNCgkJQzMwLDI0LjYsMjkuMiwyMy4zLDI4LDIyLjV6IE0yNCwxNC41djIuNlYyM2MwLDAuNi0wLjQsMS0xLDFIOWMtMC42LDAtMS0wLjQtMS0xdi0xLjR2LTIuM1Y5YzAtMC42LDAuNC0xLDEtMWgxNGMwLjYsMCwxLDAuNCwxLDENCgkJVjE0LjV6Ii8+DQoJPHBhdGggZD0iTTIwLjYsMTkuOGMtMC40LDAuMy0wLjksMC4zLTEuMiwwbC0zLjUtMi42TDEwLDIwLjVWMjJoMTJ2LTMuM0wyMC42LDE5Ljh6Ii8+DQo8L2c+DQo8L3N2Zz4NCg==",
+  "name": "ToneMapping",
+  "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/Glyphster Pack/Master/SVG/Graphic Design/17a1b668438cde7ca4d143c729b146977fa44172b8b4175bf025ccfc3e032253_Graphic Design_picture.svg",
+  "shortDescription": "Tone mapping allows you to adjust the brightness and contrast of your scenes, bringing out details in both bright and dark areas.",
+  "version": "0.0.1",
+  "description": [
+    "Tone mapping allows you to adjust the brightness and contrast of your scenes, bringing out details in both bright and dark areas.",
+    "Choose from various tonemapping options to achieve the desired visual effect.",
+    "- Adjust the exposure to control the overall brightness.",
+    "",
+    "Experiment with different tonemapping options to find the look that suits your game.",
+    "Ensure your scenes are set up with appropriate lighting for optimal tonemapping results."
+  ],
+  "tags": [
+    "3d"
+  ],
+  "authorIds": [
+    "q8ubdigLvIRXLxsJDDTaokO41mc2"
+  ],
+  "dependencies": [],
+  "eventsFunctions": [
+    {
+      "description": "Change tone mapping.",
+      "fullName": "Tone mapping",
+      "functionType": "Action",
+      "name": "SetToneMapping",
+      "sentence": "Change tone mapping to _PARAM1_, exposure _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "switch (eventsFunctionContext.getArgument(\"ToneMapping\")) {\r",
+            "    case 'No Tone Mapping':\r",
+            "        runtimeScene.getGame().getRenderer().getThreeRenderer().toneMapping = THREE.NoToneMapping;\r",
+            "        break;\r",
+            "    case 'Linear':\r",
+            "        runtimeScene.getGame().getRenderer().getThreeRenderer().toneMapping = THREE.LinearToneMapping;\r",
+            "        break;\r",
+            "    case 'Reinhard':\r",
+            "        runtimeScene.getGame().getRenderer().getThreeRenderer().toneMapping = THREE.ReinhardToneMapping;\r",
+            "        break;\r",
+            "    case 'Cineon':\r",
+            "        runtimeScene.getGame().getRenderer().getThreeRenderer().toneMapping = THREE.CineonToneMapping;\r",
+            "        break;\r",
+            "    case 'ACES Filmic':\r",
+            "        runtimeScene.getGame().getRenderer().getThreeRenderer().toneMapping = THREE.ACESFilmicToneMapping;\r",
+            "        break;\r",
+            "    //case 'AgX':\r",
+            "        //runtimeScene.getGame().getRenderer().getThreeRenderer().toneMapping = THREE.AgXToneMapping;\r",
+            "        //break;\r",
+            "    case 'Custom':\r",
+            "        runtimeScene.getGame().getRenderer().getThreeRenderer().toneMapping = THREE.CustomToneMapping;\r",
+            "        break;\r",
+            "    default:\r",
+            "        runtimeScene.getGame().getRenderer().getThreeRenderer().toneMapping = THREE.NoToneMapping;\r",
+            "}\r",
+            "\r",
+            "runtimeScene.getGame().getRenderer().getThreeRenderer().toneMappingExposure = eventsFunctionContext.getArgument(\"Exposure\");"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Tone mapping",
+          "name": "ToneMapping",
+          "supplementaryInformation": "[\"No Tone Mapping\",\"Linear\",\"Reinhard\",\"Cineon\",\"ACES Filmic\",\"Custom\"]",
+          "type": "stringWithSelector"
+        },
+        {
+          "description": "Exposure",
+          "name": "Exposure",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the exposure of the tone mapping.",
+      "fullName": "Exposure",
+      "functionType": "ExpressionAndCondition",
+      "name": "Exposure",
+      "sentence": "the exposure of the tone mapping",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "eventsFunctionContext.returnValue = runtimeScene.getGame().getRenderer().getThreeRenderer().toneMappingExposure;",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "fullName": "",
+      "functionType": "ActionWithOperator",
+      "getterName": "Exposure",
+      "name": "SetExposure",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "runtimeScene.getGame().getRenderer().getThreeRenderer().toneMappingExposure = eventsFunctionContext.getArgument(\"Exposure\");",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    }
+  ],
+  "eventsBasedBehaviors": [],
+  "eventsBasedObjects": []
+}

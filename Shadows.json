@@ -1,0 +1,146 @@
+{
+  "author": "",
+  "category": "General",
+  "extensionNamespace": "",
+  "fullName": "Shadows",
+  "helpPath": "",
+  "iconUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMy4wLjMsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iSWNvbnMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMzIgMzIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDpub25lO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDoxMDt9DQoJLnN0MXtmaWxsOm5vbmU7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjI7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO30NCgkuc3Qye2ZpbGw6bm9uZTtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLWRhc2hhcnJheTo2LDY7fQ0KCS5zdDN7ZmlsbDpub25lO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtZGFzaGFycmF5OjQsNDt9DQoJLnN0NHtmaWxsOm5vbmU7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjI7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7fQ0KCS5zdDV7ZmlsbDpub25lO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1kYXNoYXJyYXk6My4xMDgxLDMuMTA4MTt9DQoJDQoJCS5zdDZ7ZmlsbDpub25lO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2UtbWl0ZXJsaW1pdDoxMDtzdHJva2UtZGFzaGFycmF5OjQsMzt9DQo8L3N0eWxlPg0KPGNpcmNsZSBjbGFzcz0ic3QwIiBjeD0iMTMiIGN5PSIxMyIgcj0iMTAiLz4NCjxsaW5lIGNsYXNzPSJzdDAiIHgxPSIyMCIgeTE9IjIwIiB4Mj0iMjYuMSIgeTI9IjI2LjEiLz4NCjxsaW5lIGNsYXNzPSJzdDAiIHgxPSIxNiIgeTE9IjIzIiB4Mj0iMjEuOCIgeTI9IjI4LjkiLz4NCjxsaW5lIGNsYXNzPSJzdDAiIHgxPSIyMyIgeTE9IjE2IiB4Mj0iMjguOSIgeTI9IjIxLjgiLz4NCjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0yMi40LDkuNmMxLjMsMC41LDIuNiwxLjMsMy43LDIuM2MzLjksMy45LDMuOSwxMC4yLDAsMTQuMXMtMTAuMiwzLjktMTQuMSwwYy0xLjEtMS4xLTEuOC0yLjMtMi4zLTMuNyIvPg0KPC9zdmc+DQo=",
+  "name": "Shadows",
+  "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/Line Hero Pack/Master/SVG/Graphic Design/72d62d2888b4617f55edbefa73aa471fe8c846bb8552ce6a368fc05327dc8fa6_Graphic Design_drop_shadow.svg",
+  "shortDescription": "Adjust the shadow map resolution and shadow casting/receiving properties of 3D objects.",
+  "version": "0.0.1",
+  "description": "Allows you to adjust the shadow map resolution and shadow casting and receiving shadow properties of 3D objects.",
+  "tags": [
+    "3d"
+  ],
+  "authorIds": [
+    "q8ubdigLvIRXLxsJDDTaokO41mc2"
+  ],
+  "dependencies": [],
+  "eventsFunctions": [
+    {
+      "description": "Enable or disable casting shadow.",
+      "fullName": "Cast shadow",
+      "functionType": "Action",
+      "name": "CastShadow",
+      "sentence": "Enable casting shadow for _PARAM1_: _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (node instanceof THREE.Mesh && node.isMesh) {",
+            "        node.castShadow = eventsFunctionContext.getArgument(\"CastShadow\");",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Cast shadow",
+          "name": "CastShadow",
+          "type": "yesorno"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Enable or disable receive shadows.",
+      "fullName": "Receive shadows",
+      "functionType": "Action",
+      "name": "ReceiveShadow",
+      "sentence": "Enable receiving shadows for _PARAM1_: _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (node instanceof THREE.Mesh && node.isMesh) {",
+            "        node.receiveShadow = eventsFunctionContext.getArgument(\"ReceiveShadow\");",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Receive shadow",
+          "name": "ReceiveShadow",
+          "type": "yesorno"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change Shadow map.",
+      "fullName": "Shadow map",
+      "functionType": "Action",
+      "name": "ShadowMap",
+      "sentence": "Change shadow map to _PARAM2_, enabled: _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "switch (eventsFunctionContext.getArgument(\"ShadowMapType\")) {\r",
+            "    case 'Basic':\r",
+            "        runtimeScene.getGame().getRenderer().getThreeRenderer().shadowMap.type = THREE.BasicShadowMap;\r",
+            "        break;\r",
+            "    case 'PCF':\r",
+            "        runtimeScene.getGame().getRenderer().getThreeRenderer().shadowMap.type = THREE.PCFShadowMap;\r",
+            "        break;\r",
+            "    case 'PCF Soft':\r",
+            "        runtimeScene.getGame().getRenderer().getThreeRenderer().shadowMap.type = THREE.PCFSoftShadowMap;\r",
+            "        break;\r",
+            "    case 'VSM':\r",
+            "        runtimeScene.getGame().getRenderer().getThreeRenderer().shadowMap.type = THREE.VSMShadowMap;\r",
+            "        break;\r",
+            "    default:\r",
+            "        runtimeScene.getGame().getRenderer().getThreeRenderer().shadowMap.type = THREE.PCFShadowMap;\r",
+            "}\r",
+            "runtimeScene.getGame().getRenderer().getThreeRenderer().shadowMap.enabled = eventsFunctionContext.getArgument(\"ShadowMap\");\r",
+            "runtimeScene.getGame().getRenderer().getThreeRenderer().shadowMap.requestAnimationFrame = 1;\r",
+            "runtimeScene.getGame().getRenderer().getThreeRenderer().shadowMap.needsUpdate = true;"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Shadow map",
+          "name": "ShadowMap",
+          "type": "yesorno"
+        },
+        {
+          "description": "Shadow map type",
+          "name": "ShadowMapType",
+          "supplementaryInformation": "[\"Basic\",\"PCF\",\"PCF Soft\",\"VSM\"]",
+          "type": "stringWithSelector"
+        }
+      ],
+      "objectGroups": []
+    }
+  ],
+  "eventsBasedBehaviors": [],
+  "eventsBasedObjects": []
+}

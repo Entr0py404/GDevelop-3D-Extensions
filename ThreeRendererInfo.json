@@ -1,0 +1,194 @@
+{
+  "author": "",
+  "category": "General",
+  "extensionNamespace": "",
+  "fullName": "Three Renderer Info",
+  "helpPath": "",
+  "iconUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0ibWRpLWluZm9ybWF0aW9uLW91dGxpbmUiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTEsOUgxM1Y3SDExTTEyLDIwQzcuNTksMjAgNCwxNi40MSA0LDEyQzQsNy41OSA3LjU5LDQgMTIsNEMxNi40MSw0IDIwLDcuNTkgMjAsMTJDMjAsMTYuNDEgMTYuNDEsMjAgMTIsMjBNMTIsMkExMCwxMCAwIDAsMCAyLDEyQTEwLDEwIDAgMCwwIDEyLDIyQTEwLDEwIDAgMCwwIDIyLDEyQTEwLDEwIDAgMCwwIDEyLDJNMTEsMTdIMTNWMTFIMTFWMTdaIiAvPjwvc3ZnPg==",
+  "name": "ThreeRendererInfo",
+  "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/bdffb4d8db6c083085722b9ff01e00fb95219e41736aa545eaea39d9e735ecfd_information-outline.svg",
+  "shortDescription": "Statistical information about the graphics board memory and the rendering process.",
+  "version": "0.0.1",
+  "description": [
+    "Statistical information about the graphics board memory and the rendering process.",
+    "Useful for debugging or just for the sake of curiosity.",
+    "The object contains the following fields:",
+    "",
+    "Memory:",
+    "- geometries",
+    "- textures",
+    "",
+    "Render:",
+    "- calls",
+    "- triangles",
+    "- points",
+    "- lines",
+    "- frame"
+  ],
+  "tags": [
+    "3d",
+    "info"
+  ],
+  "authorIds": [
+    "q8ubdigLvIRXLxsJDDTaokO41mc2"
+  ],
+  "dependencies": [],
+  "eventsFunctions": [
+    {
+      "description": "Get number of calls.",
+      "fullName": "Calls",
+      "functionType": "Expression",
+      "group": "Render",
+      "name": "Calls",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "eventsFunctionContext.returnValue = runtimeScene.getGame().getRenderer().getThreeRenderer().info.render.calls;",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "Get number of triangles.",
+      "fullName": "Triangles",
+      "functionType": "Expression",
+      "group": "Render",
+      "name": "Triangles",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "eventsFunctionContext.returnValue = runtimeScene.getGame().getRenderer().getThreeRenderer().info.render.triangles;",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "Get number of points.",
+      "fullName": "Points",
+      "functionType": "Expression",
+      "group": "Render",
+      "name": "Points",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "eventsFunctionContext.returnValue = runtimeScene.getGame().getRenderer().getThreeRenderer().info.render.points;",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "Get number of lines.",
+      "fullName": "Lines",
+      "functionType": "Expression",
+      "group": "Render",
+      "name": "Lines",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "eventsFunctionContext.returnValue = runtimeScene.getGame().getRenderer().getThreeRenderer().info.render.lines;",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "Get frame number.",
+      "fullName": "Frame",
+      "functionType": "Expression",
+      "group": "Render",
+      "name": "Frame",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "eventsFunctionContext.returnValue = runtimeScene.getGame().getRenderer().getThreeRenderer().info.render.frame;",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "Get number of geometries.",
+      "fullName": "Geometries",
+      "functionType": "Expression",
+      "group": "Memory",
+      "name": "Geometries",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "eventsFunctionContext.returnValue = runtimeScene.getGame().getRenderer().getThreeRenderer().info.memory.geometries;",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "Get number of textures.",
+      "fullName": "Textures",
+      "functionType": "Expression",
+      "group": "Memory",
+      "name": "Textures",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "eventsFunctionContext.returnValue = runtimeScene.getGame().getRenderer().getThreeRenderer().info.memory.textures;",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [],
+      "objectGroups": []
+    }
+  ],
+  "eventsBasedBehaviors": [],
+  "eventsBasedObjects": []
+}

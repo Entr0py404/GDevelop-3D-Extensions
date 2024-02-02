@@ -1,0 +1,163 @@
+{
+  "author": "",
+  "category": "General",
+  "extensionNamespace": "",
+  "fullName": "Skeleton Helper",
+  "helpPath": "",
+  "iconUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0ibWRpLXJhZGlvbG9neS1ib3gtb3V0bGluZSIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGQ9Ik0xOSA1VjE5SDVWNUgxOU0xOSAzSDVDMy44OSAzIDMgMy44OSAzIDVWMTlDMyAyMC4xMSAzLjg5IDIxIDUgMjFIMTlDMjAuMTEgMjEgMjEgMjAuMTEgMjEgMTlWNUMyMSAzLjg5IDIwLjExIDMgMTkgM00xMiA2QzEyLjU1IDYgMTMgNi40NSAxMyA3VjhIMTYuMTdDMTYuMzUgOC4zMSAxNi41IDguNjUgMTYuNjYgOUgxM1YxMEgxN0MxNy4xIDEwLjMzIDE3LjE3IDEwLjY3IDE3LjE5IDExSDEzVjEySDE3LjJDMTcuMTYgMTIuMzUgMTcuMTUgMTIuNjkgMTcuMSAxM0gxM1YxNEgxN0MxNyAxNCAxNi45NCAxNyAxNS41IDE3QzE0LjE1IDE3IDE0LjUgMTUuNDcgMTMgMTVWMTdDMTMgMTcuNTUgMTIuNTUgMTggMTIgMThTMTEgMTcuNTUgMTEgMTdWMTVDOS41IDE1LjQ3IDkuODUgMTcgOC41IDE3QzcuMDYgMTcgNyAxNCA3IDE0SDExVjEzSDYuOUM2Ljg1IDEyLjY5IDYuODQgMTIuMzUgNi44IDEySDExVjExSDYuODFDNi44MyAxMC42NyA2LjkxIDEwLjMzIDcgMTBIMTFWOUg3LjM0QzcuNSA4LjY1IDcuNjUgOC4zMSA3LjgzIDhIMTFWN0MxMSA2LjQ1IDExLjQ1IDYgMTIgNloiIC8+PC9zdmc+",
+  "name": "SkeletonHelper",
+  "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/17bd6d7f3431bd2dc28f5225f6feba005af8d77ddfe482c3b55235c6c357482f_radiology-box-outline.svg",
+  "shortDescription": "A helper object to assist with visualizing a skeleton.",
+  "version": "0.0.1",
+  "description": "A helper object to assist with visualizing a skeleton.",
+  "tags": [
+    "3d",
+    "helper"
+  ],
+  "authorIds": [
+    "q8ubdigLvIRXLxsJDDTaokO41mc2"
+  ],
+  "dependencies": [],
+  "eventsFunctions": [],
+  "eventsBasedBehaviors": [
+    {
+      "description": "A helper object to assist with visualizing a skeleton.",
+      "fullName": "Skeleton Helper",
+      "name": "SkeletonHelper",
+      "objectType": "Scene3D::Model3DObject",
+      "eventsFunctions": [
+        {
+          "fullName": "",
+          "functionType": "Action",
+          "name": "onCreated",
+          "sentence": "",
+          "events": [
+            {
+              "type": "BuiltinCommonInstructions::JsCode",
+              "inlineCode": [
+                "objects[0]._skeletonHelperExtension = {};",
+                "objects[0]._skeletonHelperExtension.skeletonHelper = new THREE.SkeletonHelper(objects[0].get3DRendererObject());",
+                "runtimeScene.getLayer('').getRenderer().getThreeScene().add(objects[0]._skeletonHelperExtension.skeletonHelper);",
+                "objects[0]._skeletonHelperExtension.skeletonHelper.matrix = objects[0].get3DRendererObject().matrix;"
+              ],
+              "parameterObjects": "Object",
+              "useStrict": true,
+              "eventsSheetExpanded": false
+            }
+          ],
+          "parameters": [
+            {
+              "description": "Object",
+              "name": "Object",
+              "supplementaryInformation": "Scene3D::Model3DObject",
+              "type": "object"
+            },
+            {
+              "description": "Behavior",
+              "name": "Behavior",
+              "supplementaryInformation": "SkeletonHelper::SkeletonHelper",
+              "type": "behavior"
+            }
+          ],
+          "objectGroups": []
+        },
+        {
+          "fullName": "",
+          "functionType": "Action",
+          "name": "onDestroy",
+          "sentence": "",
+          "events": [
+            {
+              "type": "BuiltinCommonInstructions::JsCode",
+              "inlineCode": "runtimeScene.getLayer('').getRenderer().getThreeScene().remove(objects[0]._skeletonHelperExtension.skeletonHelper);",
+              "parameterObjects": "Object",
+              "useStrict": true,
+              "eventsSheetExpanded": false
+            }
+          ],
+          "parameters": [
+            {
+              "description": "Object",
+              "name": "Object",
+              "supplementaryInformation": "Scene3D::Model3DObject",
+              "type": "object"
+            },
+            {
+              "description": "Behavior",
+              "name": "Behavior",
+              "supplementaryInformation": "SkeletonHelper::SkeletonHelper",
+              "type": "behavior"
+            }
+          ],
+          "objectGroups": []
+        },
+        {
+          "fullName": "",
+          "functionType": "Action",
+          "name": "onActivate",
+          "sentence": "",
+          "events": [
+            {
+              "type": "BuiltinCommonInstructions::JsCode",
+              "inlineCode": [
+                "runtimeScene.getLayer('').getRenderer().getThreeScene().add(objects[0]._skeletonHelperExtension.skeletonHelper);",
+                "objects[0]._skeletonHelperExtension.skeletonHelper.matrix = objects[0].get3DRendererObject().matrix;"
+              ],
+              "parameterObjects": "Object",
+              "useStrict": true,
+              "eventsSheetExpanded": false
+            }
+          ],
+          "parameters": [
+            {
+              "description": "Object",
+              "name": "Object",
+              "supplementaryInformation": "Scene3D::Model3DObject",
+              "type": "object"
+            },
+            {
+              "description": "Behavior",
+              "name": "Behavior",
+              "supplementaryInformation": "SkeletonHelper::SkeletonHelper",
+              "type": "behavior"
+            }
+          ],
+          "objectGroups": []
+        },
+        {
+          "fullName": "",
+          "functionType": "Action",
+          "name": "onDeActivate",
+          "sentence": "",
+          "events": [
+            {
+              "type": "BuiltinCommonInstructions::JsCode",
+              "inlineCode": "runtimeScene.getLayer('').getRenderer().getThreeScene().remove(objects[0]._skeletonHelperExtension.skeletonHelper);",
+              "parameterObjects": "Object",
+              "useStrict": true,
+              "eventsSheetExpanded": false
+            }
+          ],
+          "parameters": [
+            {
+              "description": "Object",
+              "name": "Object",
+              "supplementaryInformation": "Scene3D::Model3DObject",
+              "type": "object"
+            },
+            {
+              "description": "Behavior",
+              "name": "Behavior",
+              "supplementaryInformation": "SkeletonHelper::SkeletonHelper",
+              "type": "behavior"
+            }
+          ],
+          "objectGroups": []
+        }
+      ],
+      "propertyDescriptors": [],
+      "sharedPropertyDescriptors": []
+    }
+  ],
+  "eventsBasedObjects": []
+}

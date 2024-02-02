@@ -1,0 +1,1407 @@
+{
+  "author": "",
+  "category": "General",
+  "extensionNamespace": "",
+  "fullName": "Spot Lights",
+  "helpPath": "",
+  "iconUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0ibWRpLXNwb3RsaWdodC1iZWFtIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTksMTYuNUw5LjkxLDE1LjU5TDE1LjEzLDIwLjhMMTQuMjEsMjEuNzFMOSwxNi41TTE1LjUsMTBMMTYuNDEsOS4wOUwyMS42MywxNC4zTDIwLjcxLDE1LjIxTDE1LjUsMTBNNi43MiwyLjcyTDEwLjE1LDYuMTVMNi4xNSwxMC4xNUwyLjcyLDYuNzJDMS45NCw1Ljk0IDEuOTQsNC42NyAyLjcyLDMuODlMMy44OSwyLjcyQzQuNjcsMS45NCA1Ljk0LDEuOTQgNi43MiwyLjcyTTE0LjU3LDcuNUwxNS4yOCw4LjIxTDguMjEsMTUuMjhMNy41LDE0LjU3TDYuNjQsMTEuMDdMMTEuMDcsNi42NEwxNC41Nyw3LjVaIiAvPjwvc3ZnPg==",
+  "name": "SpotLights",
+  "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/5057489f56829ef5e88b7ac67b2b4c9d9c972565da9bd359f33c65920cc30ad1_spotlight-beam.svg",
+  "shortDescription": "This light gets emitted from a single point in one direction, along a cone that increases in size the further from the light it gets.",
+  "version": "0.0.1",
+  "description": "This light gets emitted from a single point in one direction, along a cone that increases in size the further from the light it gets.",
+  "tags": [
+    "3d",
+    "lights"
+  ],
+  "authorIds": [
+    "q8ubdigLvIRXLxsJDDTaokO41mc2"
+  ],
+  "dependencies": [],
+  "eventsFunctions": [
+    {
+      "fullName": "",
+      "functionType": "Action",
+      "name": "onSceneLoaded",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "runtimeScene._spotLightsExtension = {};\r",
+            "runtimeScene._spotLightsExtension.spotLights = new Map();\r",
+            "runtimeScene._spotLightsExtension.spotLightHelpers = new Map();\r",
+            "runtimeScene._spotLightsExtension.spotLightShadowCameraHelpers = new Map();"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    },
+    {
+      "description": "Create a spot light.",
+      "fullName": "Create spot light",
+      "functionType": "Action",
+      "name": "CreateSpotLight",
+      "sentence": "Create spot light _PARAM1_, color: _PARAM2_, intensity: _PARAM3_, distance: _PARAM4_, decay: _PARAM5_, angle: _PARAM6_, penumbra: _PARAM7_, cast shadow: _PARAM9_, auto update: _PARAM10_, shadow map size: _PARAM11_, position X: _PARAM12_, Y: _PARAM13_, Z: _PARAM14_, target position X: _PARAM15_, Y: _PARAM16_, Z: _PARAM17_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (!runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {",
+            "    const rgbColorGD = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color\"));",
+            "    const spotLight = new THREE.SpotLight(\"rgb(\" + rgbColorGD[0] + \", \" + rgbColorGD[1] + \", \" + rgbColorGD[2] + \")\");",
+            "",
+            "    if (eventsFunctionContext.getArgument(\"Texture\").includes(\"\\\\\")) {",
+            "        spotLight.map = new THREE.TextureLoader().load(eventsFunctionContext.getArgument(\"Texture\").substring(eventsFunctionContext.getArgument(\"Texture\").lastIndexOf('\\\\') + 1));",
+            "        //console.log(eventsFunctionContext.getArgument(\"Texture\").substring(eventsFunctionContext.getArgument(\"Texture\").lastIndexOf('\\\\') + 1))",
+            "    }",
+            "",
+            "    spotLight.intensity = eventsFunctionContext.getArgument(\"Intensity\");",
+            "    spotLight.distance = eventsFunctionContext.getArgument(\"Distance\");",
+            "    spotLight.decay = eventsFunctionContext.getArgument(\"Decay\");",
+            "    spotLight.angle = gdjs.toRad(eventsFunctionContext.getArgument(\"Angle\"));",
+            "    spotLight.penumbra = eventsFunctionContext.getArgument(\"Penumbra\");",
+            "",
+            "    spotLight.position.set(eventsFunctionContext.getArgument(\"PositionX\"), eventsFunctionContext.getArgument(\"PositionY\"), eventsFunctionContext.getArgument(\"PositionZ\"));",
+            "    spotLight.target.position.set(eventsFunctionContext.getArgument(\"TargetPositionX\"), eventsFunctionContext.getArgument(\"TargetPositionY\"), eventsFunctionContext.getArgument(\"TargetPositionZ\"));",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(spotLight.target);",
+            "",
+            "    spotLight.castShadow = eventsFunctionContext.getArgument(\"CastShadow\");",
+            "",
+            "    switch (eventsFunctionContext.getArgument(\"ShadowMapSize\")) {",
+            "        case '256':",
+            "            spotLight.shadow.mapSize.width = 256;",
+            "            spotLight.shadow.mapSize.height = 256;",
+            "            break;",
+            "        case '512':",
+            "            spotLight.shadow.mapSize.width = 512;",
+            "            spotLight.shadow.mapSize.height = 512;",
+            "            break;",
+            "        case '1024':",
+            "            spotLight.shadow.mapSize.width = 1024;",
+            "            spotLight.shadow.mapSize.height = 1024;",
+            "            break;",
+            "        case '2048':",
+            "            spotLight.shadow.mapSize.width = 2048;",
+            "            spotLight.shadow.mapSize.height = 2048;",
+            "            break;",
+            "        case '4096':",
+            "            spotLight.shadow.mapSize.width = 4096;",
+            "            spotLight.shadow.mapSize.height = 4096;",
+            "            break;",
+            "        default:",
+            "            spotLight.shadow.mapSize.width = 512;",
+            "            spotLight.shadow.mapSize.height = 512;",
+            "    }",
+            "",
+            "    spotLight.shadow.autoUpdate = eventsFunctionContext.getArgument(\"AutoUpdate\");",
+            "    spotLight.shadow.needsUpdate = true;",
+            "    spotLight.updateMatrixWorld();",
+            "    spotLight.target.updateMatrixWorld();",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(spotLight);",
+            "",
+            "    //spotLight.target.updateMatrixWorld();",
+            "    runtimeScene._spotLightsExtension.spotLights.set(eventsFunctionContext.getArgument(\"Identifier\"), { spotLight });",
+            "    spotLight.dispose();",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Color of the light",
+          "name": "Color",
+          "type": "color"
+        },
+        {
+          "description": "Intensity (default is 1)",
+          "name": "Intensity",
+          "type": "expression"
+        },
+        {
+          "description": "Distance, maximum range of the light (default is 0 no limit)",
+          "name": "Distance",
+          "type": "expression"
+        },
+        {
+          "description": "Decay, the amount the light dims along the distance of the light (default is 2)",
+          "name": "Decay",
+          "type": "expression"
+        },
+        {
+          "description": "Angle, maximum angle of light dispersion",
+          "name": "Angle",
+          "type": "expression"
+        },
+        {
+          "description": "Penumbra, percent of the spotlight cone that is attenuated due to penumbra takes values between zero and 1 (default is zero)",
+          "name": "Penumbra",
+          "type": "expression"
+        },
+        {
+          "description": "Texture, used to modulate the color of the light (is disabled if cast shadow is false)",
+          "name": "Texture",
+          "type": "imageResource"
+        },
+        {
+          "defaultValue": "yes",
+          "description": "Cast shadow",
+          "name": "CastShadow",
+          "optional": true,
+          "type": "yesorno"
+        },
+        {
+          "defaultValue": "yes",
+          "description": "Enable automatic updates of the light's shadow, if you do not require dynamic lighting set this to false",
+          "name": "AutoUpdate",
+          "optional": true,
+          "type": "yesorno"
+        },
+        {
+          "description": "Shadow map size (default is 512)",
+          "name": "ShadowMapSize",
+          "supplementaryInformation": "[\"256\",\"512\",\"1024\",\"2048\",\"4096\"]",
+          "type": "stringWithSelector"
+        },
+        {
+          "description": "X position",
+          "name": "PositionX",
+          "type": "expression"
+        },
+        {
+          "description": "Y position",
+          "name": "PositionY",
+          "type": "expression"
+        },
+        {
+          "description": "Z position",
+          "name": "PositionZ",
+          "type": "expression"
+        },
+        {
+          "description": "X target position",
+          "name": "TargetPositionX",
+          "type": "expression"
+        },
+        {
+          "description": "Y target position",
+          "name": "TargetPositionY",
+          "type": "expression"
+        },
+        {
+          "description": "Z target position",
+          "name": "TargetPositionZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Delete a spot light.",
+      "fullName": "Delete spot light",
+      "functionType": "Action",
+      "name": "DeleteSpotLight",
+      "sentence": "Delete spot light _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight);\r",
+            "    runtimeScene._spotLightsExtension.spotLights.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
+            "\r",
+            "    if (runtimeScene._spotLightsExtension.spotLightHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "        runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._spotLightsExtension.spotLightHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLightHelper);\r",
+            "        runtimeScene._spotLightsExtension.spotLightHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
+            "    }\r",
+            "\r",
+            "    if (runtimeScene._spotLightsExtension.spotLightShadowCameraHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "        runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._spotLightsExtension.spotLightShadowCameraHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).cameraHelper);\r",
+            "        runtimeScene._spotLightsExtension.spotLightShadowCameraHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
+            "    }\r",
+            "}\r",
+            "\r",
+            ""
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Create a spot light helper.",
+      "fullName": "Create spot light helper",
+      "functionType": "Action",
+      "name": "CreateSpotLightHelper",
+      "private": true,
+      "sentence": "Create a spot light helper for _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    const tempObj = runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\"));\r",
+            "    const spotLightHelper = new THREE.SpotLightHelper(tempObj.spotLight);\r",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(spotLightHelper);\r",
+            "\r",
+            "    spotLightHelper.matrix = tempObj.spotLight.matrix;\r",
+            "    //spotLightHelper.target = tempObj.spotLight.target;\r",
+            "\r",
+            "    runtimeScene._spotLightsExtension.spotLightHelpers.set(eventsFunctionContext.getArgument(\"Identifier\"), { spotLightHelper });\r",
+            "    spotLightHelper.update();\r",
+            "    spotLightHelper.updateMatrixWorld();\r",
+            "    //spotLightHelper.target.updateMatrixWorld();\r",
+            "    spotLightHelper.dispose();\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Delete a spot light helper.",
+      "fullName": "Delete spot light helper",
+      "functionType": "Action",
+      "name": "DeleteSpotLightHelper",
+      "private": true,
+      "sentence": "Delete spot light helper for _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLightHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._spotLightsExtension.spotLightHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLightHelper);\r",
+            "    runtimeScene._spotLightsExtension.spotLightHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Create a spot light shadow camera helper.",
+      "fullName": "Create spot light shadow camera helper",
+      "functionType": "Action",
+      "name": "CreateSpotLightShadowCameraHelper",
+      "private": true,
+      "sentence": "Create a spot light shadow camera helper for _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    const tempObj = runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\"));\r",
+            "    const shadowCameraHelper = new THREE.CameraHelper(tempObj.spotLight.shadow.camera);\r",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(shadowCameraHelper);\r",
+            "    shadowCameraHelper.matrix = tempObj.spotLight.matrix;\r",
+            "    shadowCameraHelper.update();\r",
+            "    runtimeScene._spotLightsExtension.spotLightShadowCameraHelpers.set(eventsFunctionContext.getArgument(\"Identifier\"), { shadowCameraHelper });\r",
+            "    shadowCameraHelper.dispose();\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Delete a spot light shadow camera helper.",
+      "fullName": "Delete spot light shadow camera helper",
+      "functionType": "Action",
+      "name": "DeleteSpotLightShadowCameraHelper",
+      "private": true,
+      "sentence": "Delete spot light shadow camera helper for _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLightShadowCameraHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._spotLightsExtension.spotLightShadowCameraHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).cameraHelper);\r",
+            "    runtimeScene._spotLightsExtension.spotLightShadowCameraHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Shadow maps for a spot light will be updated in the next render call (for use with a none dynamic spot light).",
+      "fullName": "Update shadow maps",
+      "functionType": "Action",
+      "name": "SetNeedsUpdate",
+      "sentence": "Update shadow maps for _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {",
+            "    runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.shadow.needsUpdate = true;",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the color of a spot light.",
+      "fullName": "Color",
+      "functionType": "Action",
+      "getterName": "Color",
+      "name": "SetColor",
+      "sentence": "Change the color of _PARAM1_ to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    const rgbColor = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color\"));\r",
+            "    runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.color.set(\"rgb(\" + rgbColor[0] + \", \" + rgbColor[1] + \", \" + rgbColor[2] + \")\");\r",
+            "    if (runtimeScene._spotLightsExtension.spotLightHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "        runtimeScene._spotLightsExtension.spotLightHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLightHelper.update();\r",
+            "    }\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Color",
+          "name": "Color",
+          "type": "color"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "The color of a spot light.",
+      "fullName": "Color",
+      "functionType": "StringExpression",
+      "name": "Color",
+      "sentence": "The color of _PARAM1_ point light",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "const rgbColor = gdjs.hexToRGBColor(runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.color.getHexString());\r",
+            "eventsFunctionContext.returnValue = rgbColor[0] + \";\" + rgbColor[1] + \";\" + rgbColor[2]\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "string"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "fullName": "Intensity",
+      "functionType": "ActionWithOperator",
+      "getterName": "Intensity",
+      "name": "SetIntensity",
+      "sentence": "",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.intensity = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the intensity of a spot light.",
+      "fullName": "Intensity",
+      "functionType": "ExpressionAndCondition",
+      "name": "Intensity",
+      "sentence": "the intensity of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "  eventsFunctionContext.returnValue = runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.intensity;\r",
+            "} else {\r",
+            "  eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Point light distance.",
+      "fullName": "Distance",
+      "functionType": "ActionWithOperator",
+      "getterName": "Distance",
+      "name": "SetDistance",
+      "sentence": "Change point light _PARAM1_ distance to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.distance = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Distance (Default is 0)",
+          "name": "Distance",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the distance of a spot light.",
+      "fullName": "Distance",
+      "functionType": "ExpressionAndCondition",
+      "name": "Distance",
+      "sentence": "the distance of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "  eventsFunctionContext.returnValue = runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.distance;\r",
+            "} else {\r",
+            "  eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Point light decay.",
+      "fullName": "Decay",
+      "functionType": "ActionWithOperator",
+      "getterName": "Decay",
+      "name": "SetDecay",
+      "sentence": "Change point light _PARAM1_ decay to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.decay = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Decay (Default is 2)",
+          "name": "Decay",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the decay of a spot light.",
+      "fullName": "Decay",
+      "functionType": "ExpressionAndCondition",
+      "name": "Decay",
+      "sentence": "the decay of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "  eventsFunctionContext.returnValue = runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.decay;\r",
+            "} else {\r",
+            "  eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Enable or disable spot light casting shadows.",
+      "fullName": "Cast shadow",
+      "functionType": "Action",
+      "getterName": "CastShadow",
+      "name": "SetCastShadow",
+      "sentence": "Enable casting shadows for _PARAM1_: _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.castShadow = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "defaultValue": "yes",
+          "description": "Cast shadow",
+          "name": "CastShadow",
+          "optional": true,
+          "type": "yesorno"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "The cast shadow of a spot light.",
+      "fullName": "Cast shadow",
+      "functionType": "StringExpression",
+      "name": "CastShadow",
+      "sentence": "the cast shadow of _PARAM1_ spot light",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "  eventsFunctionContext.returnValue = runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.castShadow;\r",
+            "} else {\r",
+            "  eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "string"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the position of a spot light.",
+      "fullName": "Position",
+      "functionType": "Action",
+      "name": "SetPosition",
+      "sentence": "Change the position of _PARAM1_ to X: _PARAM2_, Y: _PARAM3_, Z: _PARAM4_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.position.set(eventsFunctionContext.getArgument(\"PositionX\"), eventsFunctionContext.getArgument(\"PositionY\"), eventsFunctionContext.getArgument(\"PositionZ\"));\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "X position",
+          "name": "PositionX",
+          "type": "expression"
+        },
+        {
+          "description": "Y position",
+          "name": "PositionY",
+          "type": "expression"
+        },
+        {
+          "description": "Z position",
+          "name": "PositionZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the target position of a spot light.",
+      "fullName": "Target position",
+      "functionType": "Action",
+      "name": "SetTargetPosition",
+      "sentence": "Change the target position of _PARAM1_ to X: _PARAM2_, Y: _PARAM3_, Z: _PARAM4_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.target.position.set(eventsFunctionContext.getArgument(\"PositionX\"), eventsFunctionContext.getArgument(\"PositionY\"), eventsFunctionContext.getArgument(\"PositionZ\"));\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "X position",
+          "name": "PositionX",
+          "type": "expression"
+        },
+        {
+          "description": "Y position",
+          "name": "PositionY",
+          "type": "expression"
+        },
+        {
+          "description": "Z position",
+          "name": "PositionZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the X position of a point light.",
+      "fullName": "X position",
+      "functionType": "ActionWithOperator",
+      "getterName": "PositionX",
+      "name": "SetPositionX",
+      "sentence": "Change point light _PARAM1_ X position to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.position.x = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "X",
+          "name": "PositionX",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the X position of a point light.",
+      "fullName": "X position",
+      "functionType": "ActionWithOperator",
+      "getterName": "TargetPositionX",
+      "name": "SetTargetPositionX",
+      "sentence": "Change point light _PARAM1_ X position to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.target.position.x = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "X",
+          "name": "PositionX",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the Y position of a point light.",
+      "fullName": "Y position",
+      "functionType": "ActionWithOperator",
+      "getterName": "PositionY",
+      "name": "SetPositionY",
+      "sentence": "Change point light _PARAM1_ Y position to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.position.y = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Y",
+          "name": "PositionY",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the Y position of a point light.",
+      "fullName": "Y position",
+      "functionType": "ActionWithOperator",
+      "getterName": "TargetPositionY",
+      "name": "SetTargetPositionY",
+      "sentence": "Change point light _PARAM1_ Y position to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.target.position.y = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Y",
+          "name": "PositionY",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the Z position of a point light.",
+      "fullName": "Z position",
+      "functionType": "ActionWithOperator",
+      "getterName": "PositionZ",
+      "name": "SetPositionZ",
+      "sentence": "Change point light _PARAM1_ Z position to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.position.z = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Z",
+          "name": "PositionZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the Z position of a point light.",
+      "fullName": "Z position",
+      "functionType": "ActionWithOperator",
+      "getterName": "TargetPositionZ",
+      "name": "SetTargetPositionZ",
+      "sentence": "Change point light _PARAM1_ Z position to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.target.position.z = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Z",
+          "name": "PositionZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the X position of spot light.",
+      "fullName": "X position",
+      "functionType": "ExpressionAndCondition",
+      "name": "PositionX",
+      "sentence": "the X position of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.position.x;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the X position of spot light target.",
+      "fullName": "Target X position",
+      "functionType": "ExpressionAndCondition",
+      "name": "TargetPositionX",
+      "sentence": "the X position of _PARAM1_ spot light target",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.target.position.x;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the Y position of spot light.",
+      "fullName": "Y position",
+      "functionType": "ExpressionAndCondition",
+      "name": "PositionY",
+      "sentence": "the Y position of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.position.y;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the Y position of spot light target.",
+      "fullName": "Target Y position",
+      "functionType": "ExpressionAndCondition",
+      "name": "TargetPositionY",
+      "sentence": "the Y position of _PARAM1_ spot light target",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.target.position.y;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the Z position of spot light.",
+      "fullName": "Z position",
+      "functionType": "ExpressionAndCondition",
+      "name": "PositionZ",
+      "sentence": "the Z position of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.position.z;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the Z position of spot light target.",
+      "fullName": "Target Z position",
+      "functionType": "ExpressionAndCondition",
+      "name": "TargetPositionZ",
+      "sentence": "the Z position of _PARAM1_ spot light target",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.target.position.z;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the shadow map size of a spot light.",
+      "fullName": "Shadow map size",
+      "functionType": "Action",
+      "name": "SetShadowMapSize",
+      "sentence": "Change the shadow map size of _PARAM1_ to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    switch (eventsFunctionContext.getArgument(\"ShadowMapSize\")) {\r",
+            "        case '256':\r",
+            "            runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.shadow.mapSize.width = 256;\r",
+            "            runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.shadow.mapSize.height = 256;\r",
+            "            break;\r",
+            "        case '512':\r",
+            "            runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.shadow.mapSize.width = 512;\r",
+            "            runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.shadow.mapSize.height = 512;\r",
+            "            break;\r",
+            "        case '1024':\r",
+            "            runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.shadow.mapSize.width = 1024;\r",
+            "            runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.shadow.mapSize.height = 1024;\r",
+            "            break;\r",
+            "        case '2048':\r",
+            "            runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.shadow.mapSize.width = 2048;\r",
+            "            runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.shadow.mapSize.height = 2048;\r",
+            "            break;\r",
+            "        case '4096':\r",
+            "            runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.shadow.mapSize.width = 4096;\r",
+            "            runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.shadow.mapSize.height = 4096;\r",
+            "            break;\r",
+            "        default:\r",
+            "            runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.shadow.mapSize.width = 512;\r",
+            "            runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.shadow.mapSize.height = 512;\r",
+            "    }\r",
+            "}\r",
+            "\r",
+            ""
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Shadow map size (default is 512)",
+          "name": "ShadowMapSize",
+          "supplementaryInformation": "[\"256\",\"512\",\"1024\",\"2048\",\"4096\"]",
+          "type": "stringWithSelector"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "The distance to the near clipping plane of the shadow camera, objects closer to the light source than this distance will not contribute to the shadow map.",
+      "fullName": "Shadow camera near",
+      "functionType": "Action",
+      "name": "SetShadowCameraNear",
+      "sentence": "Change the shadow camera near of _PARAM1_ to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.shadow.camera.near = eventsFunctionContext.getArgument(\"ShadowCameraNear\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Shadow camera near (default is 0.5)",
+          "name": "ShadowCameraNear",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "The distance to the far clipping plane of the shadow camera, objects farther away from the light source than this distance will not contribute to the shadow map.",
+      "fullName": "Shadow camera far",
+      "functionType": "Action",
+      "name": "SetShadowCameraFar",
+      "sentence": "Change the shadow camera far of _PARAM1_ to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.shadow.camera.far = eventsFunctionContext.getArgument(\"ShadowCameraFar\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Shadow camera far (default is 500)",
+          "name": "ShadowCameraFar",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Enables or disables automatic updates of the light's shadow, if you do not require dynamic lighting set this to false.",
+      "fullName": "Dynamic light",
+      "functionType": "Action",
+      "name": "SetDynamicLight",
+      "sentence": "Enable dynamic light for _PARAM1_: _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.shadow.autoUpdate = eventsFunctionContext.getArgument(\"AutoUpdate\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "defaultValue": "yes",
+          "description": "Dynamic light",
+          "name": "AutoUpdate",
+          "optional": true,
+          "type": "yesorno"
+        }
+      ],
+      "objectGroups": []
+    }
+  ],
+  "eventsBasedBehaviors": [],
+  "eventsBasedObjects": []
+}
