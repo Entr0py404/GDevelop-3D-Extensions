@@ -727,8 +727,8 @@
       "objectGroups": []
     },
     {
-      "description": "Convert material type",
-      "fullName": "Convert material",
+      "description": "Convert material type of all materials.",
+      "fullName": "Convert material type",
       "functionType": "Action",
       "group": "material",
       "name": "ConvertMaterialType",
