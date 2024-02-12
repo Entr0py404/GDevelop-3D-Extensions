@@ -8,7 +8,7 @@
   "name": "PointLights",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/63564f3ae7ec22f1bc63068b1eef93c5dafb490796ea338c2a6d6e857f8d7e9c_lightbulb-outline.svg",
   "shortDescription": "A light that gets emitted from a single point in all directions.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": [
     "A light that gets emitted from a single point in all directions.",
     "A common use case for this is to replicate the light emitted from a bare lightbulb."
@@ -604,6 +604,207 @@
           "inlineCode": [
             "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
             "  eventsFunctionContext.returnValue = runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.decay;\r",
+            "} else {\r",
+            "  eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Point light decay.",
+      "fullName": "Decay",
+      "functionType": "ActionWithOperator",
+      "getterName": "ShadowBias",
+      "name": "SetShadowBias",
+      "sentence": "Change point light _PARAM1_ decay to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.bias = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Decay (Default is 2)",
+          "name": "Decay",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the shadow bias of a point light, how much to add or subtract from the normalized depth when deciding whether a surface is in shadow.\nThe default is 0. Very tiny adjustments here (in the order of 0.0001) may help reduce artifacts in shadows",
+      "fullName": "Shadow bias",
+      "functionType": "ExpressionAndCondition",
+      "name": "ShadowBias",
+      "sentence": "the shadow bias of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "  eventsFunctionContext.returnValue = runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.bias;\r",
+            "} else {\r",
+            "  eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Point light decay.",
+      "fullName": "Decay",
+      "functionType": "ActionWithOperator",
+      "getterName": "ShadowNormalBias",
+      "name": "SetShadowNormalBias",
+      "sentence": "Change point light _PARAM1_ decay to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.normalBias = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Decay (Default is 2)",
+          "name": "Decay",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the shadow normal bias of a point light, how much the position used to query the shadow map is offset along the object normal. The default is 0. Increasing this value can be used to reduce shadow acne especially in large scenes where light shines onto geometry at a shallow angle. The cost is that shadows may appear distorted.",
+      "fullName": "Shadow normal bias",
+      "functionType": "ExpressionAndCondition",
+      "name": "ShadowNormalBias",
+      "sentence": "the shadow normal bias of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "  eventsFunctionContext.returnValue = runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.normalBias;\r",
+            "} else {\r",
+            "  eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Point light decay.",
+      "fullName": "Decay",
+      "functionType": "ActionWithOperator",
+      "getterName": "ShadowRadius",
+      "name": "SetShadowRadius",
+      "sentence": "Change point light _PARAM1_ decay to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.radius = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Decay (Default is 2)",
+          "name": "Decay",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the shadow radius of a point light, values greater than 1 will blur the edges of the shadow. High values will cause unwanted banding effects in the shadows - a greater mapSize will allow for a higher value to be used here before these effects become visible. If WebGLRenderer.shadowMap.type is set to PCFSoftShadowMap, radius has no effect and it is recommended to increase softness by decreasing mapSize instead.",
+      "fullName": "Shadow radius",
+      "functionType": "ExpressionAndCondition",
+      "name": "ShadowRadius",
+      "sentence": "the shadow radius of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "  eventsFunctionContext.returnValue = runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.shadow.radius;\r",
             "} else {\r",
             "  eventsFunctionContext.returnValue = 0;\r",
             "}"

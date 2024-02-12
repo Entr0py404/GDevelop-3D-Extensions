@@ -8,7 +8,7 @@
   "name": "MeshMaterial",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/600b4d8f49adb189e6e7371533ed205e34bf10e5b2636b0748f0877ba50c7ea8_alpha-m-circle-outline.svg",
   "shortDescription": "Modify material properties.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Allows you to adjust material properties of 3D objects.",
   "tags": [
     "3d",
@@ -33,14 +33,16 @@
             "const rgbcolor = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color\"));",
             "const hexColor = \"0x\" + gdjs.rgbToHex(rgbcolor[0], rgbcolor[1], rgbcolor[2]);",
             "objects[0].get3DRendererObject().traverse((node) => {",
-            "    if (node instanceof THREE.Mesh && node.material) {",
+            "    if (node instanceof THREE.Mesh && node.material && node.material.color !== undefined) {",
             "        node.material.color.setHex(hexColor);",
+            "    } else {",
+            "        console.log('Color property does not exist for this material type.');",
             "    }",
             "});"
           ],
           "parameterObjects": "Object",
           "useStrict": true,
-          "eventsSheetExpanded": false
+          "eventsSheetExpanded": true
         }
       ],
       "parameters": [
@@ -70,7 +72,7 @@
           "type": "BuiltinCommonInstructions::JsCode",
           "inlineCode": [
             "objects[0].get3DRendererObject().traverse((node) => {",
-            "    if (node instanceof THREE.Mesh && node.material) {",
+            "    if (node instanceof THREE.Mesh && node.material && node.material.opacity !== undefined) {",
             "        node.material.opacity = eventsFunctionContext.getArgument(\"Opacity\");",
             "        node.material.transparent = eventsFunctionContext.getArgument(\"Transparent\");",
             "    }",
@@ -319,7 +321,6 @@
       "sentence": "Change the anisotropy of _PARAM1_ materials to _PARAM2_",
       "events": [
         {
-          "disabled": true,
           "type": "BuiltinCommonInstructions::JsCode",
           "inlineCode": [
             "objects[0].get3DRendererObject().traverse((node) => {",
@@ -561,6 +562,301 @@
           "description": "Emissive intensity",
           "name": "EmissiveIntensity",
           "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change which side of faces cast shadows for all materials.",
+      "fullName": "Shadow side",
+      "functionType": "Action",
+      "group": "material",
+      "name": "ShadowSide",
+      "sentence": "Change the shadow side of _PARAM1_ materials to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "objects[0].get3DRendererObject().traverse((node) => {\r",
+            "    if (node instanceof THREE.Mesh && node.material) {\r",
+            "        switch (eventsFunctionContext.getArgument(\"Side\")) {\r",
+            "            case 'Front side':\r",
+            "                node.material.shadowSide = THREE.FrontSide;\r",
+            "                break;\r",
+            "            case 'Back side':\r",
+            "                node.material.shadowSide = THREE.BackSide;\r",
+            "                break;\r",
+            "            case 'Double side':\r",
+            "                node.material.shadowSide = THREE.DoubleSide;\r",
+            "                break;\r",
+            "            default:\r",
+            "                node.material.shadowSide = THREE.DoubleSide;\r",
+            "        }\r",
+            "    }\r",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Shadow side",
+          "name": "Side",
+          "supplementaryInformation": "[\"Front side\",\"Back side\",\"Double side\"]",
+          "type": "stringWithSelector"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Enable or disable whether all materials are tone mapped according to the renderer's toneMapping setting.",
+      "fullName": "Tone mapped",
+      "functionType": "Action",
+      "group": "material",
+      "name": "ToneMapped",
+      "sentence": "Enable tone mapping of _PARAM1_ materials: _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "objects[0].get3DRendererObject().traverse((node) => {\r",
+            "    if (node instanceof THREE.Mesh && node.material) {\r",
+            "        node.material.toneMapped = eventsFunctionContext.getArgument(\"ToneMapped\");\r",
+            "    }\r",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "defaultValue": "yes",
+          "description": "Tone mapped",
+          "name": "ToneMapped",
+          "optional": true,
+          "type": "yesorno"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change material type of all materials.",
+      "fullName": "Change material type",
+      "functionType": "Action",
+      "group": "material",
+      "name": "ChangeMaterialType",
+      "sentence": "Change material type of _PARAM1_ materials to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (node instanceof THREE.Mesh && node.material) {",
+            "        let targetMaterial;",
+            "        switch (eventsFunctionContext.getArgument(\"MaterialType\")) {",
+            "            case 'Basic':",
+            "                targetMaterial = new THREE.MeshBasicMaterial();",
+            "                break;",
+            "            case 'Lambert':",
+            "                targetMaterial = new THREE.MeshLambertMaterial();",
+            "                break;",
+            "            case 'Phong':",
+            "                targetMaterial = new THREE.MeshPhongMaterial();",
+            "                break;",
+            "            case 'Toon':",
+            "                targetMaterial = new THREE.MeshToonMaterial();",
+            "                break;",
+            "            case 'Standard':",
+            "                targetMaterial = new THREE.MeshStandardMaterial();",
+            "                break;",
+            "            case 'Normal':",
+            "                targetMaterial = new THREE.MeshNormalMaterial();",
+            "                break;",
+            "            case 'Depth':",
+            "                targetMaterial = new THREE.MeshDepthMaterial();",
+            "                break;",
+            "            case 'Shadow':",
+            "                targetMaterial = new THREE.ShadowMaterial();",
+            "                break;",
+            "            default:",
+            "                targetMaterial = new THREE.MeshBasicMaterial();",
+            "                break;",
+            "        }",
+            "",
+            "        node.material = targetMaterial;",
+            "",
+            "    }",
+            "});",
+            ""
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Material type",
+          "name": "MaterialType",
+          "supplementaryInformation": "[\"Basic\",\"Lambert\",\"Phong\",\"Toon\",\"Standard\",\"Normal\",\"Depth\",\"Shadow\"]",
+          "type": "stringWithSelector"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Convert material type",
+      "fullName": "Convert material",
+      "functionType": "Action",
+      "group": "material",
+      "name": "ConvertMaterialType",
+      "sentence": "Convert material type of _PARAM1_ materials to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (node instanceof THREE.Mesh && node.material) {",
+            "        let targetMaterial;",
+            "        switch (eventsFunctionContext.getArgument(\"MaterialType\")) {",
+            "            case 'Basic':",
+            "                targetMaterial = new THREE.MeshBasicMaterial();",
+            "                break;",
+            "            case 'Lambert':",
+            "                targetMaterial = new THREE.MeshLambertMaterial();",
+            "                break;",
+            "            case 'Phong':",
+            "                targetMaterial = new THREE.MeshPhongMaterial();",
+            "                break;",
+            "            case 'Toon':",
+            "                targetMaterial = new THREE.MeshToonMaterial();",
+            "                break;",
+            "            case 'Standard':",
+            "                targetMaterial = new THREE.MeshStandardMaterial();",
+            "                break;",
+            "            case 'Normal':",
+            "                targetMaterial = new THREE.MeshNormalMaterial();",
+            "                break;",
+            "            case 'Depth':",
+            "                targetMaterial = new THREE.MeshDepthMaterial();",
+            "                break;",
+            "            case 'Shadow':",
+            "                targetMaterial = new THREE.ShadowMaterial();",
+            "                break;",
+            "            default:",
+            "                console.error('Unsupported target material type');",
+            "                break;",
+            "        }",
+            "",
+            "        targetMaterial.blending = node.material.blending;",
+            "        targetMaterial.side = node.material.side;",
+            "        targetMaterial.vertexColors = node.material.vertexColors;",
+            "        targetMaterial.opacity = node.material.opacity;",
+            "        targetMaterial.transparent = node.material.transparent;",
+            "        targetMaterial.blendSrc = node.material.blendSrc;",
+            "        targetMaterial.blendDst = node.material.blendDst;",
+            "        targetMaterial.blendEquation = node.material.blendEquation;",
+            "        targetMaterial.blendSrcAlpha = node.material.blendSrcAlpha;",
+            "        targetMaterial.blendDstAlpha = node.material.blendDstAlpha;",
+            "        targetMaterial.blendEquationAlpha = node.material.blendEquationAlpha;",
+            "        targetMaterial.depthFunc = node.material.depthFunc;",
+            "        targetMaterial.depthTest = node.material.depthTest;",
+            "        targetMaterial.depthWrite = node.material.depthWrite;",
+            "        targetMaterial.stencilWriteMask = node.material.stencilWriteMask;",
+            "        targetMaterial.stencilFunc = node.material.stencilFunc;",
+            "        targetMaterial.stencilRef = node.material.stencilRef;",
+            "        targetMaterial.stencilFuncMask = node.material.stencilFuncMask;",
+            "        targetMaterial.stencilFail = node.material.stencilFail;",
+            "        targetMaterial.stencilZFail = node.material.stencilZFail;",
+            "        targetMaterial.stencilZPass = node.material.stencilZPass;",
+            "        targetMaterial.stencilWrite = node.material.stencilWrite;",
+            "        targetMaterial.clippingPlanes = node.material.clippingPlanes;",
+            "        targetMaterial.clipIntersection = node.material.clipIntersection;",
+            "        targetMaterial.clipShadows = node.material.clipShadows;",
+            "        targetMaterial.shadowSide = node.material.shadowSide;",
+            "        targetMaterial.colorWrite = node.material.colorWrite;",
+            "        targetMaterial.precision = node.material.precision;",
+            "        targetMaterial.polygonOffset = node.material.polygonOffset;",
+            "        targetMaterial.polygonOffsetFactor = node.material.polygonOffsetFactor;",
+            "        targetMaterial.polygonOffsetUnits = node.material.polygonOffsetUnits;",
+            "        targetMaterial.dithering = node.material.dithering;",
+            "        targetMaterial.alphaToCoverage = node.material.alphaToCoverage;",
+            "        targetMaterial.premultipliedAlpha = node.material.premultipliedAlpha;",
+            "        targetMaterial.forceSinglePass = node.material.forceSinglePass;",
+            "        targetMaterial.visible = node.material.visible;",
+            "        targetMaterial.toneMapped = node.material.toneMapped;",
+            "        targetMaterial._alphaTest = node.material._alphaTest;",
+            "",
+            "",
+            "        targetMaterial.color = node.material.color;",
+            "        targetMaterial.map = node.material.map;",
+            "        targetMaterial.lightMap = node.material.lightMap;",
+            "        targetMaterial.lightMapIntensity = node.material.lightMapIntensity;",
+            "        targetMaterial.aoMap = node.material.aoMap;",
+            "        targetMaterial.aoMapIntensity = node.material.aoMapIntensity;",
+            "        //targetMaterial.emissive = node.material.emissive;",
+            "        targetMaterial.emissiveIntensity = node.material.emissiveIntensity;",
+            "        targetMaterial.emissiveMap = node.material.emissiveMap;",
+            "        targetMaterial.bumpMap = node.material.bumpMap;",
+            "        targetMaterial.bumpScale = node.material.bumpScale;",
+            "        targetMaterial.normalMap = node.material.normalMap;",
+            "        //targetMaterial.normalScale = node.material.normalScale;",
+            "        targetMaterial.displacementMap = node.material.displacementMap;",
+            "        targetMaterial.displacementScale = node.material.displacementScale;",
+            "        targetMaterial.displacementBias = node.material.displacementBias;",
+            "        targetMaterial.specularMap = node.material.specularMap;",
+            "        targetMaterial.alphaMap = node.material.alphaMap;",
+            "        targetMaterial.envMap = node.material.envMap;",
+            "        targetMaterial.combine = node.material.combine;",
+            "        targetMaterial.reflectivity = node.material.reflectivity;",
+            "        targetMaterial.refractionRatio = node.material.refractionRatio;",
+            "",
+            "",
+            "        node.material = targetMaterial;",
+            "",
+            "    }",
+            "});",
+            ""
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Material type",
+          "name": "MaterialType",
+          "supplementaryInformation": "[\"Basic\",\"Lambert\",\"Phong\",\"Toon\",\"Standard\",\"Normal\",\"Depth\",\"Shadow\"]",
+          "type": "stringWithSelector"
         }
       ],
       "objectGroups": []
@@ -887,14 +1183,12 @@
       "sentence": "Change the alpha hash of _PARAM1_ materials to _PARAM2_",
       "events": [
         {
-          "disabled": true,
           "type": "BuiltinCommonInstructions::JsCode",
           "inlineCode": [
             "objects[0].get3DRendererObject().traverse((node) => {",
             "    if (node instanceof THREE.Mesh && node.material) {",
             "        //node.material.opacity = 0.05; // For Testing REMOVE THIS",
             "        node.material.alphaHash = eventsFunctionContext.getArgument(\"AlphaHash\");",
-            "        node.material.needsUpdate = true; // For Testing REMOVE THIS",
             "    }",
             "});"
           ],
@@ -951,50 +1245,6 @@
             "});",
             "",
             ""
-          ],
-          "parameterObjects": "Object",
-          "useStrict": true,
-          "eventsSheetExpanded": true
-        }
-      ],
-      "parameters": [
-        {
-          "description": "3D model",
-          "name": "Object",
-          "supplementaryInformation": "Scene3D::Model3DObject",
-          "type": "objectList"
-        }
-      ],
-      "objectGroups": []
-    },
-    {
-      "description": "Convert all materials to standard materials.",
-      "fullName": "Convert to standard material",
-      "functionType": "Action",
-      "group": "material",
-      "name": "ConvertToStandardMaterial",
-      "private": true,
-      "sentence": "Convert _PARAM1_ materials to standard materials",
-      "events": [
-        {
-          "disabled": true,
-          "type": "BuiltinCommonInstructions::JsCode",
-          "inlineCode": [
-            "objects[0].get3DRendererObject().traverse((node) => {",
-            "    if (node instanceof THREE.Mesh && node.material) {",
-            "        //const existingMesh = objects[0].get3DRendererObject();",
-            "        const existingMaterial = node.material;",
-            "        const newMaterial = new THREE.MeshStandardMaterial();",
-            "        // Copy relevant properties from the existing material to the new material",
-            "        //if (existingMaterial.map) {",
-            "        // newMaterial.map = existingMaterial.map; // Copy texture map if applicable",
-            "        //}",
-            "        newMaterial.color.copy(existingMaterial.color); // Copy color",
-            "        newMaterial.metalness = 0;",
-            "        newMaterial.roughness = 1;",
-            "        node.material = newMaterial;",
-            "    }",
-            "});"
           ],
           "parameterObjects": "Object",
           "useStrict": true,
