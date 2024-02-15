@@ -8,7 +8,7 @@
   "name": "MeshMaterial",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/600b4d8f49adb189e6e7371533ed205e34bf10e5b2636b0748f0877ba50c7ea8_alpha-m-circle-outline.svg",
   "shortDescription": "Modify material properties.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Allows you to adjust material properties of 3D objects.",
   "tags": [
     "3d",
@@ -567,6 +567,46 @@
       "objectGroups": []
     },
     {
+      "description": "Change the matcap texture of all materials.",
+      "fullName": "Matcap texture",
+      "functionType": "Action",
+      "group": "material",
+      "name": "MatcapTexture",
+      "sentence": "Change the matcap texture of _PARAM1_ materials to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (node instanceof THREE.Mesh && node.material) {",
+            "        var loader = new THREE.TextureLoader();",
+            "        loader.load(eventsFunctionContext.getArgument(\"Texture\").substring(eventsFunctionContext.getArgument(\"Texture\").lastIndexOf('\\\\') + 1), function (texture) {",
+            "            node.material.matcap = texture;",
+            "        });",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Matcap texture",
+          "name": "Texture",
+          "type": "imageResource"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
       "description": "Change which side of faces cast shadows for all materials.",
       "fullName": "Shadow side",
       "functionType": "Action",
@@ -676,6 +716,9 @@
             "            case 'Lambert':",
             "                targetMaterial = new THREE.MeshLambertMaterial();",
             "                break;",
+            "            case 'Matcap':",
+            "                targetMaterial = new THREE.MeshMatcapMaterial();",
+            "                break;",
             "            case 'Phong':",
             "                targetMaterial = new THREE.MeshPhongMaterial();",
             "                break;",
@@ -720,8 +763,93 @@
         {
           "description": "Material type",
           "name": "MaterialType",
-          "supplementaryInformation": "[\"Basic\",\"Lambert\",\"Phong\",\"Toon\",\"Standard\",\"Normal\",\"Depth\",\"Shadow\"]",
+          "supplementaryInformation": "[\"Basic\",\"Lambert\",\"Phong\",\"Toon\",\"Standard\",\"Normal\",\"Depth\",\"Shadow\",\"Matcap\"]",
           "type": "stringWithSelector"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change material type by material slot.",
+      "fullName": "Change material type by material slot",
+      "functionType": "Action",
+      "group": "material by slot",
+      "name": "ChangeMaterialTypeBySlot",
+      "sentence": "Change material type of _PARAM1_ material in slot _PARAM3_ to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "const slotNum = eventsFunctionContext.getArgument(\"Slot\");",
+            "let index = 0;",
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (index <= slotNum && node instanceof THREE.Mesh && node.material) {",
+            "        if (index === slotNum) {",
+            "            let targetMaterial;",
+            "            switch (eventsFunctionContext.getArgument(\"MaterialType\")) {",
+            "                case 'Basic':",
+            "                    targetMaterial = new THREE.MeshBasicMaterial();",
+            "                    break;",
+            "                case 'Lambert':",
+            "                    targetMaterial = new THREE.MeshLambertMaterial();",
+            "                    break;",
+            "                case 'Matcap':",
+            "                    targetMaterial = new THREE.MeshMatcapMaterial();",
+            "                    break;",
+            "                case 'Phong':",
+            "                    targetMaterial = new THREE.MeshPhongMaterial();",
+            "                    break;",
+            "                case 'Toon':",
+            "                    targetMaterial = new THREE.MeshToonMaterial();",
+            "                    break;",
+            "                case 'Standard':",
+            "                    targetMaterial = new THREE.MeshStandardMaterial();",
+            "                    break;",
+            "                case 'Normal':",
+            "                    targetMaterial = new THREE.MeshNormalMaterial();",
+            "                    break;",
+            "                case 'Depth':",
+            "                    targetMaterial = new THREE.MeshDepthMaterial();",
+            "                    break;",
+            "                case 'Shadow':",
+            "                    targetMaterial = new THREE.ShadowMaterial();",
+            "                    break;",
+            "                default:",
+            "                    targetMaterial = new THREE.MeshBasicMaterial();",
+            "                    break;",
+            "            }",
+            "",
+            "            node.material = targetMaterial;",
+            "",
+            "        }",
+            "        index++;",
+            "    }",
+            "});",
+            "",
+            ""
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Material type",
+          "name": "MaterialType",
+          "supplementaryInformation": "[\"Basic\",\"Lambert\",\"Phong\",\"Toon\",\"Standard\",\"Normal\",\"Depth\",\"Shadow\",\"Matcap\"]",
+          "type": "stringWithSelector"
+        },
+        {
+          "description": "Slot",
+          "name": "Slot",
+          "type": "expression"
         }
       ],
       "objectGroups": []
@@ -746,6 +874,9 @@
             "                break;",
             "            case 'Lambert':",
             "                targetMaterial = new THREE.MeshLambertMaterial();",
+            "                break;",
+            "            case 'Matcap':",
+            "                targetMaterial = new THREE.MeshMatcapMaterial();",
             "                break;",
             "            case 'Phong':",
             "                targetMaterial = new THREE.MeshPhongMaterial();",
@@ -855,8 +986,155 @@
         {
           "description": "Material type",
           "name": "MaterialType",
-          "supplementaryInformation": "[\"Basic\",\"Lambert\",\"Phong\",\"Toon\",\"Standard\",\"Normal\",\"Depth\",\"Shadow\"]",
+          "supplementaryInformation": "[\"Basic\",\"Lambert\",\"Phong\",\"Toon\",\"Standard\",\"Normal\",\"Depth\",\"Shadow\",\"Matcap\"]",
           "type": "stringWithSelector"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Convert material type by material slot.",
+      "fullName": "Convert material type by material slot",
+      "functionType": "Action",
+      "group": "material by slot",
+      "name": "ConvertMaterialTypeBySlot",
+      "sentence": "Convert material type of _PARAM1_ material in slot _PARAM3_ to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "const slotNum = eventsFunctionContext.getArgument(\"Slot\");",
+            "let index = 0;",
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (index <= slotNum && node instanceof THREE.Mesh && node.material) {",
+            "        if (index === slotNum) {",
+            "            let targetMaterial;",
+            "            switch (eventsFunctionContext.getArgument(\"MaterialType\")) {",
+            "                case 'Basic':",
+            "                    targetMaterial = new THREE.MeshBasicMaterial();",
+            "                    break;",
+            "                case 'Lambert':",
+            "                    targetMaterial = new THREE.MeshLambertMaterial();",
+            "                    break;",
+            "                case 'Matcap':",
+            "                    targetMaterial = new THREE.MeshMatcapMaterial();",
+            "                    break;",
+            "                case 'Phong':",
+            "                    targetMaterial = new THREE.MeshPhongMaterial();",
+            "                    break;",
+            "                case 'Toon':",
+            "                    targetMaterial = new THREE.MeshToonMaterial();",
+            "                    break;",
+            "                case 'Standard':",
+            "                    targetMaterial = new THREE.MeshStandardMaterial();",
+            "                    break;",
+            "                case 'Normal':",
+            "                    targetMaterial = new THREE.MeshNormalMaterial();",
+            "                    break;",
+            "                case 'Depth':",
+            "                    targetMaterial = new THREE.MeshDepthMaterial();",
+            "                    break;",
+            "                case 'Shadow':",
+            "                    targetMaterial = new THREE.ShadowMaterial();",
+            "                    break;",
+            "                default:",
+            "                    console.error('Unsupported target material type');",
+            "                    break;",
+            "            }",
+            "",
+            "            targetMaterial.blending = node.material.blending;",
+            "            targetMaterial.side = node.material.side;",
+            "            targetMaterial.vertexColors = node.material.vertexColors;",
+            "            targetMaterial.opacity = node.material.opacity;",
+            "            targetMaterial.transparent = node.material.transparent;",
+            "            targetMaterial.blendSrc = node.material.blendSrc;",
+            "            targetMaterial.blendDst = node.material.blendDst;",
+            "            targetMaterial.blendEquation = node.material.blendEquation;",
+            "            targetMaterial.blendSrcAlpha = node.material.blendSrcAlpha;",
+            "            targetMaterial.blendDstAlpha = node.material.blendDstAlpha;",
+            "            targetMaterial.blendEquationAlpha = node.material.blendEquationAlpha;",
+            "            targetMaterial.depthFunc = node.material.depthFunc;",
+            "            targetMaterial.depthTest = node.material.depthTest;",
+            "            targetMaterial.depthWrite = node.material.depthWrite;",
+            "            targetMaterial.stencilWriteMask = node.material.stencilWriteMask;",
+            "            targetMaterial.stencilFunc = node.material.stencilFunc;",
+            "            targetMaterial.stencilRef = node.material.stencilRef;",
+            "            targetMaterial.stencilFuncMask = node.material.stencilFuncMask;",
+            "            targetMaterial.stencilFail = node.material.stencilFail;",
+            "            targetMaterial.stencilZFail = node.material.stencilZFail;",
+            "            targetMaterial.stencilZPass = node.material.stencilZPass;",
+            "            targetMaterial.stencilWrite = node.material.stencilWrite;",
+            "            targetMaterial.clippingPlanes = node.material.clippingPlanes;",
+            "            targetMaterial.clipIntersection = node.material.clipIntersection;",
+            "            targetMaterial.clipShadows = node.material.clipShadows;",
+            "            targetMaterial.shadowSide = node.material.shadowSide;",
+            "            targetMaterial.colorWrite = node.material.colorWrite;",
+            "            targetMaterial.precision = node.material.precision;",
+            "            targetMaterial.polygonOffset = node.material.polygonOffset;",
+            "            targetMaterial.polygonOffsetFactor = node.material.polygonOffsetFactor;",
+            "            targetMaterial.polygonOffsetUnits = node.material.polygonOffsetUnits;",
+            "            targetMaterial.dithering = node.material.dithering;",
+            "            targetMaterial.alphaToCoverage = node.material.alphaToCoverage;",
+            "            targetMaterial.premultipliedAlpha = node.material.premultipliedAlpha;",
+            "            targetMaterial.forceSinglePass = node.material.forceSinglePass;",
+            "            targetMaterial.visible = node.material.visible;",
+            "            targetMaterial.toneMapped = node.material.toneMapped;",
+            "            targetMaterial._alphaTest = node.material._alphaTest;",
+            "",
+            "",
+            "            targetMaterial.color = node.material.color;",
+            "            targetMaterial.map = node.material.map;",
+            "            targetMaterial.lightMap = node.material.lightMap;",
+            "            targetMaterial.lightMapIntensity = node.material.lightMapIntensity;",
+            "            targetMaterial.aoMap = node.material.aoMap;",
+            "            targetMaterial.aoMapIntensity = node.material.aoMapIntensity;",
+            "            //targetMaterial.emissive = node.material.emissive;",
+            "            targetMaterial.emissiveIntensity = node.material.emissiveIntensity;",
+            "            targetMaterial.emissiveMap = node.material.emissiveMap;",
+            "            targetMaterial.bumpMap = node.material.bumpMap;",
+            "            targetMaterial.bumpScale = node.material.bumpScale;",
+            "            targetMaterial.normalMap = node.material.normalMap;",
+            "            //targetMaterial.normalScale = node.material.normalScale;",
+            "            targetMaterial.displacementMap = node.material.displacementMap;",
+            "            targetMaterial.displacementScale = node.material.displacementScale;",
+            "            targetMaterial.displacementBias = node.material.displacementBias;",
+            "            targetMaterial.specularMap = node.material.specularMap;",
+            "            targetMaterial.alphaMap = node.material.alphaMap;",
+            "            targetMaterial.envMap = node.material.envMap;",
+            "            targetMaterial.combine = node.material.combine;",
+            "            targetMaterial.reflectivity = node.material.reflectivity;",
+            "            targetMaterial.refractionRatio = node.material.refractionRatio;",
+            "",
+            "            node.material = targetMaterial;",
+            "",
+            "        }",
+            "        index++;",
+            "    }",
+            "});",
+            ""
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Material type",
+          "name": "MaterialType",
+          "supplementaryInformation": "[\"Basic\",\"Lambert\",\"Phong\",\"Toon\",\"Standard\",\"Normal\",\"Depth\",\"Shadow\",\"Matcap\"]",
+          "type": "stringWithSelector"
+        },
+        {
+          "description": "Slot",
+          "name": "Slot",
+          "type": "expression"
         }
       ],
       "objectGroups": []
@@ -911,6 +1189,56 @@
       "objectGroups": []
     },
     {
+      "description": "Change matcap texture by material slot.",
+      "fullName": "Matcap texture by material slot",
+      "functionType": "Action",
+      "group": "material by slot",
+      "name": "MatcapTextureBySlot",
+      "sentence": "Change the matcap texture of _PARAM1_ material in slot _PARAM3_ to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "const slotNum = eventsFunctionContext.getArgument(\"Slot\");",
+            "let index = 0;",
+            "objects[0].get3DRendererObject().traverse((node) => {",
+            "    if (index <= slotNum && node instanceof THREE.Mesh && node.material) {",
+            "        if (index === slotNum) {",
+            "            var loader = new THREE.TextureLoader();",
+            "            loader.load(eventsFunctionContext.getArgument(\"Texture\").substring(eventsFunctionContext.getArgument(\"Texture\").lastIndexOf('\\\\') + 1), function (texture) {",
+            "                node.material.matcap = texture;",
+            "            });",
+            "        }",
+            "        index++;",
+            "    }",
+            "});"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D model",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "description": "Texture",
+          "name": "Texture",
+          "type": "imageResource"
+        },
+        {
+          "description": "Slot",
+          "name": "Slot",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
       "description": "Enable or disable the visibility of a material by material slot.",
       "fullName": "Visibility of material by material slot",
       "functionType": "Action",
@@ -934,7 +1262,7 @@
           ],
           "parameterObjects": "Object",
           "useStrict": true,
-          "eventsSheetExpanded": false
+          "eventsSheetExpanded": true
         }
       ],
       "parameters": [
