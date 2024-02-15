@@ -1,0 +1,167 @@
+{
+  "author": "",
+  "category": "",
+  "extensionNamespace": "",
+  "fullName": "Environment Map",
+  "helpPath": "",
+  "iconUrl": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0ibWRpLXdhbGxwYXBlciIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGQ9Ik00LDRIMTFWMkg0QTIsMiAwIDAsMCAyLDRWMTFINFY0TTEwLDEzTDYsMThIMThMMTUsMTRMMTIuOTcsMTYuNzFMMTAsMTNNMTcsOC41QTEuNSwxLjUgMCAwLDAgMTUuNSw3QTEuNSwxLjUgMCAwLDAgMTQsOC41QTEuNSwxLjUgMCAwLDAgMTUuNSwxMEExLjUsMS41IDAgMCwwIDE3LDguNU0yMCwySDEzVjRIMjBWMTFIMjJWNEEyLDIgMCAwLDAgMjAsMk0yMCwyMEgxM1YyMkgyMEEyLDIgMCAwLDAgMjIsMjBWMTNIMjBWMjBNNCwxM0gyVjIwQTIsMiAwIDAsMCA0LDIySDExVjIwSDRWMTNaIiAvPjwvc3ZnPg==",
+  "name": "EnvironmentMap",
+  "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/bf56a2d7d8d3744982027e66c8f1c9d4f29fd139e3266fa1b474d35610e76ec3_wallpaper.svg",
+  "shortDescription": "Environment mapping.",
+  "version": "0.0.2",
+  "description": "environment mapping or reflection mapping, is an efficient image-based lighting technique for approximating the appearance of a reflective surface by means of a precomputed texture.",
+  "tags": [
+    "3d"
+  ],
+  "authorIds": [
+    "q8ubdigLvIRXLxsJDDTaokO41mc2"
+  ],
+  "dependencies": [],
+  "eventsFunctions": [
+    {
+      "description": "Sets the environment map (px, nx, pz, nz, py, ny).",
+      "fullName": "Environment map (Cubemap)",
+      "functionType": "Action",
+      "name": "SetEnvironmentMap",
+      "sentence": "Set the environment map to px: _PARAM1_, nx: _PARAM2_, pz: _PARAM3_, nz: _PARAM4_, py: _PARAM5_, ny: _PARAM6_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "const texture = new THREE.CubeTextureLoader().load([",
+            "    eventsFunctionContext.getArgument(\"PX\").substring(eventsFunctionContext.getArgument(\"PX\").lastIndexOf('\\\\') + 1),",
+            "    eventsFunctionContext.getArgument(\"NX\").substring(eventsFunctionContext.getArgument(\"NX\").lastIndexOf('\\\\') + 1),",
+            "    eventsFunctionContext.getArgument(\"PZ\").substring(eventsFunctionContext.getArgument(\"PZ\").lastIndexOf('\\\\') + 1),",
+            "    eventsFunctionContext.getArgument(\"NZ\").substring(eventsFunctionContext.getArgument(\"NZ\").lastIndexOf('\\\\') + 1),",
+            "    eventsFunctionContext.getArgument(\"PY\").substring(eventsFunctionContext.getArgument(\"PY\").lastIndexOf('\\\\') + 1),",
+            "    eventsFunctionContext.getArgument(\"NY\").substring(eventsFunctionContext.getArgument(\"NY\").lastIndexOf('\\\\') + 1),",
+            "]);",
+            "runtimeScene.getLayer('').getRenderer().getThreeScene().environment = texture;",
+            "//runtimeScene.getLayer('').getRenderer().getThreeScene().background = texture;"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "px",
+          "name": "PX",
+          "type": "imageResource"
+        },
+        {
+          "description": "nx",
+          "name": "NX",
+          "type": "imageResource"
+        },
+        {
+          "description": "pz",
+          "name": "PZ",
+          "type": "imageResource"
+        },
+        {
+          "description": "nz",
+          "name": "NZ",
+          "type": "imageResource"
+        },
+        {
+          "description": "py",
+          "name": "PY",
+          "type": "imageResource"
+        },
+        {
+          "description": "ny",
+          "name": "NY",
+          "type": "imageResource"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Use this method if you want to convert an equirectangular panorama to the cubemap format.",
+      "fullName": "Environment map (Equirectangular Panorama)",
+      "functionType": "Action",
+      "name": "Function",
+      "private": true,
+      "sentence": "Environment map (Equirectangular Panorama) _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "const textureLoader = new THREE.TextureLoader();",
+            "textureLoader.load(eventsFunctionContext.getArgument(\"Panorama\").substring(eventsFunctionContext.getArgument(\"Panorama\").lastIndexOf('\\\\') + 1), function (texture) {",
+            "    const pmremGenerator = new THREE.PMREMGenerator(runtimeScene.getGame().getRenderer().getThreeRenderer());",
+            "    const cubeRenderTarget = pmremGenerator.fromEquirectangular(texture);",
+            "    const cubeMapTexture = cubeRenderTarget.texture; ",
+            "    pmremGenerator.dispose();",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().environment = cubeMapTexture;",
+            "});"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        },
+        {
+          "disabled": true,
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "// Load equirectangular texture",
+            "const textureLoader = new THREE.TextureLoader();",
+            "textureLoader.load(eventsFunctionContext.getArgument(\"Panorama\").substring(eventsFunctionContext.getArgument(\"Panorama\").lastIndexOf('\\\\') + 1), function (texture) {",
+            "   ",
+            "    // Generate cubemap texture from equirectangular texture",
+            "    const pmremGenerator = new THREE.PMREMGenerator(runtimeScene.getGame().getRenderer().getThreeRenderer());",
+            "    const cubeRenderTarget = pmremGenerator.fromEquirectangular(texture);",
+            "    const cubeMapTexture = cubeRenderTarget.texture; ",
+            "",
+            "    // Apply rotation to the cubemap texture by modifying UV coordinates",
+            "    cubeMapTexture.mapping = THREE.CubeUVReflectionMapping;",
+            "    cubeMapTexture.matrixAutoUpdate = false;",
+            "    const m = new THREE.Matrix4().makeRotationX(Math.PI / 2); // Rotate by 90 degrees on the X-axis",
+            "    cubeMapTexture.matrix = m;",
+            "",
+            "    // Dispose of PMREMGenerator",
+            "    pmremGenerator.dispose();",
+            "",
+            "    // Apply the cubemap texture to scene environment",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().environment = cubeMapTexture;",
+            "});"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Equirectangular Panorama",
+          "name": "Panorama",
+          "type": "imageResource"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Use this method if you want to convert an equirectangular panorama to the cubemap format.",
+      "fullName": "Environment map (HDRI)",
+      "functionType": "Action",
+      "name": "Function2",
+      "private": true,
+      "sentence": "Environment map (HDRI)",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": "",
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [],
+      "objectGroups": []
+    }
+  ],
+  "eventsBasedBehaviors": [],
+  "eventsBasedObjects": []
+}
