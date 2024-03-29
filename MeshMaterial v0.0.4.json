@@ -1809,7 +1809,7 @@
         },
         {
           "defaultValue": "yes",
-          "description": "Visible",
+          "description": "Transparent",
           "name": "Transparent",
           "optional": true,
           "type": "yesorno"
