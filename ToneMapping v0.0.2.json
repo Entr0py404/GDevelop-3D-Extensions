@@ -8,7 +8,7 @@
   "name": "ToneMapping",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/Glyphster Pack/Master/SVG/Graphic Design/17a1b668438cde7ca4d143c729b146977fa44172b8b4175bf025ccfc3e032253_Graphic Design_picture.svg",
   "shortDescription": "Tone mapping allows you to adjust the brightness and contrast of your scenes, bringing out details in both bright and dark areas.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": [
     "Tone mapping allows you to adjust the brightness and contrast of your scenes, bringing out details in both bright and dark areas.",
     "Choose from various tonemapping options to achieve the desired visual effect.",
@@ -51,9 +51,9 @@
             "    case 'ACES Filmic':\r",
             "        runtimeScene.getGame().getRenderer().getThreeRenderer().toneMapping = THREE.ACESFilmicToneMapping;\r",
             "        break;\r",
-            "    //case 'AgX':\r",
-            "        //runtimeScene.getGame().getRenderer().getThreeRenderer().toneMapping = THREE.AgXToneMapping;\r",
-            "        //break;\r",
+            "    case 'AgX':\r",
+            "        runtimeScene.getGame().getRenderer().getThreeRenderer().toneMapping = THREE.AgXToneMapping;\r",
+            "        break;\r",
             "    case 'Custom':\r",
             "        runtimeScene.getGame().getRenderer().getThreeRenderer().toneMapping = THREE.CustomToneMapping;\r",
             "        break;\r",
@@ -72,7 +72,7 @@
         {
           "description": "Tone mapping",
           "name": "ToneMapping",
-          "supplementaryInformation": "[\"No Tone Mapping\",\"Linear\",\"Reinhard\",\"Cineon\",\"ACES Filmic\",\"Custom\"]",
+          "supplementaryInformation": "[\"No Tone Mapping\",\"Linear\",\"Reinhard\",\"Cineon\",\"ACES Filmic\",\"AgX\",\"Custom\"]",
           "type": "stringWithSelector"
         },
         {
