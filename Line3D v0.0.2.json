@@ -8,7 +8,7 @@
   "name": "Line3D",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/158558414173d1901c3781135052193d10c3bc9af9d27a941cd55cad0b453379_vector-line.svg",
   "shortDescription": "Create lines in 3D.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Create lines in 3D useful for debugging raycasts.",
   "tags": [
     "3d"
@@ -27,8 +27,8 @@
         {
           "type": "BuiltinCommonInstructions::JsCode",
           "inlineCode": [
-            "runtimeScene._line3DExtension = {};\r",
-            "runtimeScene._line3DExtension.lines = new Map();"
+            "runtimeScene._line3DExtension = runtimeScene._line3DExtension || {};\r",
+            "runtimeScene._line3DExtension.lines = runtimeScene._line3DExtension.lines || new Map();"
           ],
           "parameterObjects": "",
           "useStrict": true,
@@ -40,10 +40,10 @@
     },
     {
       "description": "Create a 3D line.",
-      "fullName": "Create 3D line",
+      "fullName": "Create 3D line to position",
       "functionType": "Action",
-      "name": "CreateArrowHelper",
-      "sentence": "Create 3D line _PARAM1_, color: _PARAM2_, line width: _PARAM3_, start position X: _PARAM4_, Y: _PARAM5_, Z : _PARAM6_, end position X: _PARAM7_, Y: _PARAM8_, Z: _PARAM9_",
+      "name": "Create3DLineToPosition",
+      "sentence": "Create 3D line _PARAM1_, color: _PARAM2_, start position X: _PARAM3_, Y: _PARAM4_, Z : _PARAM5_, end position X: _PARAM6_, Y: _PARAM7_, Z: _PARAM8_",
       "events": [
         {
           "type": "BuiltinCommonInstructions::JsCode",
@@ -54,7 +54,7 @@
             "geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));\r",
             "const rgbColorGD = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color\"));\r",
             "const rgbColor = new THREE.Color(\"rgb(\" + rgbColorGD[0] + \", \" + rgbColorGD[1] + \", \" + rgbColorGD[2] + \")\");\r",
-            "const material = new THREE.LineBasicMaterial({ color: rgbColor, linewidth: eventsFunctionContext.getArgument(\"LineWidth\") });\r",
+            "const material = new THREE.LineBasicMaterial({ color: rgbColor });\r",
             "const line = new THREE.Line(geometry, material);\r",
             "runtimeScene.getLayer('').getRenderer().getThreeScene().add(line);\r",
             "runtimeScene._line3DExtension.lines.set(eventsFunctionContext.getArgument(\"Identifier\"), { line });\r",
@@ -75,11 +75,6 @@
           "description": "Color",
           "name": "Color",
           "type": "color"
-        },
-        {
-          "description": "Line width",
-          "name": "LineWidth",
-          "type": "expression"
         },
         {
           "description": "X start position",
@@ -109,6 +104,99 @@
         {
           "description": "Z end position",
           "name": "EndZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Create a 3D line.",
+      "fullName": "Create 3D line",
+      "functionType": "Action",
+      "name": "Create3DLine",
+      "sentence": "Create 3D line _PARAM1_, color: _PARAM2_, source position X: _PARAM3_, Y: _PARAM4_, Z : _PARAM5_, rotation angle: _PARAM6_, elevation angle: _PARAM7_, max distance: _PARAM8_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (!runtimeScene._line3DExtension.lines.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    const sourceX = eventsFunctionContext.getArgument(\"SourceX\");\r",
+            "    const sourceY = eventsFunctionContext.getArgument(\"SourceY\");\r",
+            "    const sourceZ = eventsFunctionContext.getArgument(\"SourceZ\");\r",
+            "    const rotationAngle = gdjs.toRad(eventsFunctionContext.getArgument(\"RotationAngle\"));\r",
+            "    const elevationAngle = gdjs.toRad(eventsFunctionContext.getArgument(\"ElevationAngle\")-180);\r",
+            "    const maxDistance = eventsFunctionContext.getArgument(\"MaxDistance\");\r",
+            "\r",
+            "    const adjustedElevation = gdjs.toRad(90) - elevationAngle;\r",
+            "\r",
+            "    const direction = new THREE.Vector3(\r",
+            "        Math.cos(adjustedElevation) * Math.sin(rotationAngle),\r",
+            "        Math.sin(adjustedElevation),\r",
+            "        Math.cos(adjustedElevation) * Math.cos(rotationAngle)\r",
+            "    ).normalize();\r",
+            "\r",
+            "    const endPoint = new THREE.Vector3(\r",
+            "        sourceX + direction.x * maxDistance,\r",
+            "        sourceY + direction.y * maxDistance,\r",
+            "        sourceZ + direction.z * maxDistance\r",
+            "    );\r",
+            "\r",
+            "    const geometry = new THREE.BufferGeometry();\r",
+            "    const positions = new Float32Array([sourceX, sourceY, sourceZ, endPoint.x, endPoint.y, endPoint.z]);\r",
+            "    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));\r",
+            "\r",
+            "    const rgbColorGD = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color\"));\r",
+            "    const rgbColor = new THREE.Color(\"rgb(\" + rgbColorGD[0] + \", \" + rgbColorGD[1] + \", \" + rgbColorGD[2] + \")\");\r",
+            "    const material = new THREE.LineBasicMaterial({ color: rgbColor });\r",
+            "    const line = new THREE.Line(geometry, material);\r",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(line);\r",
+            "    runtimeScene._line3DExtension.lines.set(eventsFunctionContext.getArgument(\"Identifier\"), { line });\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Color",
+          "name": "Color",
+          "type": "color"
+        },
+        {
+          "description": "X source position",
+          "name": "SourceX",
+          "type": "expression"
+        },
+        {
+          "description": "Y source position",
+          "name": "SourceY",
+          "type": "expression"
+        },
+        {
+          "description": "Z source position",
+          "name": "SourceZ",
+          "type": "expression"
+        },
+        {
+          "description": "Rotation angle",
+          "name": "RotationAngle",
+          "type": "expression"
+        },
+        {
+          "description": "Elevation angle",
+          "name": "ElevationAngle",
+          "type": "expression"
+        },
+        {
+          "description": "Max distance",
+          "name": "MaxDistance",
           "type": "expression"
         }
       ],
