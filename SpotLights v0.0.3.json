@@ -8,7 +8,7 @@
   "name": "SpotLights",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/5057489f56829ef5e88b7ac67b2b4c9d9c972565da9bd359f33c65920cc30ad1_spotlight-beam.svg",
   "shortDescription": "This light gets emitted from a single point in one direction, along a cone that increases in size the further from the light it gets.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "This light gets emitted from a single point in one direction, along a cone that increases in size the further from the light it gets.",
   "tags": [
     "3d",
@@ -28,10 +28,8 @@
         {
           "type": "BuiltinCommonInstructions::JsCode",
           "inlineCode": [
-            "runtimeScene._spotLightsExtension = {};\r",
-            "runtimeScene._spotLightsExtension.spotLights = new Map();\r",
-            "runtimeScene._spotLightsExtension.spotLightHelpers = new Map();\r",
-            "runtimeScene._spotLightsExtension.spotLightShadowCameraHelpers = new Map();"
+            "runtimeScene._spotLightsExtension = runtimeScene._spotLightsExtension || {};\r",
+            "runtimeScene._spotLightsExtension.spotLights = runtimeScene._spotLightsExtension.spotLights || new Map();"
           ],
           "parameterObjects": "",
           "useStrict": true,
@@ -99,12 +97,9 @@
             "    }",
             "",
             "    spotLight.shadow.autoUpdate = eventsFunctionContext.getArgument(\"AutoUpdate\");",
-            "    spotLight.shadow.needsUpdate = true;",
             "    spotLight.updateMatrixWorld();",
             "    spotLight.target.updateMatrixWorld();",
             "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(spotLight);",
-            "",
-            "    //spotLight.target.updateMatrixWorld();",
             "    runtimeScene._spotLightsExtension.spotLights.set(eventsFunctionContext.getArgument(\"Identifier\"), { spotLight });",
             "    spotLight.dispose();",
             "}"
@@ -221,158 +216,11 @@
             "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
             "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight);\r",
             "    runtimeScene._spotLightsExtension.spotLights.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
-            "\r",
-            "    if (runtimeScene._spotLightsExtension.spotLightHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "        runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._spotLightsExtension.spotLightHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLightHelper);\r",
-            "        runtimeScene._spotLightsExtension.spotLightHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
-            "    }\r",
-            "\r",
-            "    if (runtimeScene._spotLightsExtension.spotLightShadowCameraHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "        runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._spotLightsExtension.spotLightShadowCameraHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).cameraHelper);\r",
-            "        runtimeScene._spotLightsExtension.spotLightShadowCameraHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
-            "    }\r",
-            "}\r",
-            "\r",
-            ""
-          ],
-          "parameterObjects": "",
-          "useStrict": true,
-          "eventsSheetExpanded": true
-        }
-      ],
-      "parameters": [
-        {
-          "description": "Identifier",
-          "name": "Identifier",
-          "type": "string"
-        }
-      ],
-      "objectGroups": []
-    },
-    {
-      "description": "Create a spot light helper.",
-      "fullName": "Create spot light helper",
-      "functionType": "Action",
-      "name": "CreateSpotLightHelper",
-      "private": true,
-      "sentence": "Create a spot light helper for _PARAM1_",
-      "events": [
-        {
-          "type": "BuiltinCommonInstructions::JsCode",
-          "inlineCode": [
-            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "    const tempObj = runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\"));\r",
-            "    const spotLightHelper = new THREE.SpotLightHelper(tempObj.spotLight);\r",
-            "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(spotLightHelper);\r",
-            "\r",
-            "    spotLightHelper.matrix = tempObj.spotLight.matrix;\r",
-            "    //spotLightHelper.target = tempObj.spotLight.target;\r",
-            "\r",
-            "    runtimeScene._spotLightsExtension.spotLightHelpers.set(eventsFunctionContext.getArgument(\"Identifier\"), { spotLightHelper });\r",
-            "    spotLightHelper.update();\r",
-            "    spotLightHelper.updateMatrixWorld();\r",
-            "    //spotLightHelper.target.updateMatrixWorld();\r",
-            "    spotLightHelper.dispose();\r",
             "}"
           ],
           "parameterObjects": "",
           "useStrict": true,
           "eventsSheetExpanded": true
-        }
-      ],
-      "parameters": [
-        {
-          "description": "Identifier",
-          "name": "Identifier",
-          "type": "string"
-        }
-      ],
-      "objectGroups": []
-    },
-    {
-      "description": "Delete a spot light helper.",
-      "fullName": "Delete spot light helper",
-      "functionType": "Action",
-      "name": "DeleteSpotLightHelper",
-      "private": true,
-      "sentence": "Delete spot light helper for _PARAM1_",
-      "events": [
-        {
-          "type": "BuiltinCommonInstructions::JsCode",
-          "inlineCode": [
-            "if (runtimeScene._spotLightsExtension.spotLightHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._spotLightsExtension.spotLightHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLightHelper);\r",
-            "    runtimeScene._spotLightsExtension.spotLightHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
-            "}"
-          ],
-          "parameterObjects": "",
-          "useStrict": true,
-          "eventsSheetExpanded": false
-        }
-      ],
-      "parameters": [
-        {
-          "description": "Identifier",
-          "name": "Identifier",
-          "type": "string"
-        }
-      ],
-      "objectGroups": []
-    },
-    {
-      "description": "Create a spot light shadow camera helper.",
-      "fullName": "Create spot light shadow camera helper",
-      "functionType": "Action",
-      "name": "CreateSpotLightShadowCameraHelper",
-      "private": true,
-      "sentence": "Create a spot light shadow camera helper for _PARAM1_",
-      "events": [
-        {
-          "type": "BuiltinCommonInstructions::JsCode",
-          "inlineCode": [
-            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "    const tempObj = runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\"));\r",
-            "    const shadowCameraHelper = new THREE.CameraHelper(tempObj.spotLight.shadow.camera);\r",
-            "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(shadowCameraHelper);\r",
-            "    shadowCameraHelper.matrix = tempObj.spotLight.matrix;\r",
-            "    shadowCameraHelper.update();\r",
-            "    runtimeScene._spotLightsExtension.spotLightShadowCameraHelpers.set(eventsFunctionContext.getArgument(\"Identifier\"), { shadowCameraHelper });\r",
-            "    shadowCameraHelper.dispose();\r",
-            "}"
-          ],
-          "parameterObjects": "",
-          "useStrict": true,
-          "eventsSheetExpanded": true
-        }
-      ],
-      "parameters": [
-        {
-          "description": "Identifier",
-          "name": "Identifier",
-          "type": "string"
-        }
-      ],
-      "objectGroups": []
-    },
-    {
-      "description": "Delete a spot light shadow camera helper.",
-      "fullName": "Delete spot light shadow camera helper",
-      "functionType": "Action",
-      "name": "DeleteSpotLightShadowCameraHelper",
-      "private": true,
-      "sentence": "Delete spot light shadow camera helper for _PARAM1_",
-      "events": [
-        {
-          "type": "BuiltinCommonInstructions::JsCode",
-          "inlineCode": [
-            "if (runtimeScene._spotLightsExtension.spotLightShadowCameraHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._spotLightsExtension.spotLightShadowCameraHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).cameraHelper);\r",
-            "    runtimeScene._spotLightsExtension.spotLightShadowCameraHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
-            "}"
-          ],
-          "parameterObjects": "",
-          "useStrict": true,
-          "eventsSheetExpanded": false
         }
       ],
       "parameters": [
@@ -426,9 +274,6 @@
             "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
             "    const rgbColor = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color\"));\r",
             "    runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.color.set(\"rgb(\" + rgbColor[0] + \", \" + rgbColor[1] + \", \" + rgbColor[2] + \")\");\r",
-            "    if (runtimeScene._spotLightsExtension.spotLightHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "        runtimeScene._spotLightsExtension.spotLightHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLightHelper.update();\r",
-            "    }\r",
             "}"
           ],
           "parameterObjects": "",
@@ -723,6 +568,140 @@
           "inlineCode": [
             "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
             "  eventsFunctionContext.returnValue = runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.shadow.bias;\r",
+            "} else {\r",
+            "  eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Point light decay.",
+      "fullName": "Decay",
+      "functionType": "ActionWithOperator",
+      "getterName": "BlurSamples",
+      "name": "SetBlurSamples",
+      "sentence": "Change point light _PARAM1_ decay to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.shadow.blurSamples  = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Decay (Default is 2)",
+          "name": "Decay",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "The amount of samples to use when blurring a VSM shadow map.",
+      "fullName": "Blur samples",
+      "functionType": "ExpressionAndCondition",
+      "name": "BlurSamples",
+      "sentence": "the shadow blur samples of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "  eventsFunctionContext.returnValue = runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.shadow.blurSamples;\r",
+            "} else {\r",
+            "  eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Point light decay.",
+      "fullName": "Decay",
+      "functionType": "ActionWithOperator",
+      "getterName": "ShadowFocus",
+      "name": "SetShadowFocus",
+      "sentence": "Change point light _PARAM1_ decay to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.shadow.focus = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Decay (Default is 2)",
+          "name": "Decay",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Used to focus the shadow camera, the camera's field of view is set as a percentage of the spotlight's field-of-view, (Range is 0 to 1 Default is 1.0).",
+      "fullName": "Shadow focus",
+      "functionType": "ExpressionAndCondition",
+      "name": "ShadowFocus",
+      "sentence": "the shadow focus of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "  eventsFunctionContext.returnValue = runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.shadow.focus;\r",
             "} else {\r",
             "  eventsFunctionContext.returnValue = 0;\r",
             "}"
