@@ -11,7 +11,7 @@
   "version": "0.0.1",
   "description": [
     "An axis object to visualize the 3 axes in a simple way.",
-    "The X axis is red. The Y axis is green. The Z axis is blue."
+    "The X axis is red, Y axis is green, Z axis is blue."
   ],
   "tags": [
     "3d",
