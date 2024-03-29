@@ -8,7 +8,7 @@
   "name": "AxesHelper",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/e2314b6adb780c72b1332a13d17abb17458ebb9c8fbecbbdd6cc2d4127178df2_axis-arrow.svg",
   "shortDescription": "An axis object to visualize the 3 axes in a simple way.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": [
     "An axis object to visualize the 3 axes in a simple way.",
     "The X axis is red, Y axis is green, Z axis is blue."
@@ -31,8 +31,8 @@
         {
           "type": "BuiltinCommonInstructions::JsCode",
           "inlineCode": [
-            "runtimeScene._axesHelperExtension = {};\r",
-            "runtimeScene._axesHelperExtension.axesHelpers = new Map();"
+            "runtimeScene._axesHelperExtension = runtimeScene._axesHelperExtension || {};\r",
+            "runtimeScene._axesHelperExtension.axesHelpers = runtimeScene._axesHelperExtension.axesHelpers || new Map();"
           ],
           "parameterObjects": "",
           "useStrict": true,
