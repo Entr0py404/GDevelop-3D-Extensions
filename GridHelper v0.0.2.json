@@ -8,7 +8,7 @@
   "name": "GridHelper",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/Line Hero Pack/Master/SVG/Graphic Design/68c6f2c60b4d17c9f3049151bf3004d7b3ba3d7bec7bcad98767135d804d7006_Graphic Design_grid.svg",
   "shortDescription": "The GridHelper is an object to define grids.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": [
     "The GridHelper is an object to define grids.",
     "Grids are two-dimensional arrays of lines."
@@ -31,8 +31,8 @@
         {
           "type": "BuiltinCommonInstructions::JsCode",
           "inlineCode": [
-            "runtimeScene._gridHelperExtension = {};\r",
-            "runtimeScene._gridHelperExtension.gridHelpers = new Map();"
+            "runtimeScene._gridHelperExtension = runtimeScene._gridHelperExtension || {};\r",
+            "runtimeScene._gridHelperExtension.gridHelpers = runtimeScene._gridHelperExtension.gridHelpers || new Map();"
           ],
           "parameterObjects": "",
           "useStrict": true,
