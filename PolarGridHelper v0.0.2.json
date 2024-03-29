@@ -8,7 +8,7 @@
   "name": "PolarGridHelper",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/e92ad2208ab6edafcd857aa412980adfa8a2a1a230d2190d4991e0889b25bacd_radiobox-blank.svg",
   "shortDescription": "The PolarGridHelper is an object to define polar grids.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": [
     "The PolarGridHelper is an object to define polar grids.",
     "Grids are two-dimensional arrays of lines."
@@ -31,8 +31,8 @@
         {
           "type": "BuiltinCommonInstructions::JsCode",
           "inlineCode": [
-            "runtimeScene._polarGridHelperExtension = {};\r",
-            "runtimeScene._polarGridHelperExtension.polarGridHelpers = new Map();"
+            "runtimeScene._polarGridHelperExtension = runtimeScene._polarGridHelperExtension || {};\r",
+            "runtimeScene._polarGridHelperExtension.polarGridHelpers = runtimeScene._polarGridHelperExtension.polarGridHelpers || new Map();"
           ],
           "parameterObjects": "",
           "useStrict": true,
