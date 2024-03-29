@@ -8,7 +8,7 @@
   "name": "RectAreaLights",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/463a28d8ee2e6e8f93b4013e428509e22c220568fd30e8cfce76d7be9a9e06b4_television-ambient-light.svg",
   "shortDescription": "Rect Area Light emits light uniformly across the face a rectangular plane.",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": [
     "RectAreaLight emits light uniformly across the face a rectangular plane.",
     "This light type can be used to simulate light sources such as bright windows or strip lighting."
@@ -31,9 +31,8 @@
         {
           "type": "BuiltinCommonInstructions::JsCode",
           "inlineCode": [
-            "runtimeScene._rectAreaLightsExtension = {};\r",
-            "runtimeScene._rectAreaLightsExtension.rectAreaLights = new Map();\r",
-            "runtimeScene._rectAreaLightsExtension.rectAreaLightHelpers = new Map();"
+            "runtimeScene._rectAreaLightsExtension = runtimeScene._rectAreaLightsExtension || {};\r",
+            "runtimeScene._rectAreaLightsExtension.rectAreaLights = runtimeScene._rectAreaLightsExtension.rectAreaLights || new Map();"
           ],
           "parameterObjects": "",
           "useStrict": true,
@@ -48,7 +47,7 @@
       "fullName": "Create rect area light",
       "functionType": "Action",
       "name": "CreateRectAreaLight",
-      "sentence": "Create rect area light _PARAM1_, color: _PARAM2_, intensity: _PARAM3_, width: _PARAM4_, height: _PARAM5_, horizontal angle: _PARAM6_, vertical angle: _PARAM7_, position X: _PARAM8_, Y: _PARAM9_, Z: _PARAM10_",
+      "sentence": "Create rect area light _PARAM1_, color: _PARAM2_, intensity: _PARAM3_, width: _PARAM4_, height: _PARAM5_, position X: _PARAM6_, Y: _PARAM7_, Z: _PARAM8_, look at X: _PARAM9_, Y: _PARAM10_, Z: _PARAM11_",
       "events": [
         {
           "type": "BuiltinCommonInstructions::JsCode",
@@ -57,8 +56,7 @@
             "    const rgbColorGD = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color\"));\r",
             "    const rectLight = new THREE.RectAreaLight(\"rgb(\" + rgbColorGD[0] + \", \" + rgbColorGD[1] + \", \" + rgbColorGD[2] + \")\", eventsFunctionContext.getArgument(\"Intensity\"), eventsFunctionContext.getArgument(\"Width\"), eventsFunctionContext.getArgument(\"Height\"));\r",
             "    rectLight.position.set(eventsFunctionContext.getArgument(\"PositionX\"), eventsFunctionContext.getArgument(\"PositionY\"), eventsFunctionContext.getArgument(\"PositionZ\"));\r",
-            "    rectLight.rotation.x = gdjs.toRad(eventsFunctionContext.getArgument(\"HorizontalAngle\"));\r",
-            "    rectLight.rotation.z = gdjs.toRad(eventsFunctionContext.getArgument(\"VerticalAngle\"));\r",
+            "    rectLight.lookAt(eventsFunctionContext.getArgument(\"LookAtX\"), eventsFunctionContext.getArgument(\"LookAtY\"), eventsFunctionContext.getArgument(\"LookAtZ\"));\r",
             "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(rectLight);\r",
             "    runtimeScene._rectAreaLightsExtension.rectAreaLights.set(eventsFunctionContext.getArgument(\"Identifier\"), { rectLight });\r",
             "    rectLight.dispose();\r",
@@ -96,16 +94,6 @@
           "type": "expression"
         },
         {
-          "description": "Horizontal angle",
-          "name": "HorizontalAngle",
-          "type": "expression"
-        },
-        {
-          "description": "Vertical angle",
-          "name": "VerticalAngle",
-          "type": "expression"
-        },
-        {
           "description": "X position",
           "name": "PositionX",
           "type": "expression"
@@ -119,6 +107,21 @@
           "description": "Z position",
           "name": "PositionZ",
           "type": "expression"
+        },
+        {
+          "description": "X Look at",
+          "name": "LookAtX",
+          "type": "expression"
+        },
+        {
+          "description": "Y Look at",
+          "name": "LookAtY",
+          "type": "expression"
+        },
+        {
+          "description": "Z Look at",
+          "name": "LookAtZ",
+          "type": "expression"
         }
       ],
       "objectGroups": []
@@ -127,7 +130,7 @@
       "description": "Delete a rect area light.",
       "fullName": "Delete rect area light",
       "functionType": "Action",
-      "name": "DeleteSpotLight",
+      "name": "DeleteRectAreaLight",
       "sentence": "Delete rect area light _PARAM1_",
       "events": [
         {
@@ -136,84 +139,11 @@
             "if (runtimeScene._rectAreaLightsExtension.rectAreaLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
             "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._rectAreaLightsExtension.rectAreaLights.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLight);\r",
             "    runtimeScene._rectAreaLightsExtension.rectAreaLights.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
-            "\r",
-            "    if (runtimeScene._rectAreaLightsExtension.rectAreaLightHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "        runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._rectAreaLightsExtension.rectAreaLightHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLightHelper);\r",
-            "        runtimeScene._rectAreaLightsExtension.rectAreaLightHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
-            "    }\r",
             "}"
           ],
           "parameterObjects": "",
           "useStrict": true,
           "eventsSheetExpanded": true
-        }
-      ],
-      "parameters": [
-        {
-          "description": "Identifier",
-          "name": "Identifier",
-          "type": "string"
-        }
-      ],
-      "objectGroups": []
-    },
-    {
-      "description": "Create a rect area light helper.",
-      "fullName": "Create rect area light helper",
-      "functionType": "Action",
-      "name": "CreateSpotLightHelper",
-      "private": true,
-      "sentence": "Create a rect area light helper for _PARAM1_",
-      "events": [
-        {
-          "type": "BuiltinCommonInstructions::JsCode",
-          "inlineCode": [
-            "if (runtimeScene._rectAreaLightsExtension.rectAreaLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "    const tempObj = runtimeScene._rectAreaLightsExtension.rectAreaLights.get(eventsFunctionContext.getArgument(\"Identifier\"));\r",
-            "    const rectAreaLightHelper = new THREE.RectAreaLightHelper(tempObj.rectAreaLight);\r",
-            "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(rectAreaLightHelper);\r",
-            "    rectAreaLightHelper.matrix = tempObj.rectAreaLight.matrix;\r",
-            "    //rectAreaLightHelper.target = tempObj.rectAreaLight.target;\r",
-            "    runtimeScene._rectAreaLightsExtension.rectAreaLightHelpers.set(eventsFunctionContext.getArgument(\"Identifier\"), { rectAreaLightHelper });\r",
-            "    rectAreaLightHelper.update();\r",
-            "    rectAreaLightHelper.updateMatrixWorld();\r",
-            "    //rectAreaLightHelper.target.updateMatrixWorld();\r",
-            "    rectAreaLightHelper.dispose();\r",
-            "}"
-          ],
-          "parameterObjects": "",
-          "useStrict": true,
-          "eventsSheetExpanded": true
-        }
-      ],
-      "parameters": [
-        {
-          "description": "Identifier",
-          "name": "Identifier",
-          "type": "string"
-        }
-      ],
-      "objectGroups": []
-    },
-    {
-      "description": "Delete a rect area light helper.",
-      "fullName": "Delete rect area light helper",
-      "functionType": "Action",
-      "name": "DeleteSpotLightHelper",
-      "private": true,
-      "sentence": "Delete rect area light helper for _PARAM1_",
-      "events": [
-        {
-          "type": "BuiltinCommonInstructions::JsCode",
-          "inlineCode": [
-            "if (runtimeScene._rectAreaLightsExtension.rectAreaLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._rectAreaLightsExtension.rectAreaLightHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLightHelper);\r",
-            "    runtimeScene._rectAreaLightsExtension.rectAreaLights.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
-            "}"
-          ],
-          "parameterObjects": "",
-          "useStrict": true,
-          "eventsSheetExpanded": false
         }
       ],
       "parameters": [
@@ -239,9 +169,6 @@
             "if (runtimeScene._rectAreaLightsExtension.rectAreaLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
             "    const rgbColor = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color\"));\r",
             "    runtimeScene._rectAreaLightsExtension.rectAreaLights.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLight.color.set(\"rgb(\" + rgbColor[0] + \", \" + rgbColor[1] + \", \" + rgbColor[2] + \")\");\r",
-            "    if (runtimeScene._rectAreaLightsExtension.rectAreaLightHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "        runtimeScene._rectAreaLightsExtension.rectAreaLightHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLightHelper.update();\r",
-            "    }\r",
             "}"
           ],
           "parameterObjects": "",
@@ -301,6 +228,49 @@
         {
           "description": "Z position",
           "name": "PositionZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the look at position of a rect area light.",
+      "fullName": "Look at",
+      "functionType": "Action",
+      "name": "SetLookAt",
+      "sentence": "Change the look at position of _PARAM1_ to X: _PARAM2_, Y: _PARAM3_, Z: _PARAM4_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._rectAreaLightsExtension.rectAreaLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._rectAreaLightsExtension.rectAreaLights.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLight.lookAt(eventsFunctionContext.getArgument(\"LookAtX\"), eventsFunctionContext.getArgument(\"LookAtY\"), eventsFunctionContext.getArgument(\"LookAtZ\"));\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "X look at position",
+          "name": "LookAtX",
+          "type": "expression"
+        },
+        {
+          "description": "Y look at position",
+          "name": "LookAtY",
+          "type": "expression"
+        },
+        {
+          "description": "Z look at position",
+          "name": "LookAtZ",
           "type": "expression"
         }
       ],
@@ -412,15 +382,15 @@
       "description": "Change the Z position of a point light.",
       "fullName": "Z position",
       "functionType": "ActionWithOperator",
-      "getterName": "HorizontalAngle",
-      "name": "SetHorizontalAngle",
+      "getterName": "LookAtX",
+      "name": "SetLookAtX",
       "sentence": "Change point light _PARAM1_ Z position to _PARAM2_",
       "events": [
         {
           "type": "BuiltinCommonInstructions::JsCode",
           "inlineCode": [
             "if (runtimeScene._rectAreaLightsExtension.rectAreaLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "    runtimeScene._rectAreaLightsExtension.rectAreaLights.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLight.rotation.x = eventsFunctionContext.getArgument(\"Value\");\r",
+            "    runtimeScene._rectAreaLightsExtension.rectAreaLights.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLight.lookAt.x = eventsFunctionContext.getArgument(\"Value\");\r",
             "}"
           ],
           "parameterObjects": "",
@@ -446,15 +416,49 @@
       "description": "Change the Z position of a point light.",
       "fullName": "Z position",
       "functionType": "ActionWithOperator",
-      "getterName": "VerticalAngle",
-      "name": "SetVerticalAngle",
+      "getterName": "LookAtY",
+      "name": "SetLookAtY",
       "sentence": "Change point light _PARAM1_ Z position to _PARAM2_",
       "events": [
         {
           "type": "BuiltinCommonInstructions::JsCode",
           "inlineCode": [
             "if (runtimeScene._rectAreaLightsExtension.rectAreaLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "    runtimeScene._rectAreaLightsExtension.rectAreaLights.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLight.rotation.z = eventsFunctionContext.getArgument(\"Value\");\r",
+            "    runtimeScene._rectAreaLightsExtension.rectAreaLights.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLight.lookAt.y = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Z",
+          "name": "PositionZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the Z position of a point light.",
+      "fullName": "Z position",
+      "functionType": "ActionWithOperator",
+      "getterName": "LookAtYZ",
+      "name": "SetLookAtZ",
+      "sentence": "Change point light _PARAM1_ Z position to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._rectAreaLightsExtension.rectAreaLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._rectAreaLightsExtension.rectAreaLights.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLight.lookAt.z = eventsFunctionContext.getArgument(\"Value\");\r",
             "}"
           ],
           "parameterObjects": "",
@@ -579,17 +583,17 @@
       "objectGroups": []
     },
     {
-      "description": "the horizontal angle of rect area light.",
-      "fullName": "Horizontal angle",
+      "description": "the X look position of rect area light.",
+      "fullName": "X look position",
       "functionType": "ExpressionAndCondition",
-      "name": "HorizontalAngle",
-      "sentence": "the horizontal angle of _PARAM1_",
+      "name": "LookAtX",
+      "sentence": "the X look position of _PARAM1_",
       "events": [
         {
           "type": "BuiltinCommonInstructions::JsCode",
           "inlineCode": [
             "if (runtimeScene._rectAreaLightsExtension.rectAreaLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "    eventsFunctionContext.returnValue = runtimeScene._rectAreaLightsExtension.rectAreaLights.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLight.rotation.x;\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._rectAreaLightsExtension.rectAreaLights.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLight.lookAt.x;\r",
             "} else {\r",
             "    eventsFunctionContext.returnValue = 0;\r",
             "}"
@@ -613,17 +617,51 @@
       "objectGroups": []
     },
     {
-      "description": "the vertical angle of rect area light.",
-      "fullName": "Vertical angle",
+      "description": "the Y look position of rect area light.",
+      "fullName": "Y look position",
       "functionType": "ExpressionAndCondition",
-      "name": "VerticalAngle",
-      "sentence": "the vertical angle of _PARAM1_",
+      "name": "LookAtY",
+      "sentence": "the Y look position of _PARAM1_",
       "events": [
         {
           "type": "BuiltinCommonInstructions::JsCode",
           "inlineCode": [
             "if (runtimeScene._rectAreaLightsExtension.rectAreaLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "    eventsFunctionContext.returnValue = runtimeScene._rectAreaLightsExtension.rectAreaLights.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLight.rotation.z;\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._rectAreaLightsExtension.rectAreaLights.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLight.lookAt.y;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the Z look position of rect area light.",
+      "fullName": "Z look position",
+      "functionType": "ExpressionAndCondition",
+      "name": "LookAtYZ",
+      "sentence": "the Z look position of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._rectAreaLightsExtension.rectAreaLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._rectAreaLightsExtension.rectAreaLights.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLight.lookAt.z;\r",
             "} else {\r",
             "    eventsFunctionContext.returnValue = 0;\r",
             "}"
@@ -886,6 +924,253 @@
           "description": "Identifier",
           "name": "Identifier",
           "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the Rotation of a rect area light.",
+      "fullName": "Rotation",
+      "functionType": "Action",
+      "name": "SetRotation",
+      "sentence": "Change the Rotation of _PARAM1_ to X: _PARAM2_, Y: _PARAM3_, Z: _PARAM4_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._rectAreaLightsExtension.rectAreaLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._rectAreaLightsExtension.rectAreaLights.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLight.rotation.set(eventsFunctionContext.getArgument(\"RotationX\"), eventsFunctionContext.getArgument(\"RotationY\"), eventsFunctionContext.getArgument(\"RotationZ\"));\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "X Rotation",
+          "name": "RotationX",
+          "type": "expression"
+        },
+        {
+          "description": "Y Rotation",
+          "name": "RotationY",
+          "type": "expression"
+        },
+        {
+          "description": "Z Rotation",
+          "name": "RotationZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the X rotation of rect area light.",
+      "fullName": "X rotation",
+      "functionType": "ExpressionAndCondition",
+      "name": "RotationX",
+      "sentence": "the X rotation of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._rectAreaLightsExtension.rectAreaLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._rectAreaLightsExtension.rectAreaLights.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLight.rotation.x;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the Y rotation of rect area light.",
+      "fullName": "Y rotation",
+      "functionType": "ExpressionAndCondition",
+      "name": "RotationY",
+      "sentence": "the Y rotation of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._rectAreaLightsExtension.rectAreaLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._rectAreaLightsExtension.rectAreaLights.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLight.rotation.y;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "the Z rotation of rect area light.",
+      "fullName": "Z rotation",
+      "functionType": "ExpressionAndCondition",
+      "name": "RotationZ",
+      "sentence": "the Z rotation of _PARAM1_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._rectAreaLightsExtension.rectAreaLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    eventsFunctionContext.returnValue = runtimeScene._rectAreaLightsExtension.rectAreaLights.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLight.rotation.z;\r",
+            "} else {\r",
+            "    eventsFunctionContext.returnValue = 0;\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "expressionType": {
+        "type": "expression"
+      },
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "string"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the Z position of a point light.",
+      "fullName": "Z position",
+      "functionType": "ActionWithOperator",
+      "getterName": "RotationX",
+      "name": "SetRotationX",
+      "sentence": "Change point light _PARAM1_ Z position to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._rectAreaLightsExtension.rectAreaLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._rectAreaLightsExtension.rectAreaLights.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLight.rotation.x = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Z",
+          "name": "PositionZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the Z position of a point light.",
+      "fullName": "Z position",
+      "functionType": "ActionWithOperator",
+      "getterName": "RotationY",
+      "name": "SetRotationY",
+      "sentence": "Change point light _PARAM1_ Z position to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._rectAreaLightsExtension.rectAreaLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._rectAreaLightsExtension.rectAreaLights.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLight.rotation.y = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Z",
+          "name": "PositionZ",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Change the Z position of a point light.",
+      "fullName": "Z position",
+      "functionType": "ActionWithOperator",
+      "getterName": "RotationY",
+      "name": "SetRotationZ",
+      "sentence": "Change point light _PARAM1_ Z position to _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (runtimeScene._rectAreaLightsExtension.rectAreaLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
+            "    runtimeScene._rectAreaLightsExtension.rectAreaLights.get(eventsFunctionContext.getArgument(\"Identifier\")).rectAreaLight.rotation.z = eventsFunctionContext.getArgument(\"Value\");\r",
+            "}"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": false
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Identifier",
+          "name": "Identifier",
+          "type": "string"
+        },
+        {
+          "description": "Z",
+          "name": "PositionZ",
+          "type": "expression"
         }
       ],
       "objectGroups": []
