@@ -8,7 +8,7 @@
   "name": "PointLights",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/63564f3ae7ec22f1bc63068b1eef93c5dafb490796ea338c2a6d6e857f8d7e9c_lightbulb-outline.svg",
   "shortDescription": "A light that gets emitted from a single point in all directions.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": [
     "A light that gets emitted from a single point in all directions.",
     "A common use case for this is to replicate the light emitted from a bare lightbulb."
@@ -31,10 +31,8 @@
         {
           "type": "BuiltinCommonInstructions::JsCode",
           "inlineCode": [
-            "runtimeScene._pointLightsExtension = {};\r",
-            "runtimeScene._pointLightsExtension.pointLights = new Map();\r",
-            "runtimeScene._pointLightsExtension.pointLightHelpers = new Map();\r",
-            "runtimeScene._pointLightsExtension.pointLightShadowCameraHelpers = new Map();"
+            "runtimeScene._pointLightsExtension = runtimeScene._pointLightsExtension || {};\r",
+            "runtimeScene._pointLightsExtension.pointLights = runtimeScene._pointLightsExtension.pointLights || new Map();"
           ],
           "parameterObjects": "",
           "useStrict": true,
@@ -87,7 +85,6 @@
             "    }",
             "",
             "    pointLight.shadow.autoUpdate = eventsFunctionContext.getArgument(\"AutoUpdate\");",
-            "    pointLight.shadow.needsUpdate = true;",
             "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(pointLight);",
             "    runtimeScene._pointLightsExtension.pointLights.set(eventsFunctionContext.getArgument(\"Identifier\"), { pointLight });",
             "    pointLight.dispose();",
@@ -175,152 +172,11 @@
             "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
             "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight);\r",
             "    runtimeScene._pointLightsExtension.pointLights.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
-            "\r",
-            "    if (runtimeScene._pointLightsExtension.pointLightHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "        runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._pointLightsExtension.pointLightHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLightHelper);\r",
-            "        runtimeScene._pointLightsExtension.pointLightHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
-            "    }\r",
-            "\r",
-            "    if (runtimeScene._pointLightsExtension.pointLightShadowCameraHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "        runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._pointLightsExtension.pointLightShadowCameraHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).cameraHelper);\r",
-            "        runtimeScene._pointLightsExtension.pointLightShadowCameraHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
-            "    }\r",
-            "}\r",
-            "\r",
-            ""
-          ],
-          "parameterObjects": "",
-          "useStrict": true,
-          "eventsSheetExpanded": true
-        }
-      ],
-      "parameters": [
-        {
-          "description": "Identifier",
-          "name": "Identifier",
-          "type": "string"
-        }
-      ],
-      "objectGroups": []
-    },
-    {
-      "description": "Create a point light helper.",
-      "fullName": "Create point light helper",
-      "functionType": "Action",
-      "name": "CreatePointLightHelper",
-      "sentence": "Create a point light helper for _PARAM1_ with a size of _PARAM2_",
-      "events": [
-        {
-          "type": "BuiltinCommonInstructions::JsCode",
-          "inlineCode": [
-            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "    const tempObj = runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\"));\r",
-            "    const pointLightHelper = new THREE.PointLightHelper(tempObj.pointLight, eventsFunctionContext.getArgument(\"Size\"));\r",
-            "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(pointLightHelper);\r",
-            "    pointLightHelper.matrix = tempObj.pointLight.matrix;\r",
-            "    runtimeScene._pointLightsExtension.pointLightHelpers.set(eventsFunctionContext.getArgument(\"Identifier\"), { pointLightHelper });\r",
-            "    pointLightHelper.dispose();\r",
-            "}"
-          ],
-          "parameterObjects": "",
-          "useStrict": true,
-          "eventsSheetExpanded": false
-        }
-      ],
-      "parameters": [
-        {
-          "description": "Identifier",
-          "name": "Identifier",
-          "type": "string"
-        },
-        {
-          "description": "Size",
-          "name": "Size",
-          "type": "expression"
-        }
-      ],
-      "objectGroups": []
-    },
-    {
-      "description": "Delete a point light helper.",
-      "fullName": "Delete point light helper",
-      "functionType": "Action",
-      "name": "DeletePointLightHelper",
-      "sentence": "Delete point light helper for _PARAM1_",
-      "events": [
-        {
-          "type": "BuiltinCommonInstructions::JsCode",
-          "inlineCode": [
-            "if (runtimeScene._pointLightsExtension.pointLightHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._pointLightsExtension.pointLightHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLightHelper);\r",
-            "    runtimeScene._pointLightsExtension.pointLightHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
-            "}"
-          ],
-          "parameterObjects": "",
-          "useStrict": true,
-          "eventsSheetExpanded": false
-        }
-      ],
-      "parameters": [
-        {
-          "description": "Identifier",
-          "name": "Identifier",
-          "type": "string"
-        }
-      ],
-      "objectGroups": []
-    },
-    {
-      "description": "Create a point light shadow camera helper.",
-      "fullName": "Create point light shadow camera helper",
-      "functionType": "Action",
-      "name": "CreatePointLightShadowCameraHelper",
-      "sentence": "Create point light shadow camera helper for _PARAM1_",
-      "events": [
-        {
-          "type": "BuiltinCommonInstructions::JsCode",
-          "inlineCode": [
-            "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "    const tempObj = runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\"));\r",
-            "    const shadowCameraHelper = new THREE.CameraHelper(tempObj.pointLight.shadow.camera);\r",
-            "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(shadowCameraHelper);\r",
-            "    shadowCameraHelper.matrix = tempObj.pointLight.matrix;\r",
-            "    runtimeScene._pointLightsExtension.pointLightShadowCameraHelpers.set(eventsFunctionContext.getArgument(\"Identifier\"), { shadowCameraHelper });\r",
-            "    shadowCameraHelper.dispose();\r",
             "}"
           ],
           "parameterObjects": "",
           "useStrict": true,
           "eventsSheetExpanded": true
-        }
-      ],
-      "parameters": [
-        {
-          "description": "Identifier",
-          "name": "Identifier",
-          "type": "string"
-        }
-      ],
-      "objectGroups": []
-    },
-    {
-      "description": "Delete a point light shadow camera helper.",
-      "fullName": "Delete point light shadow camera helper",
-      "functionType": "Action",
-      "name": "DeletePointLightShadowCameraHelper",
-      "sentence": "Delete point light shadow camera helper for _PARAM1_",
-      "events": [
-        {
-          "type": "BuiltinCommonInstructions::JsCode",
-          "inlineCode": [
-            "if (runtimeScene._pointLightsExtension.pointLightShadowCameraHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._pointLightsExtension.pointLightShadowCameraHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).cameraHelper);\r",
-            "    runtimeScene._pointLightsExtension.pointLightShadowCameraHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
-            "}"
-          ],
-          "parameterObjects": "",
-          "useStrict": true,
-          "eventsSheetExpanded": false
         }
       ],
       "parameters": [
@@ -374,9 +230,6 @@
             "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
             "    const rgbColor = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color\"));\r",
             "    runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.color.set(\"rgb(\" + rgbColor[0] + \", \" + rgbColor[1] + \", \" + rgbColor[2] + \")\");\r",
-            "    if (runtimeScene._pointLightsExtension.pointLightHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "        runtimeScene._pointLightsExtension.pointLightHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLightHelper.update();\r",
-            "    }\r",
             "}"
           ],
           "parameterObjects": "",
@@ -410,7 +263,7 @@
           "inlineCode": [
             "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
             "const rgbColor = gdjs.hexToRGBColor(runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.color.getHexString());\r",
-            "eventsFunctionContext.returnValue = rgbColor[0] + \";\" + rgbColor[1] + \";\" + rgbColor[2]\r",
+            "eventsFunctionContext.returnValue = rgbColor[0] + \";\" + rgbColor[1] + \";\" + rgbColor[2];\r",
             "}"
           ],
           "parameterObjects": "",
@@ -838,7 +691,7 @@
           "type": "BuiltinCommonInstructions::JsCode",
           "inlineCode": [
             "if (runtimeScene._pointLightsExtension.pointLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "    runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.castShadow = eventsFunctionContext.getArgument(\"Value\");\r",
+            "    runtimeScene._pointLightsExtension.pointLights.get(eventsFunctionContext.getArgument(\"Identifier\")).pointLight.castShadow = eventsFunctionContext.getArgument(\"CastShadow\");\r",
             "}"
           ],
           "parameterObjects": "",
