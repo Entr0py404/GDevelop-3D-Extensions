@@ -8,7 +8,7 @@
   "name": "Shadows",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/Line Hero Pack/Master/SVG/Graphic Design/72d62d2888b4617f55edbefa73aa471fe8c846bb8552ce6a368fc05327dc8fa6_Graphic Design_drop_shadow.svg",
   "shortDescription": "Adjust the shadow map resolution and shadow casting/receiving properties of 3D objects.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Allows you to adjust the shadow map resolution and shadow casting and receiving shadow properties of 3D objects.",
   "tags": [
     "3d"
@@ -19,8 +19,8 @@
   "dependencies": [],
   "eventsFunctions": [
     {
-      "description": "Enable or disable casting shadow.",
-      "fullName": "Cast shadow",
+      "description": "Enable or disable casting shadow for a 3D model.",
+      "fullName": "Cast shadow - 3D model",
       "functionType": "Action",
       "name": "CastShadow",
       "sentence": "Enable casting shadow for _PARAM1_: _PARAM2_",
@@ -29,14 +29,14 @@
           "type": "BuiltinCommonInstructions::JsCode",
           "inlineCode": [
             "objects[0].get3DRendererObject().traverse((node) => {",
-            "    if (node instanceof THREE.Mesh && node.isMesh) {",
+            "    if (node.isMesh) {",
             "        node.castShadow = eventsFunctionContext.getArgument(\"CastShadow\");",
             "    }",
             "});"
           ],
           "parameterObjects": "Object",
           "useStrict": true,
-          "eventsSheetExpanded": true
+          "eventsSheetExpanded": false
         }
       ],
       "parameters": [
@@ -57,8 +57,8 @@
       "objectGroups": []
     },
     {
-      "description": "Enable or disable receive shadows.",
-      "fullName": "Receive shadows",
+      "description": "Enable or disable receive shadows for a 3D model.",
+      "fullName": "Receive shadows - 3D model",
       "functionType": "Action",
       "name": "ReceiveShadow",
       "sentence": "Enable receiving shadows for _PARAM1_: _PARAM2_",
@@ -67,7 +67,7 @@
           "type": "BuiltinCommonInstructions::JsCode",
           "inlineCode": [
             "objects[0].get3DRendererObject().traverse((node) => {",
-            "    if (node instanceof THREE.Mesh && node.isMesh) {",
+            "    if (node.isMesh) {",
             "        node.receiveShadow = eventsFunctionContext.getArgument(\"ReceiveShadow\");",
             "    }",
             "});"
@@ -82,6 +82,78 @@
           "description": "3D model",
           "name": "Object",
           "supplementaryInformation": "Scene3D::Model3DObject",
+          "type": "objectList"
+        },
+        {
+          "defaultValue": "yes",
+          "description": "Receive shadow",
+          "name": "ReceiveShadow",
+          "optional": true,
+          "type": "yesorno"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Enable or disable casting shadow for a 3D box.",
+      "fullName": "Cast shadow - 3D box",
+      "functionType": "Action",
+      "name": "CastShadow3DBox",
+      "sentence": "Enable casting shadow for _PARAM1_: _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (objects.length >= 0) {",
+            "    objects[0].get3DRendererObject().castShadow = eventsFunctionContext.getArgument(\"CastShadow\");",
+            "}"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D box",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Cube3DObject",
+          "type": "objectList"
+        },
+        {
+          "defaultValue": "yes",
+          "description": "Cast shadow",
+          "name": "CastShadow",
+          "optional": true,
+          "type": "yesorno"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Enable or disable receive shadows for a 3D box.",
+      "fullName": "Receive shadows - 3D box",
+      "functionType": "Action",
+      "name": "ReceiveShadow3DBox",
+      "sentence": "Enable receiving shadows for _PARAM1_: _PARAM2_",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "if (objects.length >= 0) {",
+            "    objects[0].get3DRendererObject().receiveShadow = eventsFunctionContext.getArgument(\"ReceiveShadow\");",
+            "}"
+          ],
+          "parameterObjects": "Object",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "3D box",
+          "name": "Object",
+          "supplementaryInformation": "Scene3D::Cube3DObject",
           "type": "objectList"
         },
         {
