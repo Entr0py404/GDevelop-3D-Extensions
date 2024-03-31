@@ -3470,7 +3470,7 @@
       "functionType": "Action",
       "group": "material",
       "name": "AlphaHash",
-      "sentence": "Enable alpha on _PARAM1_ materials: _PARAM2_",
+      "sentence": "Enable alpha hash on _PARAM1_ materials: _PARAM2_",
       "events": [
         {
           "type": "BuiltinCommonInstructions::JsCode",
