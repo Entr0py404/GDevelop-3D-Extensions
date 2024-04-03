@@ -8,7 +8,7 @@
   "name": "SpotLights",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/5057489f56829ef5e88b7ac67b2b4c9d9c972565da9bd359f33c65920cc30ad1_spotlight-beam.svg",
   "shortDescription": "This light gets emitted from a single point in one direction, along a cone that increases in size the further from the light it gets.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "This light gets emitted from a single point in one direction, along a cone that increases in size the further from the light it gets.",
   "tags": [
     "3d",
@@ -101,7 +101,6 @@
             "    spotLight.target.updateMatrixWorld();",
             "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(spotLight);",
             "    runtimeScene._spotLightsExtension.spotLights.set(eventsFunctionContext.getArgument(\"Identifier\"), { spotLight });",
-            "    spotLight.dispose();",
             "}"
           ],
           "parameterObjects": "",
