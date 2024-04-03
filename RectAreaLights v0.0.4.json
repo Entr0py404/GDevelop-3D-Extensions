@@ -8,7 +8,7 @@
   "name": "RectAreaLights",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/463a28d8ee2e6e8f93b4013e428509e22c220568fd30e8cfce76d7be9a9e06b4_television-ambient-light.svg",
   "shortDescription": "Rect Area Light emits light uniformly across the face a rectangular plane.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": [
     "RectAreaLight emits light uniformly across the face a rectangular plane.",
     "This light type can be used to simulate light sources such as bright windows or strip lighting."
@@ -59,7 +59,6 @@
             "    rectLight.lookAt(eventsFunctionContext.getArgument(\"LookAtX\"), eventsFunctionContext.getArgument(\"LookAtY\"), eventsFunctionContext.getArgument(\"LookAtZ\"));\r",
             "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(rectLight);\r",
             "    runtimeScene._rectAreaLightsExtension.rectAreaLights.set(eventsFunctionContext.getArgument(\"Identifier\"), { rectLight });\r",
-            "    rectLight.dispose();\r",
             "}"
           ],
           "parameterObjects": "",
