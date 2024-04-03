@@ -8,7 +8,7 @@
   "name": "PointLights",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/63564f3ae7ec22f1bc63068b1eef93c5dafb490796ea338c2a6d6e857f8d7e9c_lightbulb-outline.svg",
   "shortDescription": "A light that gets emitted from a single point in all directions.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": [
     "A light that gets emitted from a single point in all directions.",
     "A common use case for this is to replicate the light emitted from a bare lightbulb."
@@ -87,7 +87,6 @@
             "    pointLight.shadow.autoUpdate = eventsFunctionContext.getArgument(\"AutoUpdate\");",
             "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(pointLight);",
             "    runtimeScene._pointLightsExtension.pointLights.set(eventsFunctionContext.getArgument(\"Identifier\"), { pointLight });",
-            "    pointLight.dispose();",
             "}"
           ],
           "parameterObjects": "",
