@@ -8,7 +8,7 @@
   "name": "GridHelper",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/Line Hero Pack/Master/SVG/Graphic Design/68c6f2c60b4d17c9f3049151bf3004d7b3ba3d7bec7bcad98767135d804d7006_Graphic Design_grid.svg",
   "shortDescription": "The GridHelper is an object to define grids.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": [
     "The GridHelper is an object to define grids.",
     "Grids are two-dimensional arrays of lines."
@@ -64,7 +64,6 @@
             "gridHelper.position.z = eventsFunctionContext.getArgument(\"PositionZ\");",
             "runtimeScene.getLayer('').getRenderer().getThreeScene().add(gridHelper);",
             "runtimeScene._gridHelperExtension.gridHelpers.set(eventsFunctionContext.getArgument(\"Identifier\"), { gridHelper });",
-            "gridHelper.dispose();",
             "}"
           ],
           "parameterObjects": "",
@@ -336,6 +335,7 @@
           "inlineCode": [
             "if (runtimeScene._gridHelperExtension.gridHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
             "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._gridHelperExtension.gridHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).gridHelper);\r",
+            "    runtimeScene._gridHelperExtension.gridHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).gridHelper.dispose();\r",
             "    runtimeScene._gridHelperExtension.gridHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
             "}"
           ],
