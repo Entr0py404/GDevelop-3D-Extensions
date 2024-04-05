@@ -8,7 +8,7 @@
   "name": "AxesHelper",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/e2314b6adb780c72b1332a13d17abb17458ebb9c8fbecbbdd6cc2d4127178df2_axis-arrow.svg",
   "shortDescription": "An axis object to visualize the 3 axes in a simple way.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": [
     "An axis object to visualize the 3 axes in a simple way.",
     "The X axis is red, Y axis is green, Z axis is blue."
@@ -54,13 +54,11 @@
           "inlineCode": [
             "if (!runtimeScene._axesHelperExtension.axesHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {",
             "    const axesHelper = new THREE.AxesHelper(eventsFunctionContext.getArgument(\"Size\"));",
-            "    axesHelper.rotation.x = Math.PI / 2;",
             "    axesHelper.position.x = eventsFunctionContext.getArgument(\"PositionX\");",
             "    axesHelper.position.y = eventsFunctionContext.getArgument(\"PositionY\");",
             "    axesHelper.position.z = eventsFunctionContext.getArgument(\"PositionZ\");",
             "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(axesHelper);",
             "    runtimeScene._axesHelperExtension.axesHelpers.set(eventsFunctionContext.getArgument(\"Identifier\"), { axesHelper });",
-            "    axesHelper.dispose();",
             "}"
           ],
           "parameterObjects": "",
@@ -317,6 +315,7 @@
           "inlineCode": [
             "if (runtimeScene._axesHelperExtension.axesHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
             "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._axesHelperExtension.axesHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).axesHelper);\r",
+            "    runtimeScene._axesHelperExtension.axesHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).axesHelper.dispose();\r",
             "    runtimeScene._axesHelperExtension.axesHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
             "}"
           ],
