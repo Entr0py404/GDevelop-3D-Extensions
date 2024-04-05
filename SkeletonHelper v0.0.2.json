@@ -8,7 +8,7 @@
   "name": "SkeletonHelper",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/17bd6d7f3431bd2dc28f5225f6feba005af8d77ddfe482c3b55235c6c357482f_radiology-box-outline.svg",
   "shortDescription": "A helper object to assist with visualizing a skeleton.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A helper object to assist with visualizing a skeleton.",
   "tags": [
     "3d",
@@ -69,7 +69,10 @@
           "events": [
             {
               "type": "BuiltinCommonInstructions::JsCode",
-              "inlineCode": "runtimeScene.getLayer('').getRenderer().getThreeScene().remove(objects[0]._skeletonHelperExtension.skeletonHelper);",
+              "inlineCode": [
+                "runtimeScene.getLayer('').getRenderer().getThreeScene().remove(objects[0]._skeletonHelperExtension.skeletonHelper);\r",
+                "objects[0]._skeletonHelperExtension.skeletonHelper.dispose();"
+              ],
               "parameterObjects": "Object",
               "useStrict": true,
               "eventsSheetExpanded": false
@@ -132,7 +135,10 @@
           "events": [
             {
               "type": "BuiltinCommonInstructions::JsCode",
-              "inlineCode": "runtimeScene.getLayer('').getRenderer().getThreeScene().remove(objects[0]._skeletonHelperExtension.skeletonHelper);",
+              "inlineCode": [
+                "runtimeScene.getLayer('').getRenderer().getThreeScene().remove(objects[0]._skeletonHelperExtension.skeletonHelper);\r",
+                "objects[0]._skeletonHelperExtension.skeletonHelper.dispose();"
+              ],
               "parameterObjects": "Object",
               "useStrict": true,
               "eventsSheetExpanded": false
