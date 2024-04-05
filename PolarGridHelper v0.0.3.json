@@ -8,7 +8,7 @@
   "name": "PolarGridHelper",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/e92ad2208ab6edafcd857aa412980adfa8a2a1a230d2190d4991e0889b25bacd_radiobox-blank.svg",
   "shortDescription": "The PolarGridHelper is an object to define polar grids.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": [
     "The PolarGridHelper is an object to define polar grids.",
     "Grids are two-dimensional arrays of lines."
@@ -64,7 +64,6 @@
             "polarGridHelper.position.z = eventsFunctionContext.getArgument(\"PositionZ\");",
             "runtimeScene.getLayer('').getRenderer().getThreeScene().add(polarGridHelper);",
             "runtimeScene._polarGridHelperExtension.polarGridHelpers.set(eventsFunctionContext.getArgument(\"Identifier\"), { polarGridHelper });",
-            "polarGridHelper.dispose();",
             "}"
           ],
           "parameterObjects": "",
@@ -346,6 +345,7 @@
           "inlineCode": [
             "if (runtimeScene._polarGridHelperExtension.polarGridHelpers.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
             "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._polarGridHelperExtension.polarGridHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).polarGridHelper);\r",
+            "    runtimeScene._polarGridHelperExtension.polarGridHelpers.get(eventsFunctionContext.getArgument(\"Identifier\")).polarGridHelper.dispose();\r",
             "    runtimeScene._polarGridHelperExtension.polarGridHelpers.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
             "}"
           ],
