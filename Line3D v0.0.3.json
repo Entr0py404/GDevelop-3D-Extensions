@@ -8,7 +8,7 @@
   "name": "Line3D",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/158558414173d1901c3781135052193d10c3bc9af9d27a941cd55cad0b453379_vector-line.svg",
   "shortDescription": "Create lines in 3D.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Create lines in 3D useful for debugging raycasts.",
   "tags": [
     "3d"
@@ -49,15 +49,15 @@
           "type": "BuiltinCommonInstructions::JsCode",
           "inlineCode": [
             "if (!runtimeScene._line3DExtension.lines.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
-            "const geometry = new THREE.BufferGeometry();\r",
-            "const positions = new Float32Array([eventsFunctionContext.getArgument(\"StartX\"), eventsFunctionContext.getArgument(\"StartY\"), eventsFunctionContext.getArgument(\"StartZ\"), eventsFunctionContext.getArgument(\"EndX\"), eventsFunctionContext.getArgument(\"EndY\"), eventsFunctionContext.getArgument(\"EndZ\")]);\r",
-            "geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));\r",
-            "const rgbColorGD = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color\"));\r",
-            "const rgbColor = new THREE.Color(\"rgb(\" + rgbColorGD[0] + \", \" + rgbColorGD[1] + \", \" + rgbColorGD[2] + \")\");\r",
-            "const material = new THREE.LineBasicMaterial({ color: rgbColor });\r",
-            "const line = new THREE.Line(geometry, material);\r",
-            "runtimeScene.getLayer('').getRenderer().getThreeScene().add(line);\r",
-            "runtimeScene._line3DExtension.lines.set(eventsFunctionContext.getArgument(\"Identifier\"), { line });\r",
+            "    const geometry = new THREE.BufferGeometry();\r",
+            "    const positions = new Float32Array([eventsFunctionContext.getArgument(\"StartX\"), eventsFunctionContext.getArgument(\"StartY\"), eventsFunctionContext.getArgument(\"StartZ\"), eventsFunctionContext.getArgument(\"EndX\"), eventsFunctionContext.getArgument(\"EndY\"), eventsFunctionContext.getArgument(\"EndZ\")]);\r",
+            "    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));\r",
+            "    const rgbColorGD = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color\"));\r",
+            "    const rgbColor = new THREE.Color(\"rgb(\" + rgbColorGD[0] + \", \" + rgbColorGD[1] + \", \" + rgbColorGD[2] + \")\");\r",
+            "    const material = new THREE.LineBasicMaterial({ color: rgbColor });\r",
+            "    const line = new THREE.Line(geometry, material);\r",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().add(line);\r",
+            "    runtimeScene._line3DExtension.lines.set(eventsFunctionContext.getArgument(\"Identifier\"), { line });\r",
             "}"
           ],
           "parameterObjects": "",
@@ -111,9 +111,82 @@
     },
     {
       "description": "Create a 3D line.",
-      "fullName": "Create 3D line",
+      "fullName": "Create 3D line to position with timed destroy",
       "functionType": "Action",
-      "name": "Create3DLine",
+      "name": "Create3DLineToPositionTimedDestroy",
+      "sentence": "Create 3D line, color: _PARAM1_, start position X: _PARAM2_, Y: _PARAM3_, Z : _PARAM4_, end position X: _PARAM5_, Y: _PARAM6_, Z: _PARAM7_, destroy time: _PARAM8_ seconds",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "const geometry = new THREE.BufferGeometry();\r",
+            "const positions = new Float32Array([eventsFunctionContext.getArgument(\"StartX\"), eventsFunctionContext.getArgument(\"StartY\"), eventsFunctionContext.getArgument(\"StartZ\"), eventsFunctionContext.getArgument(\"EndX\"), eventsFunctionContext.getArgument(\"EndY\"), eventsFunctionContext.getArgument(\"EndZ\")]);\r",
+            "geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));\r",
+            "const rgbColorGD = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color\"));\r",
+            "const rgbColor = new THREE.Color(\"rgb(\" + rgbColorGD[0] + \", \" + rgbColorGD[1] + \", \" + rgbColorGD[2] + \")\");\r",
+            "const material = new THREE.LineBasicMaterial({ color: rgbColor });\r",
+            "const line = new THREE.Line(geometry, material);\r",
+            "runtimeScene.getLayer('').getRenderer().getThreeScene().add(line);\r",
+            "\r",
+            "// Schedule the line for removal after a certain duration\r",
+            "setTimeout(() => {\r",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(line);\r",
+            "}, eventsFunctionContext.getArgument(\"DestroyTime\") * 1000); // Convert seconds to milliseconds"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Color",
+          "name": "Color",
+          "type": "color"
+        },
+        {
+          "description": "X start position",
+          "name": "StartX",
+          "type": "expression"
+        },
+        {
+          "description": "Y start position",
+          "name": "StartY",
+          "type": "expression"
+        },
+        {
+          "description": "Z start position",
+          "name": "StartZ",
+          "type": "expression"
+        },
+        {
+          "description": "X end position",
+          "name": "EndX",
+          "type": "expression"
+        },
+        {
+          "description": "Y end position",
+          "name": "EndY",
+          "type": "expression"
+        },
+        {
+          "description": "Z end position",
+          "name": "EndZ",
+          "type": "expression"
+        },
+        {
+          "description": "Destroy time in seconds",
+          "name": "DestroyTime",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Create a 3D line.",
+      "fullName": "Create 3D line to angle",
+      "functionType": "Action",
+      "name": "Create3DLineToAngle",
       "sentence": "Create 3D line _PARAM1_, color: _PARAM2_, source position X: _PARAM3_, Y: _PARAM4_, Z : _PARAM5_, rotation angle: _PARAM6_, elevation angle: _PARAM7_, max distance: _PARAM8_",
       "events": [
         {
@@ -124,15 +197,13 @@
             "    const sourceY = eventsFunctionContext.getArgument(\"SourceY\");\r",
             "    const sourceZ = eventsFunctionContext.getArgument(\"SourceZ\");\r",
             "    const rotationAngle = gdjs.toRad(eventsFunctionContext.getArgument(\"RotationAngle\"));\r",
-            "    const elevationAngle = gdjs.toRad(eventsFunctionContext.getArgument(\"ElevationAngle\")-180);\r",
+            "    const elevationAngle = gdjs.toRad(eventsFunctionContext.getArgument(\"ElevationAngle\"));\r",
             "    const maxDistance = eventsFunctionContext.getArgument(\"MaxDistance\");\r",
             "\r",
-            "    const adjustedElevation = gdjs.toRad(90) - elevationAngle;\r",
-            "\r",
             "    const direction = new THREE.Vector3(\r",
-            "        Math.cos(adjustedElevation) * Math.sin(rotationAngle),\r",
-            "        Math.sin(adjustedElevation),\r",
-            "        Math.cos(adjustedElevation) * Math.cos(rotationAngle)\r",
+            "        Math.cos(rotationAngle) * Math.cos(elevationAngle),\r",
+            "        Math.sin(rotationAngle) * Math.cos(elevationAngle),\r",
+            "        Math.sin(elevationAngle)\r",
             "    ).normalize();\r",
             "\r",
             "    const endPoint = new THREE.Vector3(\r",
@@ -162,6 +233,7 @@
         {
           "description": "Identifier",
           "name": "Identifier",
+          "supplementaryInformation": "object",
           "type": "string"
         },
         {
@@ -197,6 +269,99 @@
         {
           "description": "Max distance",
           "name": "MaxDistance",
+          "type": "expression"
+        }
+      ],
+      "objectGroups": []
+    },
+    {
+      "description": "Create a 3D line.",
+      "fullName": "Create 3D line to angle with timed destroy",
+      "functionType": "Action",
+      "name": "Create3DLineToAngleTimedDestroy",
+      "sentence": "Create 3D line, color: _PARAM1_, position X: _PARAM2_, Y: _PARAM3_, Z : _PARAM4_, rotation angle: _PARAM5_°, elevation angle: _PARAM6_°, max distance: _PARAM7_, destroy time: _PARAM8_ seconds",
+      "events": [
+        {
+          "type": "BuiltinCommonInstructions::JsCode",
+          "inlineCode": [
+            "const sourceX = eventsFunctionContext.getArgument(\"SourceX\");\r",
+            "const sourceY = eventsFunctionContext.getArgument(\"SourceY\");\r",
+            "const sourceZ = eventsFunctionContext.getArgument(\"SourceZ\");\r",
+            "const rotationAngle = gdjs.toRad(eventsFunctionContext.getArgument(\"RotationAngle\"));\r",
+            "const elevationAngle = gdjs.toRad(eventsFunctionContext.getArgument(\"ElevationAngle\"));\r",
+            "const maxDistance = eventsFunctionContext.getArgument(\"MaxDistance\");\r",
+            "\r",
+            "const direction = new THREE.Vector3(\r",
+            "    Math.cos(rotationAngle) * Math.cos(elevationAngle),\r",
+            "    Math.sin(rotationAngle) * Math.cos(elevationAngle),\r",
+            "    Math.sin(elevationAngle)\r",
+            ").normalize();\r",
+            "\r",
+            "const endPoint = new THREE.Vector3(\r",
+            "    sourceX + direction.x * maxDistance,\r",
+            "    sourceY + direction.y * maxDistance,\r",
+            "    sourceZ + direction.z * maxDistance\r",
+            ");\r",
+            "\r",
+            "const geometry = new THREE.BufferGeometry();\r",
+            "const positions = new Float32Array([sourceX, sourceY, sourceZ, endPoint.x, endPoint.y, endPoint.z]);\r",
+            "geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));\r",
+            "\r",
+            "const rgbColorGD = gdjs.rgbOrHexToRGBColor(eventsFunctionContext.getArgument(\"Color\"));\r",
+            "const rgbColor = new THREE.Color(\"rgb(\" + rgbColorGD[0] + \", \" + rgbColorGD[1] + \", \" + rgbColorGD[2] + \")\");\r",
+            "const material = new THREE.LineBasicMaterial({ color: rgbColor });\r",
+            "const line = new THREE.Line(geometry, material);\r",
+            "runtimeScene.getLayer('').getRenderer().getThreeScene().add(line);\r",
+            "\r",
+            "// Schedule the line for removal after a certain duration\r",
+            "setTimeout(() => {\r",
+            "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(line);\r",
+            "}, eventsFunctionContext.getArgument(\"DestroyTime\") * 1000); // Convert seconds to milliseconds"
+          ],
+          "parameterObjects": "",
+          "useStrict": true,
+          "eventsSheetExpanded": true
+        }
+      ],
+      "parameters": [
+        {
+          "description": "Color",
+          "name": "Color",
+          "type": "color"
+        },
+        {
+          "description": "X source position",
+          "name": "SourceX",
+          "type": "expression"
+        },
+        {
+          "description": "Y source position",
+          "name": "SourceY",
+          "type": "expression"
+        },
+        {
+          "description": "Z source position",
+          "name": "SourceZ",
+          "type": "expression"
+        },
+        {
+          "description": "Rotation angle",
+          "name": "RotationAngle",
+          "type": "expression"
+        },
+        {
+          "description": "Elevation angle",
+          "name": "ElevationAngle",
+          "type": "expression"
+        },
+        {
+          "description": "Max distance",
+          "name": "MaxDistance",
+          "type": "expression"
+        },
+        {
+          "description": "Destroy time in seconds",
+          "name": "DestroyTime",
           "type": "expression"
         }
       ],
@@ -469,6 +634,7 @@
         {
           "description": "Identifier",
           "name": "Identifier",
+          "supplementaryInformation": "object",
           "type": "string"
         }
       ],
