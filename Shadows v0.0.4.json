@@ -8,7 +8,7 @@
   "name": "Shadows",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/Line Hero Pack/Master/SVG/Graphic Design/72d62d2888b4617f55edbefa73aa471fe8c846bb8552ce6a368fc05327dc8fa6_Graphic Design_drop_shadow.svg",
   "shortDescription": "Adjust the shadow map resolution and shadow casting/receiving properties of 3D objects.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Allows you to adjust the shadow map resolution and shadow casting and receiving shadow properties of 3D objects.",
   "tags": [
     "3d"
@@ -241,6 +241,7 @@
           "sentence": "",
           "events": [
             {
+              "folded": true,
               "type": "BuiltinCommonInstructions::Standard",
               "conditions": [
                 {
@@ -265,6 +266,7 @@
               ]
             },
             {
+              "folded": true,
               "type": "BuiltinCommonInstructions::Standard",
               "conditions": [
                 {
@@ -366,15 +368,32 @@
               ]
             },
             {
-              "type": "BuiltinCommonInstructions::JsCode",
-              "inlineCode": [
-                "if (objects.length > 0) {\r",
-                "    objects[0].get3DRendererObject().castShadow = eventsFunctionContext.getArgument(\"CastShadow\");\r",
-                "}"
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "BehaviorActivated"
+                  },
+                  "parameters": [
+                    "Object",
+                    "Behavior"
+                  ]
+                }
               ],
-              "parameterObjects": "Object",
-              "useStrict": true,
-              "eventsSheetExpanded": false
+              "actions": [],
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::JsCode",
+                  "inlineCode": [
+                    "if (objects.length > 0) {\r",
+                    "    objects[0].get3DRendererObject().castShadow = eventsFunctionContext.getArgument(\"CastShadow\");\r",
+                    "}"
+                  ],
+                  "parameterObjects": "Object",
+                  "useStrict": true,
+                  "eventsSheetExpanded": false
+                }
+              ]
             }
           ],
           "parameters": [
@@ -461,15 +480,32 @@
               ]
             },
             {
-              "type": "BuiltinCommonInstructions::JsCode",
-              "inlineCode": [
-                "if (objects.length > 0) {\r",
-                "    objects[0].get3DRendererObject().receiveShadow = eventsFunctionContext.getArgument(\"ReceiveShadow\");\r",
-                "}"
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "BehaviorActivated"
+                  },
+                  "parameters": [
+                    "Object",
+                    "Behavior"
+                  ]
+                }
               ],
-              "parameterObjects": "Object",
-              "useStrict": true,
-              "eventsSheetExpanded": false
+              "actions": [],
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::JsCode",
+                  "inlineCode": [
+                    "if (objects.length > 0) {\r",
+                    "    objects[0].get3DRendererObject().receiveShadow = eventsFunctionContext.getArgument(\"ReceiveShadow\");\r",
+                    "}"
+                  ],
+                  "parameterObjects": "Object",
+                  "useStrict": true,
+                  "eventsSheetExpanded": false
+                }
+              ]
             }
           ],
           "parameters": [
@@ -531,6 +567,7 @@
           "sentence": "",
           "events": [
             {
+              "folded": true,
               "type": "BuiltinCommonInstructions::Standard",
               "conditions": [
                 {
@@ -561,6 +598,7 @@
               ]
             },
             {
+              "folded": true,
               "type": "BuiltinCommonInstructions::Standard",
               "conditions": [
                 {
@@ -668,19 +706,36 @@
               ]
             },
             {
-              "type": "BuiltinCommonInstructions::JsCode",
-              "inlineCode": [
-                "if (objects.length > 0) {",
-                "    objects[0].get3DRendererObject().traverse((node) => {",
-                "        if (node.isMesh) {",
-                "            node.castShadow = eventsFunctionContext.getArgument(\"CastShadow\");",
-                "        }",
-                "    });",
-                "}"
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "BehaviorActivated"
+                  },
+                  "parameters": [
+                    "Object",
+                    "Behavior"
+                  ]
+                }
               ],
-              "parameterObjects": "Object",
-              "useStrict": true,
-              "eventsSheetExpanded": false
+              "actions": [],
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::JsCode",
+                  "inlineCode": [
+                    "if (objects.length > 0) {",
+                    "    objects[0].get3DRendererObject().traverse((node) => {",
+                    "        if (node.isMesh) {",
+                    "            node.castShadow = eventsFunctionContext.getArgument(\"CastShadow\");",
+                    "        }",
+                    "    });",
+                    "}"
+                  ],
+                  "parameterObjects": "Object",
+                  "useStrict": true,
+                  "eventsSheetExpanded": false
+                }
+              ]
             }
           ],
           "parameters": [
@@ -767,19 +822,36 @@
               ]
             },
             {
-              "type": "BuiltinCommonInstructions::JsCode",
-              "inlineCode": [
-                "if (objects.length > 0) {",
-                "    objects[0].get3DRendererObject().traverse((node) => {",
-                "        if (node.isMesh) {",
-                "            node.receiveShadow = eventsFunctionContext.getArgument(\"ReceiveShadow\");",
-                "        }",
-                "    });",
-                "}"
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "BehaviorActivated"
+                  },
+                  "parameters": [
+                    "Object",
+                    "Behavior"
+                  ]
+                }
               ],
-              "parameterObjects": "Object",
-              "useStrict": true,
-              "eventsSheetExpanded": false
+              "actions": [],
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::JsCode",
+                  "inlineCode": [
+                    "if (objects.length > 0) {",
+                    "    objects[0].get3DRendererObject().traverse((node) => {",
+                    "        if (node.isMesh) {",
+                    "            node.receiveShadow = eventsFunctionContext.getArgument(\"ReceiveShadow\");",
+                    "        }",
+                    "    });",
+                    "}"
+                  ],
+                  "parameterObjects": "Object",
+                  "useStrict": true,
+                  "eventsSheetExpanded": false
+                }
+              ]
             }
           ],
           "parameters": [
