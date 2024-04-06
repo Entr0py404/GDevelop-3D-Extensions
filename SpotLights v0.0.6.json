@@ -8,7 +8,7 @@
   "name": "SpotLights",
   "previewIconUrl": "https://asset-resources.gdevelop.io/public-resources/Icons/5057489f56829ef5e88b7ac67b2b4c9d9c972565da9bd359f33c65920cc30ad1_spotlight-beam.svg",
   "shortDescription": "This light gets emitted from a single point in one direction, along a cone that increases in size the further from the light it gets.",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "This light gets emitted from a single point in one direction, along a cone that increases in size the further from the light it gets.",
   "tags": [
     "3d",
@@ -55,7 +55,6 @@
             "",
             "    if (eventsFunctionContext.getArgument(\"Texture\").includes(\"\\\\\")) {",
             "        spotLight.map = new THREE.TextureLoader().load(eventsFunctionContext.getArgument(\"Texture\").substring(eventsFunctionContext.getArgument(\"Texture\").lastIndexOf('\\\\') + 1));",
-            "        //console.log(eventsFunctionContext.getArgument(\"Texture\").substring(eventsFunctionContext.getArgument(\"Texture\").lastIndexOf('\\\\') + 1))",
             "    }",
             "",
             "    spotLight.intensity = eventsFunctionContext.getArgument(\"Intensity\");",
@@ -214,6 +213,9 @@
           "inlineCode": [
             "if (runtimeScene._spotLightsExtension.spotLights.has(eventsFunctionContext.getArgument(\"Identifier\"))) {\r",
             "    runtimeScene.getLayer('').getRenderer().getThreeScene().remove(runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight);\r",
+            "    if (runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.map instanceof THREE.Texture) {\r",
+            "        runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.map.dispose();\r",
+            "    }\r",
             "    runtimeScene._spotLightsExtension.spotLights.get(eventsFunctionContext.getArgument(\"Identifier\")).spotLight.dispose();\r",
             "    runtimeScene._spotLightsExtension.spotLights.delete(eventsFunctionContext.getArgument(\"Identifier\"));\r",
             "}"
